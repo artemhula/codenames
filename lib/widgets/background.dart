@@ -1,0 +1,59 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+
+class Background extends StatefulWidget {
+  const Background({super.key});
+
+  @override
+  _BackgroundState createState() => _BackgroundState();
+}
+
+class _BackgroundState extends State<Background>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true);
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Container(
+              width: 100 + (_animation.value * 100),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                shape: BoxShape.circle,
+              ),
+            );
+          },
+        ),
+        BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 100, sigmaY: 150),
+          child: Container(),
+        ),
+      ],
+    );
+  }
+}

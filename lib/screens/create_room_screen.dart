@@ -1,41 +1,114 @@
+import 'package:codenames/widgets/background.dart';
+import 'package:codenames/widgets/language_selector.dart';
+import 'package:codenames/widgets/password_input.dart';
+import 'package:codenames/widgets/room_name_input.dart';
+import 'package:codenames/widgets/room_summary.dart';
 import 'package:flutter/material.dart';
 
 class CreateRoomScreen extends StatefulWidget {
-  CreateRoomScreen({Key? key}) : super(key: key);
-
+  const CreateRoomScreen({super.key});
   @override
   _CreateRoomScreenState createState() => _CreateRoomScreenState();
 }
 
 class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final PageController _controller = PageController();
+  String roomName = '';
+  List<int> password = [0, 0, 0];
+  String language = 'ukranian';
 
   void nextPage() {
+    if (_controller.page == 0) {
+      if (roomName.isEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Будь ласка введіть назву зали',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            actions: [
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+
+        return;
+      }
+    }
     _controller.nextPage(
-        duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+  }
+
+  void previousPage() {
+    _controller.previousPage(
+        duration: Duration(milliseconds: _controller.page == 0 ? 100 : 500),
+        curve: Curves.easeIn);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _controller,
-        scrollDirection: Axis.vertical,
+      body: Stack(
         children: [
-          Center(
-            child: Text('Page 1'),
+          const Background(),
+          PageView(
+            controller: _controller,
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(
+                parent: NeverScrollableScrollPhysics()),
+            children: [
+              RoomNameInput(
+                onChanged: (value) {
+                  setState(() {
+                    roomName = value;
+                  });
+                },
+              ),
+              PasswordInput(
+                password: password,
+                onChanged: (index, value) {
+                  setState(() {
+                    password[index] = value;
+                  });
+                },
+              ),
+              LanguageSelector(
+                language: language,
+                onChanged: (value) {
+                  setState(() {
+                    language = value;
+                  });
+                },
+              ),
+              RoomSummary(
+                roomName: roomName,
+                password: password,
+                language: language,
+              ),
+            ],
           ),
-          Center(
-            child: Text('Page 2'),
-          ),
-          Center(
-            child: Text('Page 3'),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: Column(children: [
+              IconButton(
+                onPressed: previousPage,
+                icon: Icon(Icons.arrow_upward),
+              ),
+              SizedBox(height: 10),
+              IconButton(
+                onPressed: nextPage,
+                icon: Icon(Icons.arrow_downward),
+              ),
+            ]),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: nextPage,
-        child: Icon(Icons.arrow_forward),
       ),
     );
   }

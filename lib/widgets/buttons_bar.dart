@@ -1,3 +1,4 @@
+import 'package:codenames/screens/create_room_screen.dart';
 import 'package:flutter/material.dart';
 
 class ButtonsBar extends StatelessWidget {
@@ -11,10 +12,18 @@ class ButtonsBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          Icons.settings,
-          size: 30,
-          color: Theme.of(context).colorScheme.primary,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateRoomScreen()),
+            );
+          },
+          child: Icon(
+            Icons.settings,
+            size: 30,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ],
     );

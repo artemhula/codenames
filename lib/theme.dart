@@ -7,7 +7,9 @@ final lightTheme = ThemeData(
   textTheme: TextTheme(
     headlineLarge: GoogleFonts.fugazOne(
         fontSize: 40, fontWeight: FontWeight.w500, color: Colors.indigo),
-    headlineMedium: GoogleFonts.raleway(fontSize: 40, fontWeight: FontWeight.w700),
+    headlineMedium:
+        GoogleFonts.raleway(fontSize: 40, fontWeight: FontWeight.w700),
+    headlineSmall: GoogleFonts.raleway(fontSize: 24),
     bodySmall: GoogleFonts.raleway(fontSize: 14),
     bodyMedium: GoogleFonts.raleway(fontSize: 16),
     bodyLarge: GoogleFonts.raleway(fontSize: 18),
@@ -22,7 +24,9 @@ final darkTheme = ThemeData(
       fontSize: 40,
       fontWeight: FontWeight.w500,
     ),
-    headlineMedium: GoogleFonts.raleway(fontSize: 40, fontWeight: FontWeight.w700),
+    headlineMedium:
+        GoogleFonts.raleway(fontSize: 40, fontWeight: FontWeight.w700),
+    headlineSmall: GoogleFonts.raleway(fontSize: 24),
     bodySmall: GoogleFonts.raleway(fontSize: 14),
     bodyMedium: GoogleFonts.raleway(fontSize: 16),
     bodyLarge: GoogleFonts.raleway(fontSize: 18),

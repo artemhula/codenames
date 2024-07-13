@@ -13,6 +13,7 @@ final lightTheme = ThemeData(
     bodySmall: GoogleFonts.raleway(fontSize: 14),
     bodyMedium: GoogleFonts.raleway(fontSize: 16),
     bodyLarge: GoogleFonts.raleway(fontSize: 18),
+    labelMedium: GoogleFonts.raleway(fontSize: 11),
   ),
 );
 
@@ -30,5 +31,6 @@ final darkTheme = ThemeData(
     bodySmall: GoogleFonts.raleway(fontSize: 14),
     bodyMedium: GoogleFonts.raleway(fontSize: 16),
     bodyLarge: GoogleFonts.raleway(fontSize: 18),
+    labelMedium: GoogleFonts.raleway(fontSize: 11),
   ),
 );

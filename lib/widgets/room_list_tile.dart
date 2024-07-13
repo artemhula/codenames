@@ -1,11 +1,14 @@
+import 'package:codenames/models/room.dart';
+import 'package:codenames/screens/choose_role_screen.dart';
 import 'package:codenames/screens/game_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RoomListTile extends StatelessWidget {
   const RoomListTile({
-    super.key,
+    super.key, required this.room,
   });
+  final RoomModel room;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +16,16 @@ class RoomListTile extends StatelessWidget {
     
      GestureDetector(
       onTap: () {
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(
+        //     builder: (context) => const GameScreen(),
+        //   ),
+        // );
         Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => const GameScreen(),
+            builder: (context) => const ChooseRoleScreen(),
           ),
         );
       },
@@ -33,7 +42,7 @@ class RoomListTile extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -42,12 +51,25 @@ class RoomListTile extends StatelessWidget {
                   Icon(Icons.games_outlined,
                       color: Theme.of(context).colorScheme.primary),
                   const SizedBox(width: 20),
-                  Text(
-                    'Гра 1',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Theme.of(context).colorScheme.primary),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        room.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: Theme.of(context).colorScheme.primary),
+                      ),
+                      Text(
+                        'Гравців: ${room.usersInRoom}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(color: Theme.of(context).colorScheme.secondary),
+                      ),
+                    ],
                   ),
                 ],
               ),

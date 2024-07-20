@@ -1,64 +1,76 @@
 import 'package:codenames/models/room.dart';
+import 'package:codenames/models/user.dart';
+
+enum Status {
+  initial,
+  loading,
+  success,
+  failure,
+}
 
 class AppState {
   const AppState({
+    required this.userState,
     required this.roomsListState,
     required this.webSocketState,
+    required this.roomState,
   });
 
   const AppState.initial({
     this.roomsListState = const RoomsListState.initialState(),
     this.webSocketState = const WebSocketState.initialState(),
+    this.userState = const UserState.initialState(),
+    this.roomState = const RoomState.initialState(),
   });
 
   final RoomsListState roomsListState;
   final WebSocketState webSocketState;
-
-  // AppState copyWith({
-  //   RoomsListState? roomsListState,
-  //   WebSocketState? webSocketState,
-  // }) =>
-  //     AppState(
-  //       roomsListState: roomsListState ?? this.roomsListState,
-  //       webSocketState: webSocketState ?? this.webSocketState,
-  //     );
+  final UserState userState;
+  final RoomState roomState;
 }
 
 class RoomsListState {
-  const RoomsListState({required this.rooms});
-  const RoomsListState.initialState() : rooms = const [];
+  const RoomsListState({required this.rooms, required this.status});
+  const RoomsListState.initialState()
+      : rooms = null,
+        status = Status.initial;
 
-  final List<RoomModel> rooms;
-
-  // RoomsListState copyWith({List<RoomModel>? rooms}) => RoomsListState(
-  //       rooms: rooms ?? this.rooms,
-  //     );
+  final List<RoomModel>? rooms;
+  final Status status;
 }
 
 class WebSocketState {
   const WebSocketState({
-    required this.isConnected,
-    required this.isLoading,
+    required this.status,
     required this.errorMessage,
   });
 
   const WebSocketState.initialState()
-      : isConnected = false,
-        isLoading = false,
+      : status = Status.initial,
         errorMessage = '';
 
-  final bool isConnected;
-  final bool isLoading;
+  final Status status;
   final String errorMessage;
+}
 
-  // WebSocketState copyWith({
-  //   bool? isConnected,
-  //   bool? isLoading,
-  //   String? errorMessage,
-  // }) =>
-  //     WebSocketState(
-  //       isConnected: isConnected ?? this.isConnected,
-  //       isLoading: isLoading ?? this.isLoading,
-  //       errorMessage: errorMessage ?? this.errorMessage,
-  //     );
+class UserState {
+  const UserState({required this.user, required this.status});
+  const UserState.initialState()
+      : user = null,
+        status = Status.initial;
+
+  final UserModel? user;
+  final Status status;
+}
+
+class RoomState {
+  const RoomState({required this.room, required this.status, required this.message});
+  const RoomState.initialState()
+      : room = null,
+        status = Status.initial,
+        message = '';
+
+  final RoomModel? room;
+  final Status status;
+  final String? message;
 }

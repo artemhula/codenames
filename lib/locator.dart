@@ -9,10 +9,14 @@ final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   sl.registerLazySingleton(
-      () => IO.io('http://localhost:3000', <String, dynamic>{
-            'transports': ['websocket'],
-            'autoConnect': false,
-          }));
+    () => IO.io(
+      'http://localhost:3000',
+      <String, dynamic>{
+        'transports': ['websocket'],
+        'autoConnect': false,
+      },
+    ),
+  );
 
   sl.registerLazySingleton(
     () => Store<AppState>(

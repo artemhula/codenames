@@ -1,33 +1,21 @@
 import 'package:codenames/models/room.dart';
-import 'package:codenames/screens/choose_role_screen.dart';
-import 'package:codenames/screens/game_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:codenames/widgets/password_popup.dart';
 import 'package:flutter/material.dart';
 
 class RoomListTile extends StatelessWidget {
   const RoomListTile({
-    super.key, required this.room,
+    super.key,
+    required this.room,
   });
   final RoomModel room;
 
   @override
   Widget build(BuildContext context) {
-    return 
-    
-     GestureDetector(
+    return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   CupertinoPageRoute(
-        //     builder: (context) => const GameScreen(),
-        //   ),
-        // );
-        Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (context) => const ChooseRoleScreen(),
-          ),
-        );
+        showDialog(
+            context: context,
+            builder: (context) => PasswordPopUp(roomId: room.id));
       },
       child: Container(
         height: 70,
@@ -57,24 +45,25 @@ class RoomListTile extends StatelessWidget {
                     children: [
                       Text(
                         room.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Theme.of(context).colorScheme.primary),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                       Text(
                         'Гравців: ${room.usersInRoom}',
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
-                            .copyWith(color: Theme.of(context).colorScheme.secondary),
+                            .copyWith(
+                                color: Theme.of(context).colorScheme.secondary),
                       ),
                     ],
                   ),
                 ],
               ),
-              Icon(Icons.navigate_next,
-                  color: Theme.of(context).colorScheme.primary)
+              Icon(
+                Icons.navigate_next,
+                color: Theme.of(context).colorScheme.primary,
+              )
             ],
           ),
         ),

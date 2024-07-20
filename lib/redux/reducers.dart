@@ -4,13 +4,14 @@ import 'package:codenames/redux/state.dart';
 AppState appReducer(AppState state, action) => AppState(
       webSocketState: webSocketReducer(state.webSocketState, action),
       roomsListState: roomsListReducer(state.roomsListState, action),
+      userState: userReducer(state.userState, action),
+      roomState: roomReducer(state.roomState, action),
     );
 
 WebSocketState webSocketReducer(WebSocketState state, action) {
   if (action is UpdateWebSocketState) {
     return WebSocketState(
-      isConnected: action.isConnected,
-      isLoading: action.isLoading,
+      status: action.status,
       errorMessage: action.errorMessage,
     );
   }
@@ -20,7 +21,24 @@ WebSocketState webSocketReducer(WebSocketState state, action) {
 
 RoomsListState roomsListReducer(RoomsListState state, action) {
   if (action is UpdateRoomsListState) {
-    return RoomsListState(rooms: action.rooms);
+    return RoomsListState(rooms: action.rooms, status: action.status);
+  }
+
+  return state;
+}
+
+UserState userReducer(UserState state, action) {
+  if (action is UpdateUserState) {
+    return UserState(user: action.user, status: action.status);
+  }
+
+  return state;
+}
+
+RoomState roomReducer(RoomState state, action) {
+  if (action is UpdateRoomState) {
+    return RoomState(
+        room: action.room, status: action.status, message: action.message);
   }
 
   return state;

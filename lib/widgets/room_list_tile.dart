@@ -1,6 +1,13 @@
 import 'package:codenames/models/room.dart';
-import 'package:codenames/widgets/password_popup.dart';
+import 'package:codenames/redux/state.dart';
+import 'package:codenames/screens/choose_role_screen.dart';
+import 'package:codenames/widgets/popups/error_popup.dart';
+import 'package:codenames/widgets/popups/loading_popup.dart';
+import 'package:codenames/widgets/popups/password_popup.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 class RoomListTile extends StatelessWidget {
   const RoomListTile({
@@ -14,8 +21,29 @@ class RoomListTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showDialog(
-            context: context,
-            builder: (context) => PasswordPopUp(roomId: room.id));
+          context: context,
+          builder: (context) => StoreConnector(
+            builder: (BuildContext context, roomState) {
+              if (roomState.status == Status.loading) {
+                return const LoadingPopUp();
+              } else if (roomState.status == Status.failure) {
+                return ErrorPopUp(
+                  message: roomState.message ?? 'Невідома помилка',
+                );
+              } else if (roomState.status == Status.success) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pushReplacement(
+                    CupertinoPageRoute(
+                      builder: (context) => const ChooseRoleScreen(),
+                    ),
+                  );
+                });
+              }
+              return PasswordPopUp(roomId: room.id);
+            },
+            converter: (Store<AppState> store) => store.state.roomState,
+          ),
+        );
       },
       child: Container(
         height: 70,

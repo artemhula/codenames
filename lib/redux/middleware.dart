@@ -9,7 +9,7 @@ import 'package:redux/redux.dart';
 final IO.Socket socket = sl();
 
 void socketMiddleware(
-    Store<AppState> store, dynamic action, NextDispatcher next) {
+    Store<AppState> store, dynamic action, NextDispatcher next) async {
   if (action is ConnectToSocket) {
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
 
@@ -38,7 +38,29 @@ void socketMiddleware(
   } else if (action is GetRooms) {
     _getRooms(store);
   } else if (action is JoinRoom) {
-    _joinRoom(store, action);
+    // _joinRoom(store, action);
+    store.dispatch(const UpdateRoomState(status: Status.loading));
+    socket.emitWithAck(
+      'join-room',
+      [action.roomId, store.state.userState.user!.id, action.password],
+      ack: (Map<String, dynamic> data) {
+        if (data['statusCode'] == 200) {
+          socket.off('get-rooms');
+        } else if (data['statusCode'] == 401) {
+          store.dispatch(const UpdateRoomState(
+              status: Status.failure, message: 'Пароль невірний'));
+        } else {
+          store.dispatch(const UpdateRoomState(status: Status.failure));
+        }
+      },
+    );
+    socket.on(
+      'update-room',
+      (room) {
+        print(room);
+        store.dispatch(UpdateRoomState(status: Status.success, room: RoomModel.fromJson(room)));
+      },
+    );
   } else if (action is LeaveRoom) {
     socket.emitWithAck(
       'leave-room',
@@ -93,25 +115,4 @@ void _getRooms(Store<AppState> store) async {
   });
 }
 
-void _joinRoom(Store<AppState> store, dynamic action) async {
-  store.dispatch(const UpdateRoomState(status: Status.loading));
-  socket.emitWithAck(
-    'join-room',
-    [action.roomId, store.state.userState.user!.id, action.password],
-    ack: (Map<String, dynamic> data) {
-      if (data['statusCode'] == 200) {
-        store.dispatch(
-          UpdateRoomState(
-            status: Status.success,
-            room: RoomModel.fromJson(data),
-          ),
-        );
-        socket.off('get-rooms');
-      } else if (data['statusCode'] == 401){
-        store.dispatch(const UpdateRoomState(status: Status.failure, message: 'Пароль невірний'));
-      } else {
-        store.dispatch(const UpdateRoomState(status: Status.failure));
-      }
-    },
-  );
-}
+void _joinRoom(Store<AppState> store, dynamic action) async {}

@@ -15,7 +15,6 @@ void main() async {
 
 class CodenamesGame extends StatelessWidget {
   const CodenamesGame({super.key});
-
   @override
   Widget build(BuildContext context) {
     return StoreProvider(

@@ -57,4 +57,10 @@ class JoinRoom {
   final int password;
 }
 
+class JoinTeam {
+  const JoinTeam({required this.team});
+
+  final String team;
+}
+
 class LeaveRoom {}

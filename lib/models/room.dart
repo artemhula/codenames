@@ -27,6 +27,12 @@ class RoomModel extends Equatable {
 
   Map<String, dynamic> toJson() => _$RoomModelToJson(this);
 
+  List<UserModel> getUsersByTeam(String? team) =>
+      users!.where((user) => user.team == team).toList();
+
+  UserModel getTeamCapitan(String team, List<UserModel> users) =>
+      users.where((user) => user.team == team && user.role == 'captain').first;
+
   @override
   List<Object?> get props => [cardset, id, name, users, usersInRoom];
 }

@@ -58,7 +58,8 @@ void socketMiddleware(
       'update-room',
       (room) {
         print(room);
-        store.dispatch(UpdateRoomState(status: Status.success, room: RoomModel.fromJson(room)));
+        store.dispatch(UpdateRoomState(
+            status: Status.success, room: RoomModel.fromJson(room)));
       },
     );
   } else if (action is LeaveRoom) {
@@ -68,6 +69,11 @@ void socketMiddleware(
       ack: (data) {
         print(data);
       },
+    );
+  } else if (action is JoinTeam) {
+    socket.emit(
+      'join-team',
+      [action.team],
     );
   } else if (action is DisconnectFromSocket) {
     socket.disconnect();

@@ -63,4 +63,10 @@ class JoinTeam {
   final String team;
 }
 
+class ToggleRole {
+  const ToggleRole(this.role);
+  
+  final String role;
+}
+
 class LeaveRoom {}

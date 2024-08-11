@@ -47,12 +47,11 @@ class ChooseRoleScreen extends StatelessWidget {
                                       .copyWith(color: Colors.red),
                                 ),
                                 Column(
-                                  children: List<Text>.generate(
-                                    roomState.room!.getUsersByTeam('red').length,
-                                    (index) => Text(roomState.room!
-                                        .getUsersByTeam('red')[index]
-                                        .name),
-                                  ),
+                                  children: roomState.room!
+                                      .getUsersByTeam('red')
+                                      .map((user) => Text(
+                                          '${user.name} ${user.role == 'captain' ? '👑' : ''}'))
+                                      .toList(),
                                 ),
                               ],
                             ),
@@ -74,12 +73,11 @@ class ChooseRoleScreen extends StatelessWidget {
                                       .copyWith(color: Colors.blue),
                                 ),
                                 Column(
-                                  children: List<Text>.generate(
-                                    roomState.room!.getUsersByTeam('blue').length,
-                                    (index) => Text(roomState.room!
-                                        .getUsersByTeam('blue')[index]
-                                        .name),
-                                  ),
+                                  children: roomState.room!
+                                      .getUsersByTeam('blue')
+                                      .map((user) => Text(
+                                          '${user.name} ${user.role == 'captain' ? '👑' : ''}'))
+                                      .toList(),
                                 ),
                               ],
                             ),
@@ -120,19 +118,18 @@ class ChooseRoleScreen extends StatelessWidget {
                                 color: Colors.red,
                                 text: 'Приєднатися',
                               ),
-                            if (userState.user!.team == 'red' &&
-                                userState.user!.role == 'player')
+                            if (userState.user!.team == 'red')
                               ActionButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  sl<Store<AppState>>().dispatch(ToggleRole(
+                                      userState.user!.role == 'player'
+                                          ? 'captain'
+                                          : 'player'));
+                                },
                                 color: Colors.red,
-                                text: 'Стати капітаном',
-                              ),
-                            if (userState.user!.team == 'red' &&
-                                userState.user!.role == 'capitan')
-                              ActionButton(
-                                onPressed: () {},
-                                color: Colors.red,
-                                text: 'Стати гравцем',
+                                text: userState.user!.role == 'player'
+                                    ? 'Стати капітаном'
+                                    : 'Стати гравцем',
                               ),
                             if (userState.user!.team != null)
                               ActionButton(
@@ -150,19 +147,18 @@ class ChooseRoleScreen extends StatelessWidget {
                                 color: Colors.blue,
                                 text: 'Приєднатися',
                               ),
-                            if (userState.user!.team == 'blue' &&
-                                userState.user!.role == 'player')
+                            if (userState.user!.team == 'blue')
                               ActionButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  sl<Store<AppState>>().dispatch(ToggleRole(
+                                      userState.user!.role == 'player'
+                                          ? 'captain'
+                                          : 'player'));
+                                },
                                 color: Colors.blue,
-                                text: 'Стати капітаном',
-                              ),
-                            if (userState.user!.team == 'blue' &&
-                                userState.user!.role == 'capitan')
-                              ActionButton(
-                                onPressed: () {},
-                                color: Colors.blue,
-                                text: 'Стати гравцем',
+                                text: userState.user!.role == 'player'
+                                    ? 'Стати капітаном'
+                                    : 'Стати гравцем',
                               ),
                           ],
                         );

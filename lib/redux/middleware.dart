@@ -75,6 +75,11 @@ void socketMiddleware(
       'join-team',
       [action.team],
     );
+  } else if (action is ToggleRole) {
+    socket.emit(
+      'toggle-role',
+      [action.role],
+    );
   } else if (action is DisconnectFromSocket) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));

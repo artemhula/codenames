@@ -71,10 +71,14 @@ class RoomListTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        room.name,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.primary),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          room.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
                       ),
                       Text(
                         'Гравців: ${room.usersInRoom}',

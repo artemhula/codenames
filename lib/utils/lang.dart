@@ -1,5 +1,5 @@
 const dict = {
-  'ukranian' : 'Українська',
-  'russian' : 'Русский',
-  'english' : 'English',
+  'ua' : 'Українська',
+  'ru' : 'Русский',
+  'en' : 'English',
 };

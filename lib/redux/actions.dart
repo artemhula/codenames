@@ -65,8 +65,20 @@ class JoinTeam {
 
 class ToggleRole {
   const ToggleRole(this.role);
-  
+
   final String role;
 }
 
 class LeaveRoom {}
+
+class CreateRoom {
+  const CreateRoom({
+    required this.roomName,
+    required this.password,
+    required this.language,
+  });
+
+  final String roomName;
+  final int password;
+  final String language;
+}

@@ -80,6 +80,16 @@ void socketMiddleware(
       'toggle-role',
       [action.role],
     );
+  } else if (action is CreateRoom) {
+    socket.emitWithAck(
+      'create-room',
+      [action.roomName, action.password, action.language],
+      ack: (data) {
+        if (data['statusCode'] == 200) {
+          print('created');
+        }
+      },
+    );
   } else if (action is DisconnectFromSocket) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));

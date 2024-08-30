@@ -1,9 +1,13 @@
+import 'package:codenames/locator.dart';
+import 'package:codenames/redux/actions.dart';
+import 'package:codenames/redux/state.dart';
 import 'package:codenames/widgets/background.dart';
 import 'package:codenames/widgets/language_selector.dart';
 import 'package:codenames/widgets/password_input.dart';
 import 'package:codenames/widgets/room_name_input.dart';
 import 'package:codenames/widgets/room_summary.dart';
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
 
 class CreateRoomScreen extends StatefulWidget {
   const CreateRoomScreen({super.key});
@@ -15,7 +19,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final PageController _controller = PageController();
   String roomName = '';
   List<int> password = [0, 0, 0];
-  String language = 'ukranian';
+  String language = 'ua';
 
   void nextPage() {
     if (_controller.page == 0) {
@@ -41,14 +45,22 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
         return;
       }
     }
+    if (_controller.page == 3) {
+      sl<Store<AppState>>().dispatch(CreateRoom(
+        roomName: roomName,
+        password: password[0] * 100 + password[1] * 10 + password[2],
+        language: language,
+      ));
+    }
     _controller.nextPage(
         duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
   void previousPage() {
     _controller.previousPage(
-        duration: Duration(milliseconds: _controller.page == 0 ? 100 : 500),
-        curve: Curves.easeIn);
+      duration: Duration(milliseconds: _controller.page == 0 ? 100 : 500),
+      curve: Curves.easeIn,
+    );
   }
 
   @override
@@ -91,6 +103,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                 password: password,
                 language: language,
               ),
+              const Center(child: CircularProgressIndicator()),
             ],
           ),
           Positioned(

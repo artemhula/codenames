@@ -1,4 +1,0 @@
-enum Team {
-  red,
-  blue,
-}

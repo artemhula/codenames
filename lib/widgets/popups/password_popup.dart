@@ -1,9 +1,8 @@
-import 'package:codenames/locator.dart';
-import 'package:codenames/redux/actions.dart';
-import 'package:codenames/redux/state.dart';
+import 'package:codenames/bloc/room/room_bloc.dart';
+import 'package:codenames/bloc/user/user_bloc.dart';
 import 'package:codenames/widgets/password_input.dart';
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PasswordPopUp extends StatefulWidget {
   const PasswordPopUp({super.key, required this.roomId});
@@ -36,9 +35,21 @@ class _PasswordPopUpState extends State<PasswordPopUp> {
       actions: [
         InkWell(
           onTap: () {
-            sl<Store<AppState>>().dispatch(JoinRoom(
-                roomId: widget.roomId,
-                password: int.parse(password.take(3).join())));
+            try {
+              if (context.read<UserBloc>().state is UserLoaded) {
+                final userId =
+                    (context.read<UserBloc>().state as UserLoaded).user.id;
+                context.read<RoomBloc>().add(
+                      JoinRoom(
+                        widget.roomId,
+                        userId,
+                        password[0] * 100 + password[1] * 10 + password[2],
+                      ),
+                    );
+              }
+            } catch (e) {
+              print(e);
+            }
           },
           child: const Text('Увійти'),
         ),

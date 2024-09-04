@@ -1,8 +1,6 @@
-import 'package:codenames/locator.dart';
-import 'package:codenames/redux/actions.dart';
-import 'package:codenames/redux/state.dart';
+import 'package:codenames/bloc/room/room_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ErrorPopUp extends StatelessWidget {
   const ErrorPopUp({super.key, required this.message});
@@ -24,7 +22,7 @@ class ErrorPopUp extends StatelessWidget {
             Navigator.of(context).pop();
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Future.delayed(const Duration(milliseconds: 300), () {
-                sl<Store<AppState>>().dispatch(const UpdateRoomState(status: Status.initial));
+               context.read<RoomBloc>().add(ResetState());
               });
             });
           },

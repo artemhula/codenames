@@ -1,19 +1,19 @@
+import 'package:codenames/bloc/room/room_bloc.dart';
 import 'package:codenames/models/room.dart';
-import 'package:codenames/redux/state.dart';
 import 'package:codenames/screens/choose_role_screen.dart';
 import 'package:codenames/widgets/popups/error_popup.dart';
 import 'package:codenames/widgets/popups/loading_popup.dart';
 import 'package:codenames/widgets/popups/password_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoomListTile extends StatelessWidget {
   const RoomListTile({
     super.key,
     required this.room,
   });
+
   final RoomModel room;
 
   @override
@@ -22,15 +22,9 @@ class RoomListTile extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (context) => StoreConnector(
-            builder: (BuildContext context, roomState) {
-              if (roomState.status == Status.loading) {
-                return const LoadingPopUp();
-              } else if (roomState.status == Status.failure) {
-                return ErrorPopUp(
-                  message: roomState.message ?? 'Невідома помилка',
-                );
-              } else if (roomState.status == Status.success) {
+          builder: (context) => BlocConsumer<RoomBloc, RoomState>(
+            listener: (context, roomState) {
+              if (roomState is RoomLoaded) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.of(context).pushReplacement(
                     CupertinoPageRoute(
@@ -39,9 +33,20 @@ class RoomListTile extends StatelessWidget {
                   );
                 });
               }
-              return PasswordPopUp(roomId: room.id);
             },
-            converter: (Store<AppState> store) => store.state.roomState,
+            builder: (BuildContext context, RoomState roomState) {
+              if (roomState is RoomLoading) {
+                return const LoadingPopUp();
+              } else if (roomState is RoomError) {
+                return ErrorPopUp(
+                  message: roomState.message,
+                );
+              } else if (roomState is RoomInitial) {
+                return PasswordPopUp(roomId: room.id);
+              } else {
+                return Container();
+              }
+            },
           ),
         );
       },
@@ -76,8 +81,11 @@ class RoomListTile extends StatelessWidget {
                         child: Text(
                           room.name,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.primary),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
                       Text(

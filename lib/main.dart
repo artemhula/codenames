@@ -1,15 +1,16 @@
+import 'package:codenames/bloc/room/room_bloc.dart';
+import 'package:codenames/bloc/room_list/room_list_bloc.dart';
+import 'package:codenames/bloc/socket/socket_bloc.dart';
+import 'package:codenames/bloc/user/user_bloc.dart';
 import 'package:codenames/locator.dart';
-import 'package:codenames/redux/actions.dart';
-import 'package:codenames/redux/state.dart';
 import 'package:codenames/screens/main_screen.dart';
 import 'package:codenames/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  sl<Store<AppState>>().dispatch(ConnectToSocket());
   runApp(const CodenamesGame());
 }
 
@@ -17,8 +18,13 @@ class CodenamesGame extends StatelessWidget {
   const CodenamesGame({super.key});
   @override
   Widget build(BuildContext context) {
-    return StoreProvider(
-      store: sl<Store<AppState>>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SocketBloc>(create: (context) => sl<SocketBloc>()),
+        BlocProvider<UserBloc>(create: (context) => sl<UserBloc>()),
+        BlocProvider<RoomListBloc>(create: (context) => sl<RoomListBloc>()),
+        BlocProvider<RoomBloc>(create: (context) => sl<RoomBloc>()),
+      ],
       child: MaterialApp(
         theme: lightTheme,
         darkTheme: darkTheme,

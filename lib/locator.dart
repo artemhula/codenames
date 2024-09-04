@@ -1,15 +1,15 @@
-import 'package:codenames/redux/middleware.dart';
-import 'package:codenames/redux/reducers.dart';
-import 'package:codenames/redux/state.dart';
+import 'package:codenames/bloc/room/room_bloc.dart';
+import 'package:codenames/bloc/room_list/room_list_bloc.dart';
+import 'package:codenames/bloc/socket/socket_bloc.dart';
+import 'package:codenames/bloc/user/user_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:redux/redux.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  sl.registerLazySingleton(
-    () => IO.io(
+  sl.registerSingleton<IO.Socket>(
+    IO.io(
       'http://localhost:3000',
       <String, dynamic>{
         'transports': ['websocket'],
@@ -18,11 +18,8 @@ Future<void> initializeDependencies() async {
     ),
   );
 
-  sl.registerLazySingleton(
-    () => Store<AppState>(
-      appReducer,
-      initialState: const AppState.initial(),
-      middleware: [socketMiddleware],
-    ),
-  );
+  sl.registerFactory<SocketBloc>(() => SocketBloc(sl<IO.Socket>()));
+  sl.registerFactory<UserBloc>(() => UserBloc(sl<IO.Socket>()));
+  sl.registerFactory<RoomListBloc>(() => RoomListBloc(sl<IO.Socket>()));
+  sl.registerFactory<RoomBloc>(() => RoomBloc(sl<IO.Socket>()));
 }

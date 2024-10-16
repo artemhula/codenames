@@ -1,3 +1,4 @@
+import 'package:codenames/models/card.dart';
 import 'package:codenames/models/room.dart';
 import 'package:codenames/models/user.dart';
 import 'package:codenames/redux/state.dart';
@@ -44,6 +45,14 @@ class UpdateRoomState {
   final String? message;
 }
 
+class UpdateWarningState {
+  const UpdateWarningState({
+    required this.message,
+  });
+
+  final String message;
+}
+
 class ConnectToSocket {}
 
 class DisconnectFromSocket {}
@@ -81,4 +90,13 @@ class CreateRoom {
   final String roomName;
   final int password;
   final String language;
+}
+
+class StartGame {}
+
+class ClickCard {
+  const ClickCard(this.card, this.team);
+
+  final CardModel card;
+  final String team;
 }

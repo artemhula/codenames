@@ -6,6 +6,7 @@ AppState appReducer(AppState state, action) => AppState(
       roomsListState: roomsListReducer(state.roomsListState, action),
       userState: userReducer(state.userState, action),
       roomState: roomReducer(state.roomState, action),
+      warningState: warningReducer(state.warningState, action),
     );
 
 WebSocketState webSocketReducer(WebSocketState state, action) {
@@ -39,6 +40,15 @@ RoomState roomReducer(RoomState state, action) {
   if (action is UpdateRoomState) {
     return RoomState(
         room: action.room, status: action.status, message: action.message);
+  }
+
+  return state;
+}
+
+WarningState warningReducer(WarningState state, action) {
+  if (action is UpdateWarningState) {
+    return WarningState(
+        message: action.message);
   }
 
   return state;

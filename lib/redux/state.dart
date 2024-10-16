@@ -14,6 +14,7 @@ class AppState {
     required this.roomsListState,
     required this.webSocketState,
     required this.roomState,
+    required this.warningState
   });
 
   const AppState.initial({
@@ -21,12 +22,14 @@ class AppState {
     this.webSocketState = const WebSocketState.initialState(),
     this.userState = const UserState.initialState(),
     this.roomState = const RoomState.initialState(),
+    this.warningState = const WarningState.initialState(),
   });
 
   final RoomsListState roomsListState;
   final WebSocketState webSocketState;
   final UserState userState;
   final RoomState roomState;
+  final WarningState warningState;
 }
 
 class RoomsListState {
@@ -64,7 +67,8 @@ class UserState {
 }
 
 class RoomState {
-  const RoomState({required this.room, required this.status, required this.message});
+  const RoomState(
+      {required this.room, required this.status, required this.message});
   const RoomState.initialState()
       : room = null,
         status = Status.initial,
@@ -73,4 +77,11 @@ class RoomState {
   final RoomModel? room;
   final Status status;
   final String? message;
+}
+
+class WarningState {
+  const WarningState({required this.message});
+  const WarningState.initialState() : message = '';
+
+  final String message;
 }

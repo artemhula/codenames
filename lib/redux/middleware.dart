@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:codenames/models/room.dart';
 import 'package:codenames/models/user.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -35,6 +37,14 @@ void socketMiddleware(
         }
       },
     );
+    socket.on(
+      'error',
+      (e) {
+        log('error: ${e['message']}');
+        store.dispatch( UpdateWarningState(message: e['message']));
+       
+      },
+    );
   } else if (action is GetRooms) {
     _getRooms(store);
   } else if (action is JoinRoom) {
@@ -57,7 +67,6 @@ void socketMiddleware(
     socket.on(
       'update-room',
       (room) {
-        print(room);
         store.dispatch(UpdateRoomState(
             status: Status.success, room: RoomModel.fromJson(room)));
       },
@@ -67,7 +76,6 @@ void socketMiddleware(
       'leave-room',
       [],
       ack: (data) {
-        print(data);
       },
     );
   } else if (action is JoinTeam) {
@@ -86,10 +94,18 @@ void socketMiddleware(
       [action.roomName, action.password, action.language],
       ack: (data) {
         if (data['statusCode'] == 200) {
-          print('created');
+          log('created');
         }
       },
     );
+  } else if (action is StartGame) {
+    socket.emit('start-game', []);
+  } else if (action is ClickCard) {
+    log('${action.card.word}, ${action.team}');
+    socket.emit('card-clicked', [
+      action.card.word,
+      action.team,
+    ]);
   } else if (action is DisconnectFromSocket) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
@@ -122,6 +138,7 @@ void _getRooms(Store<AppState> store) async {
   socket.on('get-rooms', (data) {
     if (data is List) {
       try {
+        log(data.toString());
         final rooms = data
             .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
             .toList();

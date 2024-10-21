@@ -1,14 +1,16 @@
-import 'dart:math';
-
-import 'package:codenames/widgets/word_card.dart';
+import 'package:codenames/shared/models/card.dart';
+import 'package:codenames/shared/models/user.dart';
+import 'package:codenames/features/game/widgets/word_card.dart';
 import 'package:flutter/material.dart';
 
 class WordCards extends StatelessWidget {
   const WordCards({
     super.key,
     required this.cards,
+    required this.user,
   });
-  final List cards;
+  final List<CardModel> cards;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,9 @@ class WordCards extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return WordCard(
-          word: 'Слово $index',
-          color: Random().nextBool() ? Colors.red : Colors.blue,
+          card: cards[index],
+          isCaptain: user.role == 'captain',
+          team: user.team!,
         );
       },
     );

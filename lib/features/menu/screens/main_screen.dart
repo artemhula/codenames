@@ -1,11 +1,11 @@
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
-import 'package:codenames/widgets/background.dart';
-import 'package:codenames/widgets/buttons_bar.dart';
-import 'package:codenames/widgets/filter.dart';
-import 'package:codenames/widgets/logo.dart';
-import 'package:codenames/widgets/room_list_tile.dart';
+import 'package:codenames/shared/widgets/background.dart';
+import 'package:codenames/features/menu/widgets/buttons_bar.dart';
+import 'package:codenames/features/menu/widgets/filter.dart';
+import 'package:codenames/features/menu/widgets/logo.dart';
+import 'package:codenames/features/menu/widgets/room_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -20,7 +20,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    sl<Store<AppState>>().dispatch(GetRooms());
+    sl<Store<AppState>>().dispatch(GetRoomsAction());
     super.initState();
   }
 
@@ -51,8 +51,8 @@ class _MainScreenState extends State<MainScreen> {
                             itemCount: state.roomsListState.rooms!.length,
                             separatorBuilder: (context, index) =>
                                 const SizedBox(height: 10),
-                            itemBuilder: (context, index) =>
-                                RoomListTile(room: state.roomsListState.rooms![index]),
+                            itemBuilder: (context, index) => RoomListTile(
+                                room: state.roomsListState.rooms![index]),
                           ),
                         ),
                       ],

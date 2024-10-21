@@ -10,16 +10,32 @@
             "type": "dart"
         },
         {
-            "name": "codenames (profile mode)",
+            "name": "chrome 1",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "deviceId": "chrome",
         },
         {
-            "name": "codenames (release mode)",
+            "name": "chrome 2",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "deviceId": "chrome",
+        },
+        {
+            "name": "chrome 3",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+        },
+    ],
+    "compounds": [
+        {
+            "name": "chrome 4x",
+            "configurations": [
+                "chrome 1",
+                "chrome 2",
+                "chrome 3"
+            ]
         }
     ]
 }

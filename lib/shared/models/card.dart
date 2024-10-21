@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'card.g.dart';
@@ -12,7 +13,21 @@ class CardModel extends Equatable {
   final String teamName;
   final bool isClicked;
 
-  factory CardModel.fromJson(Map<String, dynamic> json) => _$CardModelFromJson(json);
+  Color getColor() {
+    switch (teamName) {
+      case 'black':
+        return Colors.black;
+      case 'red':
+        return Colors.red;
+      case 'blue':
+        return Colors.blue;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  factory CardModel.fromJson(Map<String, dynamic> json) =>
+      _$CardModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CardModelToJson(this);
 

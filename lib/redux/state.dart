@@ -1,5 +1,5 @@
-import 'package:codenames/models/room.dart';
-import 'package:codenames/models/user.dart';
+import 'package:codenames/shared/models/room.dart';
+import 'package:codenames/shared/models/user.dart';
 
 enum Status {
   initial,

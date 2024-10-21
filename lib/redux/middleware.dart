@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:codenames/models/room.dart';
-import 'package:codenames/models/user.dart';
+import 'package:codenames/shared/models/room.dart';
+import 'package:codenames/shared/models/user.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
@@ -11,8 +11,8 @@ import 'package:redux/redux.dart';
 final IO.Socket socket = sl();
 
 void socketMiddleware(
-    Store<AppState> store, dynamic action, NextDispatcher next) async {
-  if (action is ConnectToSocket) {
+    Store<AppState> store, action, NextDispatcher next) async {
+  if (action is ConnectToSocketAction) {
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
 
     _connectToSocket(store);
@@ -45,9 +45,9 @@ void socketMiddleware(
        
       },
     );
-  } else if (action is GetRooms) {
+  } else if (action is GetRoomsAction) {
     _getRooms(store);
-  } else if (action is JoinRoom) {
+  } else if (action is JoinRoomAction) {
     // _joinRoom(store, action);
     store.dispatch(const UpdateRoomState(status: Status.loading));
     socket.emitWithAck(
@@ -71,24 +71,24 @@ void socketMiddleware(
             status: Status.success, room: RoomModel.fromJson(room)));
       },
     );
-  } else if (action is LeaveRoom) {
+  } else if (action is LeaveRoomAction) {
     socket.emitWithAck(
       'leave-room',
       [],
       ack: (data) {
       },
     );
-  } else if (action is JoinTeam) {
+  } else if (action is JoinTeamAction) {
     socket.emit(
       'join-team',
       [action.team],
     );
-  } else if (action is ToggleRole) {
+  } else if (action is ToggleRoleAction) {
     socket.emit(
       'toggle-role',
       [action.role],
     );
-  } else if (action is CreateRoom) {
+  } else if (action is CreateRoomAction) {
     socket.emitWithAck(
       'create-room',
       [action.roomName, action.password, action.language],
@@ -98,15 +98,15 @@ void socketMiddleware(
         }
       },
     );
-  } else if (action is StartGame) {
+  } else if (action is StartGameAction) {
     socket.emit('start-game', []);
-  } else if (action is ClickCard) {
+  } else if (action is ClickCardAction) {
     log('${action.card.word}, ${action.team}');
     socket.emit('card-clicked', [
       action.card.word,
       action.team,
     ]);
-  } else if (action is DisconnectFromSocket) {
+  } else if (action is DisconnectFromSocketAction) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
   }

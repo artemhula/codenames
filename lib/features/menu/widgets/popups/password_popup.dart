@@ -1,7 +1,7 @@
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
-import 'package:codenames/widgets/password_input.dart';
+import 'package:codenames/features/create_room/widgets/password_input.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
@@ -36,7 +36,7 @@ class _PasswordPopUpState extends State<PasswordPopUp> {
       actions: [
         InkWell(
           onTap: () {
-            sl<Store<AppState>>().dispatch(JoinRoom(
+            sl<Store<AppState>>().dispatch(JoinRoomAction(
                 roomId: widget.roomId,
                 password: int.parse(password.take(3).join())));
           },

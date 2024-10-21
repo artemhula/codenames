@@ -1,4 +1,4 @@
-import 'package:codenames/models/user.dart';
+import 'package:codenames/shared/models/user.dart';
 
 class RoomUtils {
   List<UserModel> getUsersFromTeam(String? team, List<UserModel> users) =>

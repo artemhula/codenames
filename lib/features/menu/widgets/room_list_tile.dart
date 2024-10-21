@@ -1,9 +1,9 @@
-import 'package:codenames/models/room.dart';
+import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/redux/state.dart';
-import 'package:codenames/screens/choose_role_screen.dart';
-import 'package:codenames/widgets/popups/error_popup.dart';
-import 'package:codenames/widgets/popups/loading_popup.dart';
-import 'package:codenames/widgets/popups/password_popup.dart';
+import 'package:codenames/features/game/screens/choose_role_screen.dart';
+import 'package:codenames/features/menu/widgets/popups/error_popup.dart';
+import 'package:codenames/features/menu/widgets/popups/loading_popup.dart';
+import 'package:codenames/features/menu/widgets/popups/password_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';

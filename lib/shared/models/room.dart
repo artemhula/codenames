@@ -1,5 +1,5 @@
-import 'package:codenames/models/card.dart';
-import 'package:codenames/models/user.dart';
+import 'package:codenames/shared/models/card.dart';
+import 'package:codenames/shared/models/user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,7 +11,7 @@ class RoomModel extends Equatable {
     required this.cardset,
     required this.id,
     required this.name,
-    // required this.isGameStarted,
+    required this.creator,
     required this.users,
     required this.usersInRoom,
   });
@@ -19,7 +19,7 @@ class RoomModel extends Equatable {
   final List<CardModel>? cardset;
   final String id;
   final String name;
-  // final bool isGameStarted;
+  final String creator;
   final List<UserModel>? users;
   final int usersInRoom;
 

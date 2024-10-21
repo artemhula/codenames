@@ -1,4 +1,4 @@
-import 'package:codenames/screens/create_room_screen.dart';
+import 'package:codenames/features/create_room/screens/create_room_screen.dart';
 import 'package:flutter/material.dart';
 
 class ButtonsBar extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:codenames/models/card.dart';
-import 'package:codenames/models/room.dart';
-import 'package:codenames/models/user.dart';
+import 'package:codenames/shared/models/card.dart';
+import 'package:codenames/shared/models/room.dart';
+import 'package:codenames/shared/models/user.dart';
 import 'package:codenames/redux/state.dart';
 
-class UpdateWebSocketState {
+class UpdateWebSocketState{
   const UpdateWebSocketState({
     required this.status,
     this.errorMessage = '',
@@ -13,7 +13,7 @@ class UpdateWebSocketState {
   final String errorMessage;
 }
 
-class UpdateRoomsListState {
+class UpdateRoomsListState{
   const UpdateRoomsListState({
     this.rooms,
     required this.status,
@@ -53,35 +53,35 @@ class UpdateWarningState {
   final String message;
 }
 
-class ConnectToSocket {}
+class ConnectToSocketAction {}
 
-class DisconnectFromSocket {}
+class DisconnectFromSocketAction {}
 
-class GetRooms {}
+class GetRoomsAction {}
 
-class JoinRoom {
-  const JoinRoom({required this.roomId, required this.password});
+class JoinRoomAction {
+  const JoinRoomAction({required this.roomId, required this.password});
 
   final String roomId;
   final int password;
 }
 
-class JoinTeam {
-  const JoinTeam({required this.team});
+class JoinTeamAction {
+  const JoinTeamAction({required this.team});
 
   final String team;
 }
 
-class ToggleRole {
-  const ToggleRole(this.role);
+class ToggleRoleAction {
+  const ToggleRoleAction(this.role);
 
   final String role;
 }
 
-class LeaveRoom {}
+class LeaveRoomAction {}
 
-class CreateRoom {
-  const CreateRoom({
+class CreateRoomAction {
+  const CreateRoomAction({
     required this.roomName,
     required this.password,
     required this.language,
@@ -92,10 +92,10 @@ class CreateRoom {
   final String language;
 }
 
-class StartGame {}
+class StartGameAction {}
 
-class ClickCard {
-  const ClickCard(this.card, this.team);
+class ClickCardAction {
+  const ClickCardAction(this.card, this.team);
 
   final CardModel card;
   final String team;

@@ -12,6 +12,7 @@ RoomModel _$RoomModelFromJson(Map<String, dynamic> json) => RoomModel(
           .toList(),
       id: json['id'] as String,
       name: json['name'] as String,
+      creator: json['creator'] as String,
       users: (json['users'] as List<dynamic>?)
           ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -22,6 +23,7 @@ Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
       'cardset': instance.cardset,
       'id': instance.id,
       'name': instance.name,
+      'creator': instance.creator,
       'users': instance.users,
       'usersInRoom': instance.usersInRoom,
     };

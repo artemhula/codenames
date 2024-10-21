@@ -12,7 +12,6 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       room: json['room'] as String?,
       role: json['role'] as String?,
       team: json['team'] as String?,
-      isReady: json['isReady'] as bool,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -21,5 +20,4 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'room': instance.room,
       'role': instance.role,
       'team': instance.team,
-      'isReady': instance.isReady,
     };

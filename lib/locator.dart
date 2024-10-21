@@ -1,3 +1,4 @@
+import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/middleware.dart';
 import 'package:codenames/redux/reducers.dart';
 import 'package:codenames/redux/state.dart';
@@ -25,4 +26,6 @@ Future<void> initializeDependencies() async {
       middleware: [socketMiddleware],
     ),
   );
+
+  sl<Store<AppState>>().dispatch(ConnectToSocketAction());
 }

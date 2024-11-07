@@ -9,13 +9,12 @@ enum Status {
 }
 
 class AppState {
-  const AppState({
-    required this.userState,
-    required this.roomsListState,
-    required this.webSocketState,
-    required this.roomState,
-    required this.warningState
-  });
+  const AppState(
+      {required this.userState,
+      required this.roomsListState,
+      required this.webSocketState,
+      required this.roomState,
+      required this.warningState});
 
   const AppState.initial({
     this.roomsListState = const RoomsListState.initialState(),
@@ -68,15 +67,15 @@ class UserState {
 
 class RoomState {
   const RoomState(
-      {required this.room, required this.status, required this.message});
+      {required this.room, required this.status, required this.winnerTeam});
   const RoomState.initialState()
       : room = null,
         status = Status.initial,
-        message = '';
+        winnerTeam = null;
 
   final RoomModel? room;
   final Status status;
-  final String? message;
+  final String? winnerTeam;
 }
 
 class WarningState {

@@ -37,12 +37,12 @@ class UpdateRoomState {
   const UpdateRoomState({
     this.room,
     required this.status,
-    this.message,
+    this.winnerTeam,
   });
 
   final RoomModel? room;
   final Status status;
-  final String? message;
+  final String? winnerTeam;
 }
 
 class UpdateWarningState {

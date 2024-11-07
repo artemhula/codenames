@@ -27,8 +27,8 @@ class RoomListTile extends StatelessWidget {
               if (roomState.status == Status.loading) {
                 return const LoadingPopUp();
               } else if (roomState.status == Status.failure) {
-                return ErrorPopUp(
-                  message: roomState.message ?? 'Невідома помилка',
+                return const ErrorPopUp(
+                  message: 'Пароль невірний',
                 );
               } else if (roomState.status == Status.success) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {

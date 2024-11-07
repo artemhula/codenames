@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as Math;
 
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/shared/models/user.dart';
@@ -14,12 +15,29 @@ void socketMiddleware(
     Store<AppState> store, action, NextDispatcher next) async {
   if (action is ConnectToSocketAction) {
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
-
-    _connectToSocket(store);
+    socket.connect();
+    socket.onConnect(
+      (_) {
+        store.dispatch(const UpdateWebSocketState(status: Status.success));
+      },
+    );
+    socket.onError(
+      (e) {
+        store.dispatch(
+          UpdateWebSocketState(
+            status: Status.failure,
+            errorMessage: e.toString(),
+          ),
+        );
+      },
+    );
 
     socket.emitWithAck(
       'new-user',
-      ['artem'],
+      [
+        String.fromCharCodes(
+            List.generate(7, (index) => Math.Random().nextInt(33) + 89))
+      ],
       ack: (data) {},
     );
 
@@ -32,7 +50,7 @@ void socketMiddleware(
                 user: UserModel.fromJson(data), status: Status.success));
           } catch (e) {
             store.dispatch(const UpdateUserState(status: Status.failure));
-            print(e.toString());
+            log(e.toString());
           }
         }
       },
@@ -41,24 +59,47 @@ void socketMiddleware(
       'error',
       (e) {
         log('error: ${e['message']}');
-        store.dispatch( UpdateWarningState(message: e['message']));
-       
+        store.dispatch(UpdateWarningState(message: e['message']));
       },
     );
   } else if (action is GetRoomsAction) {
-    _getRooms(store);
+    store.dispatch(const UpdateRoomsListState(status: Status.loading));
+    socket.on('get-rooms', (data) {
+      if (data is List) {
+        try {
+          log(data.toString());
+          final rooms = data
+              .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
+              .toList();
+          store.dispatch(
+              UpdateRoomsListState(rooms: rooms, status: Status.success));
+        } catch (e) {
+          store.dispatch(
+              const UpdateRoomsListState(rooms: [], status: Status.failure));
+          log(e.toString());
+        }
+      }
+    });
   } else if (action is JoinRoomAction) {
-    // _joinRoom(store, action);
     store.dispatch(const UpdateRoomState(status: Status.loading));
     socket.emitWithAck(
       'join-room',
       [action.roomId, store.state.userState.user!.id, action.password],
       ack: (Map<String, dynamic> data) {
-        if (data['statusCode'] == 200) {
+        log(data.toString());
+        if (data['ok'] == true) {
+          log('joined');
           socket.off('get-rooms');
+          socket.on('finish-game', (data) {
+            log('finished');
+            store.dispatch(UpdateRoomState(
+              status: Status.success,
+              winnerTeam: data.toString(),
+            ));
+            log(data.toString());
+          });
         } else if (data['statusCode'] == 401) {
-          store.dispatch(const UpdateRoomState(
-              status: Status.failure, message: 'Пароль невірний'));
+          store.dispatch(const UpdateRoomState(status: Status.failure));
         } else {
           store.dispatch(const UpdateRoomState(status: Status.failure));
         }
@@ -67,6 +108,7 @@ void socketMiddleware(
     socket.on(
       'update-room',
       (room) {
+        log('ur ${room.toString()}');
         store.dispatch(UpdateRoomState(
             status: Status.success, room: RoomModel.fromJson(room)));
       },
@@ -75,8 +117,7 @@ void socketMiddleware(
     socket.emitWithAck(
       'leave-room',
       [],
-      ack: (data) {
-      },
+      ack: (data) {},
     );
   } else if (action is JoinTeamAction) {
     socket.emit(
@@ -104,53 +145,13 @@ void socketMiddleware(
     log('${action.card.word}, ${action.team}');
     socket.emit('card-clicked', [
       action.card.word,
-      action.team,
+      store.state.userState.user!.id,
     ]);
   } else if (action is DisconnectFromSocketAction) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
   }
+  //clear roomstate after endscreen
 
   next(action);
 }
-
-void _connectToSocket(Store<AppState> store) async {
-  socket.connect();
-  socket.onConnect(
-    (_) {
-      store.dispatch(const UpdateWebSocketState(status: Status.success));
-    },
-  );
-  socket.onError(
-    (e) {
-      store.dispatch(
-        UpdateWebSocketState(
-          status: Status.failure,
-          errorMessage: e.toString(),
-        ),
-      );
-    },
-  );
-}
-
-void _getRooms(Store<AppState> store) async {
-  store.dispatch(const UpdateRoomsListState(status: Status.loading));
-  socket.on('get-rooms', (data) {
-    if (data is List) {
-      try {
-        log(data.toString());
-        final rooms = data
-            .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
-            .toList();
-        store.dispatch(
-            UpdateRoomsListState(rooms: rooms, status: Status.success));
-      } catch (e) {
-        store.dispatch(
-            const UpdateRoomsListState(rooms: [], status: Status.failure));
-        print(e.toString());
-      }
-    }
-  });
-}
-
-void _joinRoom(Store<AppState> store, dynamic action) async {}

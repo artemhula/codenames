@@ -1,10 +1,20 @@
+import 'package:codenames/features/game/widgets/team_confetti.dart';
 import 'package:codenames/features/menu/screens/main_screen.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EndGameScreen extends StatelessWidget {
-  const EndGameScreen({super.key});
+  const EndGameScreen({
+    super.key,
+    required this.winnerTeam,
+    // required this.redCount,
+    // required this.blueCount,
+  });
+
+  final String winnerTeam;
+  // final int redCount;
+  // final int blueCount;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +42,15 @@ class EndGameScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Text(
-                        'команда червоних',
+                        'команда ${winnerTeam == "blue" ? "синіх" : "червоних"}',
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
                             .copyWith(
-                                color: Colors.red, fontWeight: FontWeight.w900),
+                                color: winnerTeam == "blue"
+                                    ? Colors.blue
+                                    : Colors.red,
+                                fontWeight: FontWeight.w900),
                       ),
                     ],
                   ),
@@ -45,34 +58,34 @@ class EndGameScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Рахунок: ',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      Text(
-                        '7',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w900),
-                      ),
-                      Text(
-                        ' : ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(fontWeight: FontWeight.w900),
-                      ),
-                      Text(
-                        '3',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                                color: Colors.red, fontWeight: FontWeight.w900),
-                      ),
+                      // Text(
+                      //   'Рахунок: ',
+                      //   style: Theme.of(context).textTheme.headlineSmall,
+                      // ),
+                      // Text(
+                      //   blueCount.toString(),
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .headlineSmall!
+                      //       .copyWith(
+                      //           color: Colors.blue,
+                      //           fontWeight: FontWeight.w900),
+                      // ),
+                      // Text(
+                      //   ' : ',
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .headlineSmall!
+                      //       .copyWith(fontWeight: FontWeight.w900),
+                      // ),
+                      // Text(
+                      //   redCount.toString(),
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .headlineSmall!
+                      //       .copyWith(
+                      //           color: Colors.red, fontWeight: FontWeight.w900),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -93,6 +106,7 @@ class EndGameScreen extends StatelessWidget {
                 ],
               ),
             ),
+            TeamConfetti(winnerTeam: winnerTeam),
           ],
         ),
       ),

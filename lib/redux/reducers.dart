@@ -39,7 +39,7 @@ UserState userReducer(UserState state, action) {
 RoomState roomReducer(RoomState state, action) {
   if (action is UpdateRoomState) {
     return RoomState(
-        room: action.room, status: action.status, message: action.message);
+        room: action.room, status: action.status, winnerTeam: action.winnerTeam);
   }
 
   return state;

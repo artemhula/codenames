@@ -3,7 +3,7 @@ import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/shared/models/user.dart';
 import 'package:codenames/redux/state.dart';
 
-class UpdateWebSocketState{
+class UpdateWebSocketState {
   const UpdateWebSocketState({
     required this.status,
     this.errorMessage = '',
@@ -13,7 +13,7 @@ class UpdateWebSocketState{
   final String errorMessage;
 }
 
-class UpdateRoomsListState{
+class UpdateRoomsListState {
   const UpdateRoomsListState({
     this.rooms,
     required this.status,
@@ -100,3 +100,5 @@ class ClickCardAction {
   final CardModel card;
   final String team;
 }
+
+class ClearRoomStateAction {}

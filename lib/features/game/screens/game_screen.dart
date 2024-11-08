@@ -1,4 +1,7 @@
 import 'package:codenames/features/game/screens/end_game_screen.dart';
+import 'package:codenames/features/game/widgets/back_button.dart';
+import 'package:codenames/locator.dart';
+import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:codenames/features/game/widgets/counter.dart';
@@ -7,6 +10,7 @@ import 'package:codenames/features/game/widgets/word_cards.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});
@@ -59,12 +63,13 @@ class GameScreen extends StatelessWidget {
                             room.name,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                          InkWell(
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              size: 30,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                          BackToMainButton(
+                            onTap: () {
+                              sl<Store<AppState>>().dispatch(GetRoomsAction());
+                              Navigator.of(context).pop();
+                              sl<Store<AppState>>()
+                                  .dispatch(ClearRoomStateAction());
+                            },
                           ),
                         ],
                       ),

@@ -67,7 +67,6 @@ void socketMiddleware(
     socket.on('get-rooms', (data) {
       if (data is List) {
         try {
-          log(data.toString());
           final rooms = data
               .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
               .toList();
@@ -86,17 +85,14 @@ void socketMiddleware(
       'join-room',
       [action.roomId, store.state.userState.user!.id, action.password],
       ack: (Map<String, dynamic> data) {
-        log(data.toString());
         if (data['ok'] == true) {
           log('joined');
           socket.off('get-rooms');
           socket.on('finish-game', (data) {
-            log('finished');
             store.dispatch(UpdateRoomState(
               status: Status.success,
               winnerTeam: data.toString(),
             ));
-            log(data.toString());
           });
         } else if (data['statusCode'] == 401) {
           store.dispatch(const UpdateRoomState(status: Status.failure));
@@ -108,7 +104,6 @@ void socketMiddleware(
     socket.on(
       'update-room',
       (room) {
-        log('ur ${room.toString()}');
         store.dispatch(UpdateRoomState(
             status: Status.success, room: RoomModel.fromJson(room)));
       },
@@ -147,11 +142,19 @@ void socketMiddleware(
       action.card.word,
       store.state.userState.user!.id,
     ]);
+  } else if (action is ClearRoomStateAction) {
+    socket.emitWithAck('leave-room', [], ack: (Map<String, dynamic> data) {
+      if (data['statusCode'] == 200) {
+        socket.off('update-room');
+        socket.off('finish-game');
+        store.dispatch(const UpdateRoomState(
+            status: Status.initial, room: null, winnerTeam: null));
+      }
+    });
   } else if (action is DisconnectFromSocketAction) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
   }
-  //clear roomstate after endscreen
 
   next(action);
 }

@@ -1,8 +1,12 @@
 import 'package:codenames/features/game/widgets/team_confetti.dart';
 import 'package:codenames/features/menu/screens/main_screen.dart';
+import 'package:codenames/locator.dart';
+import 'package:codenames/redux/actions.dart';
+import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
 
 class EndGameScreen extends StatelessWidget {
   const EndGameScreen({
@@ -55,43 +59,44 @@ class EndGameScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Text(
-                      //   'Рахунок: ',
-                      //   style: Theme.of(context).textTheme.headlineSmall,
-                      // ),
-                      // Text(
-                      //   blueCount.toString(),
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .headlineSmall!
-                      //       .copyWith(
-                      //           color: Colors.blue,
-                      //           fontWeight: FontWeight.w900),
-                      // ),
-                      // Text(
-                      //   ' : ',
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .headlineSmall!
-                      //       .copyWith(fontWeight: FontWeight.w900),
-                      // ),
-                      // Text(
-                      //   redCount.toString(),
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .headlineSmall!
-                      //       .copyWith(
-                      //           color: Colors.red, fontWeight: FontWeight.w900),
-                      // ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       'Рахунок: ',
+                  //       style: Theme.of(context).textTheme.headlineSmall,
+                  //     ),
+                  //     Text(
+                  //       blueCount.toString(),
+                  //       style: Theme.of(context)
+                  //           .textTheme
+                  //           .headlineSmall!
+                  //           .copyWith(
+                  //               color: Colors.blue,
+                  //               fontWeight: FontWeight.w900),
+                  //     ),
+                  //     Text(
+                  //       ' : ',
+                  //       style: Theme.of(context)
+                  //           .textTheme
+                  //           .headlineSmall!
+                  //           .copyWith(fontWeight: FontWeight.w900),
+                  //     ),
+                  //     Text(
+                  //       redCount.toString(),
+                  //       style: Theme.of(context)
+                  //           .textTheme
+                  //           .headlineSmall!
+                  //           .copyWith(
+                  //               color: Colors.red, fontWeight: FontWeight.w900),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      //get rooms
+                      sl<Store<AppState>>().dispatch(GetRoomsAction());
+                      sl<Store<AppState>>().dispatch(ClearRoomStateAction());
                       Navigator.of(context).pushAndRemoveUntil(
                           CupertinoPageRoute(
                             builder: (context) => const MainScreen(),

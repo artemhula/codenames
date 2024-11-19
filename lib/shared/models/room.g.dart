@@ -17,6 +17,7 @@ RoomModel _$RoomModelFromJson(Map<String, dynamic> json) => RoomModel(
           ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       usersInRoom: (json['usersInRoom'] as num).toInt(),
+      isGameStarted: json['isGameStarted'] as bool,
     );
 
 Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
@@ -26,4 +27,5 @@ Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
       'creator': instance.creator,
       'users': instance.users,
       'usersInRoom': instance.usersInRoom,
+      'isGameStarted': instance.isGameStarted,
     };

@@ -72,11 +72,7 @@ class JoinTeamAction {
   final String team;
 }
 
-class ToggleRoleAction {
-  const ToggleRoleAction(this.role);
-
-  final String role;
-}
+class ToggleRoleAction {}
 
 class LeaveRoomAction {}
 
@@ -102,3 +98,5 @@ class ClickCardAction {
 }
 
 class ClearRoomStateAction {}
+
+class ClearWarningAction {}

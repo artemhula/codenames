@@ -32,7 +32,6 @@ class ChooseRoleScreen extends StatelessWidget {
                         );
                       });
                     }
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -133,10 +132,8 @@ class ChooseRoleScreen extends StatelessWidget {
                                 if (userState.user!.team == 'red')
                                   ActionButton(
                                     onPressed: () {
-                                      sl<Store<AppState>>().dispatch(ToggleRoleAction(
-                                          userState.user!.role == 'player'
-                                              ? 'captain'
-                                              : 'player'));
+                                      sl<Store<AppState>>()
+                                          .dispatch(ToggleRoleAction());
                                     },
                                     color: Colors.red,
                                     text: userState.user!.role == 'player'
@@ -167,10 +164,8 @@ class ChooseRoleScreen extends StatelessWidget {
                                 if (userState.user!.team == 'blue')
                                   ActionButton(
                                     onPressed: () {
-                                      sl<Store<AppState>>().dispatch(ToggleRoleAction(
-                                          userState.user!.role == 'player'
-                                              ? 'captain'
-                                              : 'player'));
+                                      sl<Store<AppState>>()
+                                          .dispatch(ToggleRoleAction());
                                     },
                                     color: Colors.blue,
                                     text: userState.user!.role == 'player'

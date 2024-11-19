@@ -1,3 +1,4 @@
+import 'package:codenames/features/menu/screens/first_screen.dart';
 import 'package:codenames/features/menu/screens/main_screen.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/state.dart';

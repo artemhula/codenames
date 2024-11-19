@@ -1,3 +1,5 @@
+import 'package:codenames/features/create_room/screens/create_room_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Filter extends StatelessWidget {
@@ -7,35 +9,30 @@ class Filter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.filter_alt_outlined, size: 30),
-        Text('Фільтри:', style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(width: 15),
-        Badge(
-          label: const Text('0'),
-          offset: const Offset(10, -10),
-          child: Text(
-            'Ім\'я',
+    return GestureDetector(
+      onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CreateRoomScreen()),
+            );
+          },
+      child: Row(
+        children: [
+          Icon(
+            Icons.add_rounded,
+            size: 30,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            'Створити кімнату',
             style: Theme.of(context)
                 .textTheme
-                .bodySmall!
+                .bodyMedium!
                 .copyWith(color: Theme.of(context).colorScheme.primary),
           ),
-        ),
-        const SizedBox(width: 20),
-        Badge(
-          label: const Text('2'),
-          offset: const Offset(10, -10),
-          child: Text(
-            'Мова',
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

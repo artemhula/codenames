@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:redux/redux.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+
 final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
@@ -26,6 +27,10 @@ Future<void> initializeDependencies() async {
       middleware: [socketMiddleware],
     ),
   );
+
+  //  sl.registerLazySingleton(
+  //   () async =>  SharedPreferences.getInstance()
+  // );
 
   sl<Store<AppState>>().dispatch(ConnectToSocketAction());
 }

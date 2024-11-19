@@ -1,6 +1,9 @@
+import 'package:codenames/locator.dart';
+import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 class SnackBarListener extends StatelessWidget {
   @override
@@ -27,6 +30,7 @@ class SnackBarListener extends StatelessWidget {
                 dismissDirection: DismissDirection.up,
               ),
             );
+            sl<Store<AppState>>().dispatch(const UpdateWarningState(message: ''));
           });
         }
         return Container();

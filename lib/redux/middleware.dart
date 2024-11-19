@@ -67,6 +67,7 @@ void socketMiddleware(
     socket.on('get-rooms', (data) {
       if (data is List) {
         try {
+          log(data.toString());
           final rooms = data
               .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
               .toList();
@@ -104,8 +105,17 @@ void socketMiddleware(
     socket.on(
       'update-room',
       (room) {
+        log(room.toString());
         store.dispatch(UpdateRoomState(
             status: Status.success, room: RoomModel.fromJson(room)));
+        for (final user in room['users']) {
+          if (user['id'] == store.state.userState.user!.id) {
+            store.dispatch(
+              UpdateUserState(
+                  user: UserModel.fromJson(user), status: Status.success),
+            );
+          }
+        }
       },
     );
   } else if (action is LeaveRoomAction) {
@@ -122,7 +132,7 @@ void socketMiddleware(
   } else if (action is ToggleRoleAction) {
     socket.emit(
       'toggle-role',
-      [action.role],
+      [store.state.userState.user!.id],
     );
   } else if (action is CreateRoomAction) {
     socket.emitWithAck(
@@ -154,6 +164,8 @@ void socketMiddleware(
   } else if (action is DisconnectFromSocketAction) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
+  } else if (action is ClearWarningAction) {
+    store.dispatch(const UpdateWarningState(message: ''));
   }
 
   next(action);

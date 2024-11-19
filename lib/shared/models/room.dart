@@ -14,6 +14,7 @@ class RoomModel extends Equatable {
     required this.creator,
     required this.users,
     required this.usersInRoom,
+    required this.isGameStarted,
   });
 
   final List<CardModel>? cardset;
@@ -22,6 +23,7 @@ class RoomModel extends Equatable {
   final String creator;
   final List<UserModel>? users;
   final int usersInRoom;
+  final bool isGameStarted;
 
   factory RoomModel.fromJson(Map<String, dynamic> json) => _$RoomModelFromJson(json);
 

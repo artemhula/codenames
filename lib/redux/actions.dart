@@ -2,6 +2,7 @@ import 'package:codenames/shared/models/card.dart';
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/shared/models/user.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:flutter/material.dart';
 
 class UpdateWebSocketState {
   const UpdateWebSocketState({
@@ -53,7 +54,19 @@ class UpdateWarningState {
   final String message;
 }
 
-class ConnectToSocketAction {}
+class UpdateThemeState {
+  const UpdateThemeState({
+    required this.themeMode,
+  });
+
+  final ThemeMode themeMode;
+}
+
+class UpdateNicknameState {
+  const UpdateNicknameState({required this.nickname, required this.status});
+  final String nickname;
+  final Status status;
+}
 
 class DisconnectFromSocketAction {}
 
@@ -100,3 +113,31 @@ class ClickCardAction {
 class ClearRoomStateAction {}
 
 class ClearWarningAction {}
+
+class ConnectToSocketAction {
+  ConnectToSocketAction({required this.name});
+
+  final String name;
+}
+
+class InitNicknameAction {}
+
+class SaveNicknameAction {
+  SaveNicknameAction({required this.nickname});
+
+  final String nickname;
+}
+
+class ChangeThemeAction {
+  ChangeThemeAction({required this.isDark});
+
+  final bool isDark;
+}
+
+class InitThemeAction {}
+
+class ChangeNicknameAction {
+  ChangeNicknameAction({required this.nickname});
+
+  final String nickname;
+}

@@ -1,5 +1,4 @@
 import 'package:codenames/features/menu/screens/first_screen.dart';
-import 'package:codenames/features/menu/screens/main_screen.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/theme.dart';
@@ -15,19 +14,24 @@ class CodenamesGame extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider(
       store: sl<Store<AppState>>(),
-      child: MaterialApp(
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        themeMode: ThemeMode.system,
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: Stack(
-            children: [
-              const MainScreen(),
-              SnackBarListener(),
-            ],
-          ),
-        ),
+      child: StoreConnector<AppState, ThemeMode>(
+        converter: (Store<AppState> store) => store.state.themeState.themeMode,
+        builder: (context, themeMode) {
+          return MaterialApp(
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: themeMode,
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Stack(
+                children: [
+                  HelloScreen(),
+                  SnackBarListener(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

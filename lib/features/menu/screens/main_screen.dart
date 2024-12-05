@@ -1,5 +1,3 @@
-import 'package:codenames/locator.dart';
-import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:codenames/features/menu/widgets/buttons_bar.dart';
@@ -10,19 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  void initState() {
-    sl<Store<AppState>>().dispatch(GetRoomsAction());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         const ButtonsBar(),
                         const SizedBox(height: 20),
-                        const Logo(),
+                        const Hero(tag: 'logo', child: Logo()),
                         const SizedBox(height: 10),
                         const Filter(),
                         const SizedBox(height: 20),
@@ -55,11 +42,22 @@ class _MainScreenState extends State<MainScreen> {
                                 room: state.roomsListState.rooms![index]),
                           ),
                         ),
+                        if (state.roomsListState.rooms!.isEmpty)
+                          Center(
+                            child: Text(
+                              'Немає кімнат. Створіть першу!',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   );
                 }
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                  child: Text(state.roomsListState.status.toString()),
+                );
               },
             ),
           )

@@ -1,4 +1,5 @@
-import 'package:codenames/features/create_room/screens/create_room_screen.dart';
+import 'package:codenames/features/menu/screens/settings_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ButtonsBar extends StatelessWidget {
@@ -16,7 +17,7 @@ class ButtonsBar extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CreateRoomScreen()),
+              CupertinoPageRoute(builder: (context) => const SettingsScreen()),
             );
           },
           child: Icon(

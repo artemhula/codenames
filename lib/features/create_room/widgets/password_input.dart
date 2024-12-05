@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -18,7 +19,7 @@ class PasswordInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Введіть пароль для зали:',
+          S.of(context).enterRoomPassword,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 20),

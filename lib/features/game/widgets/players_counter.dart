@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class PlayersCounter extends StatelessWidget {
@@ -16,7 +17,7 @@ class PlayersCounter extends StatelessWidget {
     return Row(
       children: [
         Text(
-          'Гравці:',
+          S.of(context).playersDD,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(width: 15),

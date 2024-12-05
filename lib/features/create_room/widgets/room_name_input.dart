@@ -1,8 +1,10 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class RoomNameInput extends StatelessWidget {
   const RoomNameInput({
-    super.key, required this.onChanged,
+    super.key,
+    required this.onChanged,
   });
   final Function(String) onChanged;
 
@@ -12,8 +14,10 @@ class RoomNameInput extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('Введіть назву зали:',
-            style: Theme.of(context).textTheme.bodyLarge),
+        Text(
+          S.of(context).enterRoomNameDD,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 50),

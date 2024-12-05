@@ -1,5 +1,6 @@
 import 'package:codenames/features/menu/screens/main_screen.dart';
 import 'package:codenames/features/menu/widgets/logo.dart';
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -53,7 +54,7 @@ class HelloScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Привіт!👋',
+                          S.of(context).hello,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 25),
@@ -63,7 +64,7 @@ class HelloScreen extends StatelessWidget {
                           maxLength: 20,
                           decoration: InputDecoration(
                             label: Text(
-                              'Введіть нікнейм',
+                              S.of(context).enterNickname,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                             filled: true,
@@ -107,7 +108,7 @@ class HelloScreen extends StatelessWidget {
                                         : Colors.white,
                                   )
                                 : Text(
-                                    'Далі',
+                                    S.of(context).next,
                                     style: TextStyle(
                                       color: Theme.of(context)
                                                   .colorScheme

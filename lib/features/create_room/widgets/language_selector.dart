@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/utils/lang.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class LanguageSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Оберіть мову гри:',
+          S.of(context).chooseGameLanguageDD,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 20),

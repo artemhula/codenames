@@ -1,4 +1,5 @@
 import 'package:codenames/features/create_room/screens/create_room_screen.dart';
+import 'package:codenames/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +12,11 @@ class Filter extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CreateRoomScreen()),
-            );
-          },
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CreateRoomScreen()),
+        );
+      },
       child: Row(
         children: [
           Icon(
@@ -25,7 +26,7 @@ class Filter extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            'Створити кімнату',
+            S.of(context).createARoom,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!

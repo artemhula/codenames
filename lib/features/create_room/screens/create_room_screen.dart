@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -28,7 +29,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: Text(
-              'Будь ласка введіть назву зали',
+              S.of(context).pleaseEnterHallName,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             actions: [
@@ -112,12 +113,12 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             child: Column(children: [
               IconButton(
                 onPressed: previousPage,
-                icon: Icon(Icons.arrow_upward),
+                icon: const Icon(Icons.arrow_upward),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               IconButton(
                 onPressed: nextPage,
-                icon: Icon(Icons.arrow_downward),
+                icon: const Icon(Icons.arrow_downward),
               ),
             ]),
           ),

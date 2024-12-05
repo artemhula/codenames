@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class Counter extends StatelessWidget {
@@ -14,7 +15,7 @@ class Counter extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Рахунок'),
+        Text(S.of(context).score),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

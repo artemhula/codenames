@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/utils/lang.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class RoomSummary extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Перевірте дані:',
+          S.of(context).checkTheDataDD,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 20),
@@ -27,11 +28,11 @@ class RoomSummary extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.7,
           child: Column(
             children: [
-              Text('Ім\'я: $roomName'),
+              Text(S.of(context).nameN(roomName)),
               const SizedBox(height: 10),
-              Text('Пароль: ${password[0]}${password[1]}${password[2]}'),
+              Text(S.of(context).passwordNNN('${password[0]}${password[1]}${password[2]}')),
               const SizedBox(height: 10),
-              Text('Словник: ${dict[language]}'),
+              Text(S.of(context).dictionaryN(dict[language]!)),
             ],
           ),
         ))

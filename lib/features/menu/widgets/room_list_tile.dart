@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/features/game/screens/choose_role_screen.dart';
@@ -27,8 +28,8 @@ class RoomListTile extends StatelessWidget {
               if (roomState.status == Status.loading) {
                 return const LoadingPopUp();
               } else if (roomState.status == Status.failure) {
-                return const ErrorPopUp(
-                  message: 'Пароль невірний',
+                return ErrorPopUp(
+                  message: S.of(context).passwordIsIncorrect,
                 );
               } else if (roomState.status == Status.success) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -76,12 +77,15 @@ class RoomListTile extends StatelessWidget {
                         child: Text(
                           room.name,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.primary),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
                       Text(
-                        'Гравців: ${room.usersInRoom}',
+                        S.of(context).PlayersDDN(room.usersInRoom),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!

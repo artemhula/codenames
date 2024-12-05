@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -40,7 +41,7 @@ class _PasswordPopUpState extends State<PasswordPopUp> {
                 roomId: widget.roomId,
                 password: int.parse(password.take(3).join())));
           },
-          child: const Text('Увійти'),
+          child: Text(S.of(context).enter),
         ),
       ],
     );

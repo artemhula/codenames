@@ -1,5 +1,6 @@
 import 'package:codenames/features/menu/widgets/nickname_changer.dart';
 import 'package:codenames/features/menu/widgets/theme_changer.dart';
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 Center(
                   child: Text(
-                    'Налаштування',
+                    S.of(context).settings,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),

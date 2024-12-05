@@ -1,5 +1,6 @@
 import 'package:codenames/features/game/widgets/team_confetti.dart';
 import 'package:codenames/features/menu/screens/main_screen.dart';
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -34,7 +35,7 @@ class EndGameScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Гра закінчилась!',
+                    S.of(context).gameOver,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 20),
@@ -42,11 +43,9 @@ class EndGameScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Перемогла ',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      Text(
-                        'команда ${winnerTeam == "blue" ? "синіх" : "червоних"}',
+                        winnerTeam == "blue"
+                            ? S.of(context).blue
+                            : S.of(context).blue,
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
@@ -55,6 +54,10 @@ class EndGameScreen extends StatelessWidget {
                                     ? Colors.blue
                                     : Colors.red,
                                 fontWeight: FontWeight.w900),
+                      ),
+                      Text(
+                        S.of(context).teamWon,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
                   ),
@@ -95,7 +98,6 @@ class EndGameScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      sl<Store<AppState>>().dispatch(GetRoomsAction());
                       sl<Store<AppState>>().dispatch(ClearRoomStateAction());
                       Navigator.of(context).pushAndRemoveUntil(
                           CupertinoPageRoute(
@@ -104,7 +106,7 @@ class EndGameScreen extends StatelessWidget {
                           (route) => false);
                     },
                     child: Text(
-                      'До головного екрану',
+                      S.of(context).backToMainScreen,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),

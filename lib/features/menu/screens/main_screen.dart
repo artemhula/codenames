@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:codenames/features/menu/widgets/buttons_bar.dart';
@@ -45,7 +46,7 @@ class MainScreen extends StatelessWidget {
                         if (state.roomsListState.rooms!.isEmpty)
                           Center(
                             child: Text(
-                              'Немає кімнат. Створіть першу!',
+                              S.of(context).noRooms,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
                               ),

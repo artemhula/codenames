@@ -32,7 +32,22 @@ void socketMiddleware(
         );
       },
     );
-
+    socket.on('get-rooms', (data) {
+      if (data is List) {
+        try {
+          log(data.toString());
+          final rooms = data
+              .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
+              .toList();
+          store.dispatch(
+              UpdateRoomsListState(rooms: rooms, status: Status.success));
+        } catch (e) {
+          store.dispatch(
+              const UpdateRoomsListState(rooms: [], status: Status.failure));
+          log(e.toString());
+        }
+      }
+    });
     socket.emitWithAck(
       'new-user',
       [action.name],
@@ -41,7 +56,6 @@ void socketMiddleware(
         store.dispatch(SaveNicknameAction(nickname: action.name));
       },
     );
-
     socket.on(
       'get-user-info',
       (data) {
@@ -65,42 +79,6 @@ void socketMiddleware(
         store.dispatch(UpdateWarningState(message: e['message']));
       },
     );
-  } else if (action is GetRoomsAction) {
-    // store.dispatch(const UpdateRoomsListState(status: Status.loading));
-    // socket.on('get-rooms', (data) {
-    //   print(data);
-    //   if (data is List) {
-    //     try {
-    //       log(data.toString());
-    //       final rooms = data
-    //           .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
-    //           .toList();
-    //       store.dispatch(
-    //           UpdateRoomsListState(rooms: rooms, status: Status.success));
-    //     } catch (e) {
-    //       store.dispatch(
-    //           const UpdateRoomsListState(rooms: [], status: Status.failure));
-    //       log(e.toString());
-    //     }
-    //   }
-    // });
-
-    socket.on('get-rooms', (data) {
-      if (data is List) {
-        try {
-          log(data.toString());
-          final rooms = data
-              .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
-              .toList();
-          store.dispatch(
-              UpdateRoomsListState(rooms: rooms, status: Status.success));
-        } catch (e) {
-          store.dispatch(
-              const UpdateRoomsListState(rooms: [], status: Status.failure));
-          log(e.toString());
-        }
-      }
-    });
   } else if (action is JoinRoomAction) {
     store.dispatch(const UpdateRoomState(status: Status.loading));
     log('join-room: id - ${store.state.userState.user}');

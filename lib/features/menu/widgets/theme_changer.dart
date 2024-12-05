@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -18,7 +19,7 @@ class ThemeChanger extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Темна тема',
+              S.of(context).darkTheme,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!

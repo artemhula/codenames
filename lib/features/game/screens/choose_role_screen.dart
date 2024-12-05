@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -36,7 +37,7 @@ class ChooseRoleScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          'Команди',
+                          S.of(context).teams,
                           style: Theme.of(context).textTheme.bodyLarge,
                           textAlign: TextAlign.center,
                         ),
@@ -51,7 +52,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      'Червона',
+                                      S.of(context).red,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
@@ -77,7 +78,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      'Синя',
+                                      S.of(context).blue,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
@@ -101,7 +102,7 @@ class ChooseRoleScreen extends StatelessWidget {
                           flex: 1,
                           child: Column(
                             children: [
-                              const Text('Без команди'),
+                              Text(S.of(context).noTeam),
                               Text(
                                 roomState.room!
                                     .getUsersByTeam(null)
@@ -127,7 +128,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                           const JoinTeamAction(team: 'red'));
                                     },
                                     color: Colors.red,
-                                    text: 'Приєднатися',
+                                    text: S.of(context).join,
                                   ),
                                 if (userState.user!.team == 'red')
                                   ActionButton(
@@ -137,8 +138,8 @@ class ChooseRoleScreen extends StatelessWidget {
                                     },
                                     color: Colors.red,
                                     text: userState.user!.role == 'player'
-                                        ? 'Стати капітаном'
-                                        : 'Стати гравцем',
+                                        ? S.of(context).becomeACaptain
+                                        : S.of(context).becomeAPlayer,
                                   ),
                                 if (userState.user!.id ==
                                         roomState.room!.creator &&
@@ -149,7 +150,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                           .dispatch(StartGameAction());
                                     },
                                     color: Colors.white12,
-                                    text: 'Запустити гру',
+                                    text: S.of(context).startTheGame,
                                   ),
                                 if (userState.user!.team == null ||
                                     userState.user!.team == 'red')
@@ -159,7 +160,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                           const JoinTeamAction(team: 'blue'));
                                     },
                                     color: Colors.blue,
-                                    text: 'Приєднатися',
+                                    text: S.of(context).join,
                                   ),
                                 if (userState.user!.team == 'blue')
                                   ActionButton(
@@ -169,8 +170,8 @@ class ChooseRoleScreen extends StatelessWidget {
                                     },
                                     color: Colors.blue,
                                     text: userState.user!.role == 'player'
-                                        ? 'Стати капітаном'
-                                        : 'Стати гравцем',
+                                        ? S.of(context).becomeACaptain
+                                        : S.of(context).becomeAPlayer,
                                   ),
                               ],
                             );

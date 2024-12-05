@@ -1,3 +1,4 @@
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -36,7 +37,7 @@ class _NicknameChangerState extends State<NicknameChanger> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Нікнейм: ',
+          S.of(context).nicknameDD,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!
@@ -93,7 +94,7 @@ class _NicknameChangerState extends State<NicknameChanger> {
               child: isLoading
                   ? const CupertinoActivityIndicator()
                   : Text(
-                      'Змінити',
+                      S.of(context).change,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: Theme.of(context).colorScheme.brightness ==
                                     Brightness.light

@@ -25,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const NicknameChanger(),
+                NicknameChanger(),
                 const SizedBox(height: 20),
                 const ThemeChanger(),
               ],

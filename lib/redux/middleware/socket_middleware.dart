@@ -167,9 +167,17 @@ void socketMiddleware(
   } else if (action is ClearWarningAction) {
     store.dispatch(const UpdateWarningState(message: ''));
   } else if (action is ChangeNicknameAction) {
-    socket.emit(
+    store.dispatch(UpdateUserState(
+        status: Status.loading, user: store.state.userState.user));
+    socket.emitWithAck(
       'change-name',
       [action.nickname, store.state.userState.user!.id],
+      ack: (data) {
+        if (data['ok'] == true) {
+          store.dispatch(SaveNicknameAction(nickname: action.nickname));
+          store.dispatch(const UpdateWarningState(message: 'Nickname changed'));
+        }
+      },
     );
     store.dispatch(SaveNicknameAction(nickname: action.nickname));
   }

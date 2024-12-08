@@ -34,6 +34,17 @@ class MainScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         const Filter(),
                         const SizedBox(height: 20),
+                        if (state.roomsListState.rooms!.isEmpty)
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                S.of(context).noRooms,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                            ),
+                          ),
                         Expanded(
                           child: ListView.separated(
                             itemCount: state.roomsListState.rooms!.length,
@@ -43,15 +54,7 @@ class MainScreen extends StatelessWidget {
                                 room: state.roomsListState.rooms![index]),
                           ),
                         ),
-                        if (state.roomsListState.rooms!.isEmpty)
-                          Center(
-                            child: Text(
-                              S.of(context).noRooms,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                            ),
-                          ),
+                        
                       ],
                     ),
                   );

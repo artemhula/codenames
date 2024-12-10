@@ -69,7 +69,7 @@ class NicknameChanger extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    fixedSize: const Size(80 ,40),
+                    fixedSize: const Size(90, 40),
                     padding: const EdgeInsets.all(8)),
                 child: state.status == Status.loading
                     ? const CupertinoActivityIndicator()

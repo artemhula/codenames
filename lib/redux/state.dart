@@ -16,7 +16,7 @@ class AppState {
       required this.webSocketState,
       required this.roomState,
       required this.warningState,
-      required this.themeState});
+      required this.settingsState});
 
   const AppState.initial({
     this.roomsListState = const RoomsListState.initialState(),
@@ -24,7 +24,7 @@ class AppState {
     this.userState = const UserState.initialState(),
     this.roomState = const RoomState.initialState(),
     this.warningState = const WarningState.initialState(),
-    this.themeState = const ThemeState.initialState(),
+    this.settingsState = const SettingsState.initialState(),
   });
 
   final RoomsListState roomsListState;
@@ -32,7 +32,7 @@ class AppState {
   final UserState userState;
   final RoomState roomState;
   final WarningState warningState;
-  final ThemeState themeState;
+  final SettingsState settingsState;
 }
 
 class RoomsListState {
@@ -89,9 +89,19 @@ class WarningState {
   final String message;
 }
 
-class ThemeState {
-  const ThemeState({required this.themeMode});
-  const ThemeState.initialState() : themeMode = ThemeMode.light;
+class SettingsState {
+  const SettingsState({required this.themeMode, this.locale});
+  const SettingsState.initialState()
+      : themeMode = ThemeMode.light,
+        locale = null;
 
   final ThemeMode themeMode;
+  final Locale? locale;
+
+  SettingsState copyWith({ThemeMode? themeMode, Locale? locale}) {
+    return SettingsState(
+      themeMode: themeMode ?? this.themeMode,
+      locale: locale ?? this.locale,
+    );
+  }
 }

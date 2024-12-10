@@ -28,9 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(password) => "Пароль: ${password}";
 
+  static String m4(playersCount, language, isStarted) =>
+      "Игроков: ${playersCount} | Язык: ${language}${isStarted}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "PlayersDDN": m0,
+        "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
         "backToMainScreen":
             MessageLookupByLibrary.simpleMessage("К главному экрану"),
         "becomeACaptain":
@@ -53,11 +57,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterRoomPassword":
             MessageLookupByLibrary.simpleMessage("Введите пароль для зала:"),
         "gameOver": MessageLookupByLibrary.simpleMessage("Игра закончилась!"),
+        "gameStarted":
+            MessageLookupByLibrary.simpleMessage(" | Игра уже началась"),
         "hello": MessageLookupByLibrary.simpleMessage("Привет!👋"),
         "join": MessageLookupByLibrary.simpleMessage("Присоединиться"),
         "nameN": m2,
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
-        "nicknameDD": MessageLookupByLibrary.simpleMessage("Никнейм: "),
+        "nicknameDD": MessageLookupByLibrary.simpleMessage("Никнейм"),
         "noRooms": MessageLookupByLibrary.simpleMessage(
             "Нет комнат. Создайте первую!"),
         "noTeam": MessageLookupByLibrary.simpleMessage("Без команды"),
@@ -68,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterHallName": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, введите название зала"),
         "red": MessageLookupByLibrary.simpleMessage("Красная"),
+        "roomInfo": m4,
         "score": MessageLookupByLibrary.simpleMessage("Счет"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "startTheGame": MessageLookupByLibrary.simpleMessage("Запустить игру"),

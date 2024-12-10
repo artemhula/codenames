@@ -79,29 +79,6 @@ void socketMiddleware(
         store.dispatch(UpdateWarningState(message: e['message']));
       },
     );
-  } else if (action is JoinRoomAction) {
-    store.dispatch(const UpdateRoomState(status: Status.loading));
-    log('join-room: id - ${store.state.userState.user}');
-    socket.emitWithAck(
-      'join-room',
-      [action.roomId, store.state.userState.user!.id, action.password],
-      ack: (Map<String, dynamic> data) {
-        if (data['ok'] == true) {
-          log('joined');
-          socket.off('get-rooms');
-          socket.on('finish-game', (data) {
-            store.dispatch(UpdateRoomState(
-              status: Status.success,
-              winnerTeam: data.toString(),
-            ));
-          });
-        } else if (data['statusCode'] == 401) {
-          store.dispatch(const UpdateRoomState(status: Status.failure));
-        } else {
-          store.dispatch(const UpdateRoomState(status: Status.failure));
-        }
-      },
-    );
     socket.on(
       'update-room',
       (room) {
@@ -118,11 +95,36 @@ void socketMiddleware(
         }
       },
     );
+    socket.on('finish-game', (data) {
+      store.dispatch(UpdateRoomState(
+        status: Status.success,
+        winnerTeam: data.toString(),
+      ));
+    });
+  } else if (action is JoinRoomAction) {
+    store.dispatch(const UpdateRoomState(status: Status.loading));
+    log('join-room: id - ${store.state.userState.user}');
+    socket.emitWithAck(
+      'join-room',
+      [action.roomId, store.state.userState.user!.id, action.password],
+      ack: (Map<String, dynamic> data) {
+        if (data['ok'] == true) {
+          log('joined');
+        } else if (data['statusCode'] == 401) {
+          store.dispatch(const UpdateRoomState(status: Status.failure));
+        } else {
+          store.dispatch(const UpdateRoomState(status: Status.failure));
+        }
+      },
+    );
   } else if (action is LeaveRoomAction) {
     socket.emitWithAck(
       'leave-room',
       [],
-      ack: (data) {},
+      ack: (data) {
+        log('left');
+        store.dispatch(ClearRoomStateAction());
+      },
     );
   } else if (action is JoinTeamAction) {
     socket.emit(
@@ -137,7 +139,12 @@ void socketMiddleware(
   } else if (action is CreateRoomAction) {
     socket.emitWithAck(
       'create-room',
-      [action.roomName, action.password, action.language],
+      [
+        action.roomName,
+        action.password,
+        action.language,
+        store.state.userState.user!.id
+      ],
       ack: (data) {
         if (data['statusCode'] == 200) {
           log('created');
@@ -155,8 +162,6 @@ void socketMiddleware(
   } else if (action is ClearRoomStateAction) {
     socket.emitWithAck('leave-room', [], ack: (Map<String, dynamic> data) {
       if (data['statusCode'] == 200) {
-        socket.off('update-room');
-        socket.off('finish-game');
         store.dispatch(const UpdateRoomState(
             status: Status.initial, room: null, winnerTeam: null));
       }

@@ -16,9 +16,9 @@ class CodenamesGame extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider(
       store: sl<Store<AppState>>(),
-      child: StoreConnector<AppState, ThemeMode>(
-        converter: (Store<AppState> store) => store.state.themeState.themeMode,
-        builder: (context, themeMode) {
+      child: StoreConnector<AppState, SettingsState>(
+        converter: (Store<AppState> store) => store.state.settingsState,
+        builder: (context, SettingsState state) {
           return MaterialApp(
             localizationsDelegates: const [
               S.delegate,
@@ -27,9 +27,10 @@ class CodenamesGame extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
+            locale: state.locale,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: themeMode,
+            themeMode: state.themeMode,
             debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Stack(

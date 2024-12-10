@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a ukr locale. All the
+// This is a library that provides messages for a uk locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,7 +18,7 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'ukr';
+  String get localeName => 'uk';
 
   static String m0(usersInRoom) => "Гравців: ${usersInRoom}";
 
@@ -28,9 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(password) => "Пароль: ${password}";
 
+  static String m4(playersCount, language, isStarted) =>
+      "Гравців: ${playersCount} | Мова: ${language}${isStarted}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "PlayersDDN": m0,
+        "appLanguage": MessageLookupByLibrary.simpleMessage("Мова застосунку"),
         "backToMainScreen":
             MessageLookupByLibrary.simpleMessage("До головного екрану"),
         "becomeACaptain":
@@ -53,11 +57,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterRoomPassword":
             MessageLookupByLibrary.simpleMessage("Введіть пароль для зали:"),
         "gameOver": MessageLookupByLibrary.simpleMessage("Гра закінчилась!"),
+        "gameStarted":
+            MessageLookupByLibrary.simpleMessage(" | Гра вже почалась"),
         "hello": MessageLookupByLibrary.simpleMessage("Привіт!👋"),
         "join": MessageLookupByLibrary.simpleMessage("Приєднатися"),
         "nameN": m2,
         "next": MessageLookupByLibrary.simpleMessage("Далі"),
-        "nicknameDD": MessageLookupByLibrary.simpleMessage("Нікнейм: "),
+        "nicknameDD": MessageLookupByLibrary.simpleMessage("Нікнейм"),
         "noRooms": MessageLookupByLibrary.simpleMessage(
             "Немає кімнат. Створіть першу!"),
         "noTeam": MessageLookupByLibrary.simpleMessage("Без команди"),
@@ -68,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterHallName": MessageLookupByLibrary.simpleMessage(
             "Будь ласка, введіть назву зали"),
         "red": MessageLookupByLibrary.simpleMessage("Червона"),
+        "roomInfo": m4,
         "score": MessageLookupByLibrary.simpleMessage("Рахунок"),
         "settings": MessageLookupByLibrary.simpleMessage("Налаштування"),
         "startTheGame": MessageLookupByLibrary.simpleMessage("Запустити гру"),

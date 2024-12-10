@@ -25,6 +25,11 @@ class RoomListTile extends StatelessWidget {
           context: context,
           builder: (context) => StoreConnector(
             builder: (BuildContext context, roomState) {
+              if (room.isGameStarted) {
+                return const ErrorPopUp(
+                  message: 'Гра вже почалася',
+                );
+              } else
               if (roomState.status == Status.loading) {
                 return const LoadingPopUp();
               } else if (roomState.status == Status.failure) {
@@ -85,7 +90,12 @@ class RoomListTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        S.of(context).PlayersDDN(room.usersInRoom),
+                        S.of(context).roomInfo(
+                            room.usersInRoom,
+                            'Мова',
+                            room.isGameStarted
+                                ? S.of(context).gameStarted
+                                : ''),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!

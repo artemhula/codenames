@@ -9,7 +9,7 @@ AppState appReducer(AppState state, action) => AppState(
       userState: userReducer(state.userState, action),
       roomState: roomReducer(state.roomState, action),
       warningState: warningReducer(state.warningState, action),
-      themeState: themeReducer(state.themeState, action),
+      settingsState: settingsReducer(state.settingsState, action),
     );
 
 WebSocketState webSocketReducer(WebSocketState state, action) {
@@ -59,9 +59,9 @@ WarningState warningReducer(WarningState state, action) {
   return state;
 }
 
-ThemeState themeReducer(ThemeState state, action) {
-  if (action is UpdateThemeState) {
-    return ThemeState(themeMode: action.themeMode);
+SettingsState settingsReducer(SettingsState state, action) {
+  if (action is UpdateSettingsState) {
+    return SettingsState(themeMode: action.themeMode, locale: action.locale);
   }
 
   return state;

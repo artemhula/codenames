@@ -54,12 +54,14 @@ class UpdateWarningState {
   final String message;
 }
 
-class UpdateThemeState {
-  const UpdateThemeState({
+class UpdateSettingsState {
+  const UpdateSettingsState({
     required this.themeMode,
+    this.locale,
   });
 
   final ThemeMode themeMode;
+  final Locale? locale;
 }
 
 class UpdateNicknameState {
@@ -134,10 +136,16 @@ class ChangeThemeAction {
   final bool isDark;
 }
 
-class InitThemeAction {}
-
 class ChangeNicknameAction {
   ChangeNicknameAction({required this.nickname});
 
   final String nickname;
 }
+
+class ChangeLanguageAction {
+  ChangeLanguageAction({required this.language});
+
+  final String language;
+}
+
+class InitSettingsAction {}

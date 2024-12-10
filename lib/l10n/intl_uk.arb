@@ -6,7 +6,7 @@
   "settings": "Налаштування",
   "enter": "Увійти",
   "createARoom": "Створити кімнату",
-  "nicknameDD": "Нікнейм: ",
+  "nicknameDD": "Нікнейм",
   "change": "Змінити",
   "passwordIsIncorrect": "Пароль невірний",
   "PlayersDDN": "Гравців: {usersInRoom}",
@@ -31,5 +31,8 @@
   "checkTheDataDD": "Перевірте дані:",
   "nameN": "Назва: {roomName}",
   "passwordNNN": "Пароль: {password}",
-  "dictionaryN": "Словник: {dict}"
+  "dictionaryN": "Словник: {dict}",
+  "appLanguage": "Мова застосунку",
+  "roomInfo": "Гравців: {playersCount} | Мова: {language}{isStarted}",
+  "gameStarted": " | Гра вже почалась"
 }

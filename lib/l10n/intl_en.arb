@@ -6,7 +6,7 @@
   "settings": "Settings",
   "enter": "Enter",
   "createARoom": "Create a room",
-  "nicknameDD": "Nickname: ",
+  "nicknameDD": "Nickname",
   "change": "Change",
   "passwordIsIncorrect": "Password is incorrect",
   "PlayersDDN": "Players: {usersInRoom}",
@@ -31,5 +31,8 @@
   "checkTheDataDD": "Check the data:",
   "nameN": "Name: {roomName}",
   "passwordNNN": "Password: {password}",
-  "dictionaryN": "Dictionary: {dict}"
+  "dictionaryN": "Dictionary: {dict}",
+  "appLanguage": "App language",
+  "roomInfo": "Players: {playersCount} | Language: {language}{isStarted}",
+  "gameStarted": " | Game is started"
 }

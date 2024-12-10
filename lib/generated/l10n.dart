@@ -120,10 +120,10 @@ class S {
     );
   }
 
-  /// `Nickname: `
+  /// `Nickname`
   String get nicknameDD {
     return Intl.message(
-      'Nickname: ',
+      'Nickname',
       name: 'nicknameDD',
       desc: '',
       args: [],
@@ -379,6 +379,36 @@ class S {
       args: [dict],
     );
   }
+
+  /// `App language`
+  String get appLanguage {
+    return Intl.message(
+      'App language',
+      name: 'appLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Players: {playersCount} | Language: {language}{isStarted}`
+  String roomInfo(Object playersCount, Object language, Object isStarted) {
+    return Intl.message(
+      'Players: $playersCount | Language: $language$isStarted',
+      name: 'roomInfo',
+      desc: '',
+      args: [playersCount, language, isStarted],
+    );
+  }
+
+  /// ` | Game is started`
+  String get gameStarted {
+    return Intl.message(
+      ' | Game is started',
+      name: 'gameStarted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -388,7 +418,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ru'),
-      Locale.fromSubtags(languageCode: 'ukr'),
+      Locale.fromSubtags(languageCode: 'uk'),
     ];
   }
 

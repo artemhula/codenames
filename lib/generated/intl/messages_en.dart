@@ -28,9 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(password) => "Password: ${password}";
 
+  static String m4(playersCount, language, isStarted) =>
+      "Players: ${playersCount} | Language: ${language}${isStarted}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "PlayersDDN": m0,
+        "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
         "backToMainScreen":
             MessageLookupByLibrary.simpleMessage("Back to the main screen"),
         "becomeACaptain":
@@ -54,11 +58,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterRoomPassword": MessageLookupByLibrary.simpleMessage(
             "Enter the password for the room:"),
         "gameOver": MessageLookupByLibrary.simpleMessage("Game over!"),
+        "gameStarted":
+            MessageLookupByLibrary.simpleMessage(" | Game is started"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello!👋"),
         "join": MessageLookupByLibrary.simpleMessage("Join"),
         "nameN": m2,
         "next": MessageLookupByLibrary.simpleMessage("Next"),
-        "nicknameDD": MessageLookupByLibrary.simpleMessage("Nickname: "),
+        "nicknameDD": MessageLookupByLibrary.simpleMessage("Nickname"),
         "noRooms":
             MessageLookupByLibrary.simpleMessage("No rooms. Create one!"),
         "noTeam": MessageLookupByLibrary.simpleMessage("No team"),
@@ -69,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterHallName": MessageLookupByLibrary.simpleMessage(
             "Please enter the name of the hall"),
         "red": MessageLookupByLibrary.simpleMessage("Red"),
+        "roomInfo": m4,
         "score": MessageLookupByLibrary.simpleMessage("Score"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "startTheGame": MessageLookupByLibrary.simpleMessage("Start the game"),

@@ -19,7 +19,9 @@ class ChooseRoleScreen extends StatelessWidget {
         sl<Store<AppState>>().dispatch(LeaveRoomAction());
       },
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+        ),
         body: SafeArea(
           child: Stack(
             children: [
@@ -32,11 +34,18 @@ class ChooseRoleScreen extends StatelessWidget {
                       if (roomState.room?.cardset != null &&
                           roomState.room!.cardset!.isNotEmpty) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => const GameScreen()),
+                              builder: (context) => const GameScreen(),
+                            ),
+                            (route) => false,
                           );
                         });
+                      }
+                      if (roomState.room == null) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,

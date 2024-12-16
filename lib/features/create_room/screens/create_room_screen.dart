@@ -1,3 +1,4 @@
+import 'package:codenames/features/game/screens/choose_role_screen.dart';
 import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
@@ -7,7 +8,9 @@ import 'package:codenames/features/create_room/widgets/language_selector.dart';
 import 'package:codenames/features/create_room/widgets/password_input.dart';
 import 'package:codenames/features/create_room/widgets/room_name_input.dart';
 import 'package:codenames/features/create_room/widgets/room_summary.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 class CreateRoomScreen extends StatefulWidget {
@@ -66,64 +69,77 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const Background(),
-          PageView(
-            controller: _controller,
-            scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(
-                parent: NeverScrollableScrollPhysics()),
-            children: [
-              RoomNameInput(
-                onChanged: (value) {
-                  setState(() {
-                    roomName = value;
-                  });
-                },
-              ),
-              PasswordInput(
-                password: password,
-                onChanged: (index, value) {
-                  setState(() {
-                    password[index] = value;
-                  });
-                },
-              ),
-              LanguageSelector(
-                language: language,
-                onChanged: (value) {
-                  setState(() {
-                    language = value;
-                  });
-                },
-              ),
-              RoomSummary(
-                roomName: roomName,
-                password: password,
-                language: language,
-              ),
-              const Center(child: CircularProgressIndicator()),
-            ],
-          ),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Column(children: [
-              IconButton(
-                onPressed: previousPage,
-                icon: const Icon(Icons.arrow_upward),
-              ),
-              const SizedBox(height: 10),
-              IconButton(
-                onPressed: nextPage,
-                icon: const Icon(Icons.arrow_downward),
-              ),
-            ]),
-          ),
-        ],
-      ),
-    );
+    return StoreConnector(
+        converter: (Store<AppState> store) => store.state.roomState.status,
+        builder: (BuildContext context, Status status) {
+          if (status == Status.success) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pushReplacement(
+                CupertinoPageRoute(
+                  builder: (context) => const ChooseRoleScreen(),
+                ),
+              );
+            });
+          }
+          return Scaffold(
+            body: Stack(
+              children: [
+                const Background(),
+                PageView(
+                  controller: _controller,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(
+                      parent: NeverScrollableScrollPhysics()),
+                  children: [
+                    RoomNameInput(
+                      onChanged: (value) {
+                        setState(() {
+                          roomName = value;
+                        });
+                      },
+                    ),
+                    PasswordInput(
+                      password: password,
+                      onChanged: (index, value) {
+                        setState(() {
+                          password[index] = value;
+                        });
+                      },
+                    ),
+                    LanguageSelector(
+                      language: language,
+                      onChanged: (value) {
+                        setState(() {
+                          language = value;
+                        });
+                      },
+                    ),
+                    RoomSummary(
+                      roomName: roomName,
+                      password: password,
+                      language: language,
+                    ),
+                    const Center(child: CircularProgressIndicator()),
+                  ],
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: Column(children: [
+                    IconButton(
+                      onPressed: previousPage,
+                      icon: const Icon(Icons.arrow_upward),
+                    ),
+                    const SizedBox(height: 10),
+                    IconButton(
+                      onPressed: nextPage,
+                      icon: const Icon(Icons.arrow_downward),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

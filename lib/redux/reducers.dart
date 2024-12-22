@@ -61,7 +61,12 @@ WarningState warningReducer(WarningState state, action) {
 
 SettingsState settingsReducer(SettingsState state, action) {
   if (action is UpdateSettingsState) {
-    return SettingsState(themeMode: action.themeMode, locale: action.locale);
+    return SettingsState(
+      themeMode: action.themeMode,
+      soundOn: action.soundOn,
+      vibrationOn: action.vibrationOn,
+      locale: action.locale,
+    );
   }
 
   return state;

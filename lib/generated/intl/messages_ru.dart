@@ -77,8 +77,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "roomInfo": m4,
         "score": MessageLookupByLibrary.simpleMessage("Счет"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
+        "sound": MessageLookupByLibrary.simpleMessage("Звук"),
         "startTheGame": MessageLookupByLibrary.simpleMessage("Запустить игру"),
         "teamWon": MessageLookupByLibrary.simpleMessage(" команда победила"),
-        "teams": MessageLookupByLibrary.simpleMessage("Команды")
+        "teams": MessageLookupByLibrary.simpleMessage("Команды"),
+        "vibration": MessageLookupByLibrary.simpleMessage("Вибрация")
       };
 }

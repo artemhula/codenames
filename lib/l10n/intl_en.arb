@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "hello": "Hello!👋",
   "enterNickname": "Enter your nickname",
   "next": "Next",
@@ -34,5 +35,7 @@
   "dictionaryN": "Dictionary: {dict}",
   "appLanguage": "App language",
   "roomInfo": "Players: {playersCount} | Language: {language}{isStarted}",
-  "gameStarted": " | Game is started"
+  "gameStarted": " | Game is started",
+  "sound": "Sound",
+  "vibration": "Vibration"
 }

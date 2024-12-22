@@ -7,19 +7,30 @@ import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:redux/redux.dart';
 
-class EndGameScreen extends StatelessWidget {
+class EndGameScreen extends StatefulWidget {
   const EndGameScreen({
     super.key,
     required this.winnerTeam,
-    // required this.redCount,
-    // required this.blueCount,
   });
 
   final String winnerTeam;
-  // final int redCount;
-  // final int blueCount;
+
+  @override
+  State<EndGameScreen> createState() => _EndGameScreenState();
+}
+
+class _EndGameScreenState extends State<EndGameScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (sl<Store<AppState>>().state.settingsState.soundOn) {
+      final player = AudioPlayer()..setAsset('assets/audio/end_game.mp3');
+      player.play();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +55,14 @@ class EndGameScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        winnerTeam == "blue"
+                        widget.winnerTeam == "blue"
                             ? S.of(context).blue
                             : S.of(context).blue,
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
                             .copyWith(
-                                color: winnerTeam == "blue"
+                                color: widget.winnerTeam == "blue"
                                     ? Colors.blue
                                     : Colors.red,
                                 fontWeight: FontWeight.w900),
@@ -114,7 +125,7 @@ class EndGameScreen extends StatelessWidget {
                 ],
               ),
             ),
-            TeamConfetti(winnerTeam: winnerTeam),
+            TeamConfetti(winnerTeam: widget.winnerTeam),
           ],
         ),
       ),

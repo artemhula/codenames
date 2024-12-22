@@ -27,8 +27,8 @@ class LanguageSelector extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () => onChanged('ua'),
-              child: _buildCard(context, '🇺🇦', 'ua'),
+              onTap: () => onChanged('uk'),
+              child: _buildCard(context, '🇺🇦', 'uk'),
             ),
             GestureDetector(
               onTap: () => onChanged('ru'),

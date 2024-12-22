@@ -15,6 +15,7 @@ class RoomModel extends Equatable {
     required this.users,
     required this.usersInRoom,
     required this.isGameStarted,
+    required this.language,
   });
 
   final List<CardModel>? cardset;
@@ -24,6 +25,7 @@ class RoomModel extends Equatable {
   final List<UserModel>? users;
   final int usersInRoom;
   final bool isGameStarted;
+  final String language;
 
   factory RoomModel.fromJson(Map<String, dynamic> json) => _$RoomModelFromJson(json);
 
@@ -36,5 +38,5 @@ class RoomModel extends Equatable {
       users.where((user) => user.team == team && user.role == 'captain').first;
 
   @override
-  List<Object?> get props => [cardset, id, name, users, usersInRoom];
+  List<Object?> get props => [cardset, id, name, users, usersInRoom, language];
 }

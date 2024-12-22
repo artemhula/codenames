@@ -10,13 +10,14 @@ enum Status {
 }
 
 class AppState {
-  const AppState(
-      {required this.userState,
-      required this.roomsListState,
-      required this.webSocketState,
-      required this.roomState,
-      required this.warningState,
-      required this.settingsState});
+  const AppState({
+    required this.userState,
+    required this.roomsListState,
+    required this.webSocketState,
+    required this.roomState,
+    required this.warningState,
+    required this.settingsState,
+  });
 
   const AppState.initial({
     this.roomsListState = const RoomsListState.initialState(),
@@ -90,18 +91,19 @@ class WarningState {
 }
 
 class SettingsState {
-  const SettingsState({required this.themeMode, this.locale});
+  const SettingsState(
+      {required this.themeMode,
+      required this.soundOn,
+      required this.vibrationOn,
+      this.locale});
   const SettingsState.initialState()
       : themeMode = ThemeMode.light,
-        locale = null;
+        locale = null,
+        soundOn = true,
+        vibrationOn = true;
 
   final ThemeMode themeMode;
   final Locale? locale;
-
-  SettingsState copyWith({ThemeMode? themeMode, Locale? locale}) {
-    return SettingsState(
-      themeMode: themeMode ?? this.themeMode,
-      locale: locale ?? this.locale,
-    );
-  }
+  final bool soundOn;
+  final bool vibrationOn;
 }

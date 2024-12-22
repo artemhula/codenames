@@ -4,6 +4,7 @@ import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:redux/redux.dart';
 
 class WordCard extends StatefulWidget {
@@ -30,6 +31,10 @@ class _WordCardState extends State<WordCard> {
         !oldWidget.card.isClicked &&
         !widget.isCaptain) {
       cardKey.currentState?.toggleCard();
+      if (sl<Store<AppState>>().state.settingsState.soundOn) {
+        final player = AudioPlayer()..setAsset('assets/audio/card.mp3');
+        player.play();
+      }
     }
   }
 
@@ -43,7 +48,8 @@ class _WordCardState extends State<WordCard> {
           : CardSide.FRONT,
       front: GestureDetector(
         onTap: () {
-          sl<Store<AppState>>().dispatch(ClickCardAction(widget.card, widget.team));
+          sl<Store<AppState>>()
+              .dispatch(ClickCardAction(widget.card, widget.team));
         },
         child: Card(
           child: Padding(

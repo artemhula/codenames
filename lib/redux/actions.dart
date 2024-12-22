@@ -57,10 +57,14 @@ class UpdateWarningState {
 class UpdateSettingsState {
   const UpdateSettingsState({
     required this.themeMode,
+    required this.soundOn,
+    required this.vibrationOn,
     this.locale,
   });
 
   final ThemeMode themeMode;
+  final bool soundOn;
+  final bool vibrationOn;
   final Locale? locale;
 }
 
@@ -149,3 +153,15 @@ class ChangeLanguageAction {
 }
 
 class InitSettingsAction {}
+
+class ChangeSoundAction {
+  ChangeSoundAction({required this.soundOn});
+
+  final bool soundOn;
+}
+
+class ChangeVibrationAction {
+  ChangeVibrationAction({required this.vibrationOn});
+
+  final bool vibrationOn;
+}

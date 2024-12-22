@@ -5,6 +5,7 @@ import 'package:codenames/features/game/screens/choose_role_screen.dart';
 import 'package:codenames/features/menu/widgets/popups/error_popup.dart';
 import 'package:codenames/features/menu/widgets/popups/loading_popup.dart';
 import 'package:codenames/features/menu/widgets/popups/password_popup.dart';
+import 'package:codenames/utils/lang.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -92,7 +93,7 @@ class RoomListTile extends StatelessWidget {
                       Text(
                         S.of(context).roomInfo(
                             room.usersInRoom,
-                            'Мова',
+                            dict[room.language]!,
                             room.isGameStarted
                                 ? S.of(context).gameStarted
                                 : ''),

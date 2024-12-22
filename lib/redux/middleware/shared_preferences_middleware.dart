@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -22,19 +20,32 @@ void sharedPreferencesMiddleware(
         isDark = false;
       }
     }
+    var soundOn = sp.getBool('sound');
+    if (soundOn == null) {
+      sp.setBool('sound', true);
+      soundOn = true;
+    }
+    var vibrationOn = sp.getBool('vibration');
+    if (vibrationOn == null) {
+      sp.setBool('vibration', true);
+      vibrationOn = true;
+    }
     final language = sp.getString('language');
     if (language != null) {
       store.dispatch(
         UpdateSettingsState(
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          soundOn: soundOn,
+          vibrationOn: vibrationOn,
           locale: Locale(language),
         ),
       );
     } else {
-      store.dispatch(
-        UpdateSettingsState(
-            themeMode: isDark ? ThemeMode.dark : ThemeMode.light),
-      );
+      store.dispatch(UpdateSettingsState(
+        themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+        soundOn: soundOn,
+        vibrationOn: vibrationOn,
+      ));
     }
   }
   if (action is InitNicknameAction) {
@@ -50,20 +61,36 @@ void sharedPreferencesMiddleware(
     sp.setBool('isDark', action.isDark);
     store.dispatch(UpdateSettingsState(
       themeMode: action.isDark ? ThemeMode.dark : ThemeMode.light,
+      soundOn: store.state.settingsState.soundOn,
+      vibrationOn: store.state.settingsState.vibrationOn,
       locale: store.state.settingsState.locale,
     ));
   } else if (action is SaveNicknameAction) {
     sp.setString('nickname', action.nickname);
-  }
-  if (action is ChangeLanguageAction) {
+  } else if (action is ChangeLanguageAction) {
     sp.setString('language', action.language);
-    log('try to change language, new language: ${action.language}');
-    store.dispatch(
-      UpdateSettingsState(
-        themeMode: store.state.settingsState.themeMode,
-        locale: Locale(action.language),
-      ),
-    );
+    store.dispatch(UpdateSettingsState(
+      themeMode: store.state.settingsState.themeMode,
+      soundOn: store.state.settingsState.soundOn,
+      vibrationOn: store.state.settingsState.vibrationOn,
+      locale: Locale(action.language),
+    ));
+  } else if (action is ChangeSoundAction) {
+    sp.setBool('sound', action.soundOn);
+    store.dispatch(UpdateSettingsState(
+      themeMode: store.state.settingsState.themeMode,
+      soundOn: action.soundOn,
+      vibrationOn: store.state.settingsState.vibrationOn,
+      locale: store.state.settingsState.locale,
+    ));
+  } else if (action is ChangeVibrationAction) {
+    sp.setBool('vibration', action.vibrationOn);
+    store.dispatch(UpdateSettingsState(
+      themeMode: store.state.settingsState.themeMode,
+      soundOn: store.state.settingsState.soundOn,
+      vibrationOn: action.vibrationOn,
+      locale: store.state.settingsState.locale,
+    ));
   }
   next(action);
 }

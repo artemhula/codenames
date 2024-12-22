@@ -3,6 +3,7 @@ import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
@@ -29,6 +30,8 @@ class ThemeChanger extends StatelessWidget {
               onChanged: (value) {
                 sl<Store<AppState>>()
                     .dispatch(ChangeThemeAction(isDark: value));
+                    // TODO: test android vibration (web not working)
+                    HapticFeedback.lightImpact();
               },
             ),
           ],

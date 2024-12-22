@@ -35,7 +35,7 @@ void socketMiddleware(
     socket.on('get-rooms', (data) {
       if (data is List) {
         try {
-          log(data.toString());
+          log('get-rooms: ${data.toString()}');
           final rooms = data
               .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
               .toList();
@@ -82,7 +82,7 @@ void socketMiddleware(
     socket.on(
       'update-room',
       (room) {
-        log(room.toString());
+        log('update-room: ${room.toString()}');
         store.dispatch(UpdateRoomState(
             status: Status.success, room: RoomModel.fromJson(room)));
         for (final user in room['users']) {
@@ -106,7 +106,11 @@ void socketMiddleware(
     log('join-room: id - ${store.state.userState.user}');
     socket.emitWithAck(
       'join-room',
-      [action.roomId, store.state.userState.user!.id, action.password],
+      [
+        action.roomId,
+        // store.state.userState.user!.id,
+        action.password,
+      ],
       ack: (Map<String, dynamic> data) {
         if (data['ok'] == true) {
           log('joined');
@@ -134,7 +138,9 @@ void socketMiddleware(
   } else if (action is ToggleRoleAction) {
     socket.emit(
       'toggle-role',
-      [store.state.userState.user!.id],
+      [
+        // store.state.userState.user!.id,
+      ],
     );
   } else if (action is CreateRoomAction) {
     socket.emitWithAck(
@@ -143,7 +149,7 @@ void socketMiddleware(
         action.roomName,
         action.password,
         action.language,
-        store.state.userState.user!.id
+        // store.state.userState.user!.id
       ],
       ack: (data) {
         if (data['statusCode'] == 200) {
@@ -157,7 +163,7 @@ void socketMiddleware(
     log('${action.card.word}, ${action.team}');
     socket.emit('card-clicked', [
       action.card.word,
-      store.state.userState.user!.id,
+      // store.state.userState.user!.id,
     ]);
   } else if (action is ClearRoomStateAction) {
     socket.emitWithAck('leave-room', [], ack: (Map<String, dynamic> data) {
@@ -176,7 +182,10 @@ void socketMiddleware(
         status: Status.loading, user: store.state.userState.user));
     socket.emitWithAck(
       'change-name',
-      [action.nickname, store.state.userState.user!.id],
+      [
+        action.nickname,
+        // store.state.userState.user!.id,
+      ],
       ack: (data) {
         if (data['ok'] == true) {
           store.dispatch(SaveNicknameAction(nickname: action.nickname));

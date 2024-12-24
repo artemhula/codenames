@@ -37,5 +37,6 @@
   "roomInfo": "Players: {playersCount} | Language: {language}{isStarted}",
   "gameStarted": " | Game is started",
   "sound": "Sound",
-  "vibration": "Vibration"
+  "vibration": "Vibration",
+  "theGameIsAlreadyStarted": "The game is already started"
 }

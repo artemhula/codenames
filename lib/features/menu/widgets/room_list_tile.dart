@@ -1,11 +1,11 @@
 import 'package:codenames/generated/l10n.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/features/game/screens/choose_role_screen.dart';
 import 'package:codenames/features/menu/widgets/popups/error_popup.dart';
 import 'package:codenames/features/menu/widgets/popups/loading_popup.dart';
 import 'package:codenames/features/menu/widgets/popups/password_popup.dart';
-import 'package:codenames/utils/lang.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -27,16 +27,11 @@ class RoomListTile extends StatelessWidget {
           builder: (context) => StoreConnector(
             builder: (BuildContext context, roomState) {
               if (room.isGameStarted) {
-                return const ErrorPopUp(
-                  message: 'Гра вже почалася',
-                );
-              } else
-              if (roomState.status == Status.loading) {
-                return const LoadingPopUp();
-              } else if (roomState.status == Status.failure) {
                 return ErrorPopUp(
-                  message: S.of(context).passwordIsIncorrect,
+                  message: S.of(context).theGameIsAlreadyStarted,
                 );
+              } else if (roomState.status == Status.loading) {
+                return const LoadingPopUp();
               } else if (roomState.status == Status.success) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.of(context).pushReplacement(
@@ -59,7 +54,7 @@ class RoomListTile extends StatelessWidget {
           color: Theme.of(context).brightness == Brightness.light
               ? Colors.white
               : Colors.black,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(Constants.borderRadius),
           border: Border.all(
             color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
           ),
@@ -93,7 +88,7 @@ class RoomListTile extends StatelessWidget {
                       Text(
                         S.of(context).roomInfo(
                             room.usersInRoom,
-                            dict[room.language]!,
+                            Constants.dictionaries[room.language]!,
                             room.isGameStarted
                                 ? S.of(context).gameStarted
                                 : ''),

@@ -1,3 +1,4 @@
+import 'package:codenames/shared/constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -16,13 +17,13 @@ class CardModel extends Equatable {
   Color getColor() {
     switch (teamName) {
       case 'black':
-        return Colors.black;
+        return Constants.blackColor;
       case 'red':
-        return Colors.red;
+        return Constants.redColor;
       case 'blue':
-        return Colors.blue;
+        return Constants.blueColor;
       default:
-        return Colors.grey;
+        return Constants.greyColor;
     }
   }
 

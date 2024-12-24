@@ -13,7 +13,8 @@ class ThemeChanger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, bool>(
-      converter: (Store<AppState> store) => store.state.settingsState.themeMode == ThemeMode.dark,
+      converter: (Store<AppState> store) =>
+          store.state.settingsState.themeMode == ThemeMode.dark,
       builder: (context, isDarkTheme) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,12 +27,11 @@ class ThemeChanger extends StatelessWidget {
                   .copyWith(color: Theme.of(context).colorScheme.primary),
             ),
             Switch(
-              value: isDarkTheme,              
+              value: isDarkTheme,
               onChanged: (value) {
                 sl<Store<AppState>>()
                     .dispatch(ChangeThemeAction(isDark: value));
-                    // TODO: test android vibration (web not working)
-                    HapticFeedback.lightImpact();
+                HapticFeedback.lightImpact();
               },
             ),
           ],

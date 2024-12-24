@@ -3,6 +3,7 @@ import 'package:codenames/features/game/widgets/back_button.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:codenames/features/game/widgets/counter.dart';
 import 'package:codenames/features/game/widgets/players_counter.dart';
@@ -27,7 +28,7 @@ class GameScreen extends StatelessWidget {
             children: [
               const Background(),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(Constants.padding),
                 child: StoreConnector<AppState, AppState>(
                   converter: (store) => store.state,
                   onWillChange: (previousState, newState) {

@@ -1,10 +1,9 @@
 import 'package:codenames/features/create_room/screens/create_room_screen.dart';
 import 'package:codenames/generated/l10n.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Filter extends StatelessWidget {
-  const Filter({
+class CreateRoomButton extends StatelessWidget {
+  const CreateRoomButton({
     super.key,
   });
 

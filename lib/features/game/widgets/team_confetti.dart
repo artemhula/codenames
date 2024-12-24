@@ -1,5 +1,7 @@
+import 'package:codenames/shared/constants.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 class TeamConfetti extends StatefulWidget {
   const TeamConfetti({super.key, required this.winnerTeam});
@@ -16,12 +18,11 @@ class _TeamConfettiState extends State<TeamConfetti> {
   @override
   void initState() {
     super.initState();
-    _controllerCenterRight =
-        ConfettiController(duration: const Duration(seconds: 10));
-    _controllerCenterLeft =
-        ConfettiController(duration: const Duration(seconds: 10));
+    _controllerCenterRight = ConfettiController(duration: const Duration(seconds: 10));
+    _controllerCenterLeft = ConfettiController(duration: const Duration(seconds: 10));
     _controllerCenterRight.play();
     _controllerCenterLeft.play();
+    Vibration.vibrate(pattern: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,100, 100, 100, 100, 100, 100],);
   }
 
   @override
@@ -43,8 +44,8 @@ class _TeamConfettiState extends State<TeamConfetti> {
             minimumSize: const Size(10, 10),
             maximumSize: const Size(30, 30),
             colors: widget.winnerTeam == 'blue'
-                ? [Colors.blue, Colors.cyan, Colors.lightBlue]
-                : [Colors.red, Colors.pink, Colors.deepOrange],
+                ? [Constants.blueColor, Colors.cyan, Colors.lightBlue]
+                : [Constants.redColor, Colors.pink, Colors.deepOrange],
             numberOfParticles: 1,
             gravity: 0.2,
           ),
@@ -57,8 +58,8 @@ class _TeamConfettiState extends State<TeamConfetti> {
             emissionFrequency: 0.3,
             minimumSize: const Size(10, 10),
             colors: widget.winnerTeam == 'blue'
-                ? [Colors.blue, Colors.cyan, Colors.lightBlue]
-                : [Colors.red, Colors.pink, Colors.deepOrange],
+                ? [Constants.blueColor, Colors.cyan, Colors.lightBlue]
+                : [Constants.redColor, Colors.pink, Colors.deepOrange],
             maximumSize: const Size(30, 30),
             numberOfParticles: 1,
             gravity: 0.2,

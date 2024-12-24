@@ -1,3 +1,4 @@
+import 'package:codenames/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
@@ -19,7 +20,7 @@ class ActionButton extends StatelessWidget {
           style: ButtonStyle(
             shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(Constants.borderRadius),
               ),
             ),
             backgroundColor: WidgetStateProperty.all(color),

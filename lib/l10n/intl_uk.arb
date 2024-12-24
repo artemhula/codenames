@@ -37,5 +37,6 @@
   "roomInfo": "Гравців: {playersCount} | Мова: {language}{isStarted}",
   "gameStarted": " | Гра вже почалась",
   "sound": "Звук",
-  "vibration": "Вібрація"
+  "vibration": "Вібрація",
+  "theGameIsAlreadyStarted": "Гра вже почалась"
 }

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/shared/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,11 +105,7 @@ void socketMiddleware(
     log('join-room: id - ${store.state.userState.user}');
     socket.emitWithAck(
       'join-room',
-      [
-        action.roomId,
-        // store.state.userState.user!.id,
-        action.password,
-      ],
+      [action.roomId, action.password],
       ack: (Map<String, dynamic> data) {
         if (data['ok'] == true) {
           log('joined');
@@ -166,17 +161,13 @@ void socketMiddleware(
       // store.state.userState.user!.id,
     ]);
   } else if (action is ClearRoomStateAction) {
-    socket.emitWithAck('leave-room', [], ack: (Map<String, dynamic> data) {
-      if (data['statusCode'] == 200) {
-        store.dispatch(const UpdateRoomState(
-            status: Status.initial, room: null, winnerTeam: null));
-      }
-    });
+    store.dispatch(const UpdateRoomState(
+        status: Status.initial, room: null, winnerTeam: null));
   } else if (action is DisconnectFromSocketAction) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
   } else if (action is ClearWarningAction) {
-    store.dispatch(const UpdateWarningState(message: ''));
+    store.dispatch(const UpdateWarningState(message: null));
   } else if (action is ChangeNicknameAction) {
     store.dispatch(UpdateUserState(
         status: Status.loading, user: store.state.userState.user));
@@ -189,11 +180,11 @@ void socketMiddleware(
       ack: (data) {
         if (data['ok'] == true) {
           store.dispatch(SaveNicknameAction(nickname: action.nickname));
-          store.dispatch(const UpdateWarningState(message: 'Nickname changed'));
+          store.dispatch(
+              const UpdateWarningState(message: 'Nickname was changed'));
         }
       },
     );
-    store.dispatch(SaveNicknameAction(nickname: action.nickname));
   }
   next(action);
 }

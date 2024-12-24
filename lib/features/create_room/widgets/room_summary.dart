@@ -1,5 +1,5 @@
 import 'package:codenames/generated/l10n.dart';
-import 'package:codenames/utils/lang.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class RoomSummary extends StatelessWidget {
@@ -24,7 +24,7 @@ class RoomSummary extends StatelessWidget {
         const SizedBox(height: 20),
         Card(
             child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(Constants.padding),
           width: MediaQuery.of(context).size.width * 0.7,
           child: Column(
             children: [
@@ -32,7 +32,8 @@ class RoomSummary extends StatelessWidget {
               const SizedBox(height: 10),
               Text(S.of(context).passwordNNN('${password[0]}${password[1]}${password[2]}')),
               const SizedBox(height: 10),
-              Text(S.of(context).dictionaryN(dict[language]!)),
+              Text(
+                  S.of(context).dictionaryN(Constants.dictionaries[language]!)),
             ],
           ),
         ))

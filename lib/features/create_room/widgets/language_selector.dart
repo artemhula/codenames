@@ -1,5 +1,5 @@
 import 'package:codenames/generated/l10n.dart';
-import 'package:codenames/utils/lang.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class LanguageSelector extends StatelessWidget {
@@ -63,7 +63,7 @@ class LanguageSelector extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
-              dict[languageValue]!,
+              Constants.dictionaries[languageValue]!,
               style: TextStyle(color: isSelected ? textSelectedColor : null),
             ),
           ],

@@ -429,6 +429,16 @@ class S {
       args: [],
     );
   }
+
+  /// `The game is already started`
+  String get theGameIsAlreadyStarted {
+    return Intl.message(
+      'The game is already started',
+      name: 'theGameIsAlreadyStarted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,4 +1,4 @@
-import 'package:codenames/features/menu/screens/settings_screen.dart';
+import 'package:codenames/features/settings/screens/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

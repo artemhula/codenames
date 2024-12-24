@@ -81,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTheGame": MessageLookupByLibrary.simpleMessage("Запустить игру"),
         "teamWon": MessageLookupByLibrary.simpleMessage(" команда победила"),
         "teams": MessageLookupByLibrary.simpleMessage("Команды"),
+        "theGameIsAlreadyStarted":
+            MessageLookupByLibrary.simpleMessage("Игра уже началась"),
         "vibration": MessageLookupByLibrary.simpleMessage("Вибрация")
       };
 }

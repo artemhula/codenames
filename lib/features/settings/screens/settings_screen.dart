@@ -1,17 +1,18 @@
-import 'package:codenames/features/menu/widgets/language_picker.dart';
-import 'package:codenames/features/menu/widgets/nickname_changer.dart';
-import 'package:codenames/features/menu/widgets/changer.dart';
+import 'package:codenames/features/settings/widgets/language_picker.dart';
+import 'package:codenames/features/settings/widgets/nickname_changer.dart';
+import 'package:codenames/features/settings/widgets/changer.dart';
 import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:redux/redux.dart';
+import 'package:vibration/vibration.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -23,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
         children: [
           const Background(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            padding: const EdgeInsets.all(Constants.padding),
             child: StoreConnector(
                 converter: (Store<AppState> store) => store.state.settingsState,
                 builder: (context, state) => Column(
@@ -75,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
                             value: state.vibrationOn,
                             onChanged: (value) {
                               if (value) {
-                                HapticFeedback.lightImpact();
+                                Vibration.vibrate(duration: 100);
                               }
                               sl<Store<AppState>>().dispatch(
                                   ChangeVibrationAction(vibrationOn: value));

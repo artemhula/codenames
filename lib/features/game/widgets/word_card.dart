@@ -1,4 +1,5 @@
 import 'package:codenames/locator.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/models/card.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:redux/redux.dart';
+import 'package:vibration/vibration.dart';
 
 class WordCard extends StatefulWidget {
   const WordCard(
@@ -50,10 +52,13 @@ class _WordCardState extends State<WordCard> {
         onTap: () {
           sl<Store<AppState>>()
               .dispatch(ClickCardAction(widget.card, widget.team));
+          if (sl<Store<AppState>>().state.settingsState.vibrationOn) {
+            Vibration.vibrate(duration: 100);
+          }
         },
         child: Card(
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(Constants.cardPadding),
             child: Center(
               child: Text(
                 widget.card.word,
@@ -66,7 +71,7 @@ class _WordCardState extends State<WordCard> {
       back: Card(
         color: widget.card.getColor(),
         child: Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(Constants.cardPadding),
           child: Center(
             child: Text(
               widget.card.word,

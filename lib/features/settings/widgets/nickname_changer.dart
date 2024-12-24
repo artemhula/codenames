@@ -2,6 +2,7 @@ import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -30,7 +31,7 @@ class NicknameChanger extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                height: 40,
+                height: Constants.settingsWidgetHeight,
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: TextField(
                   controller: controller..text = state.user!.name,
@@ -46,7 +47,7 @@ class NicknameChanger extends StatelessWidget {
                         : Colors.black.withOpacity(0.3),
                     focusColor: Theme.of(context).colorScheme.primary,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(Constants.borderRadius),
                     ),
                   ),
                 ),
@@ -67,10 +68,10 @@ class NicknameChanger extends StatelessWidget {
                         ? Colors.white
                         : Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(Constants.borderRadius),
                     ),
-                    fixedSize: const Size(90, 40),
-                    padding: const EdgeInsets.all(8)),
+                    fixedSize: const Size(90, Constants.settingsWidgetHeight),
+                    padding: const EdgeInsets.all(Constants.borderRadius)),
                 child: state.status == Status.loading
                     ? const CupertinoActivityIndicator()
                     : Text(

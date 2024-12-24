@@ -51,7 +51,7 @@ class UpdateWarningState {
     required this.message,
   });
 
-  final String message;
+  final String? message;
 }
 
 class UpdateSettingsState {

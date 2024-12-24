@@ -1,5 +1,6 @@
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/shared/models/user.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 enum Status {
@@ -83,11 +84,14 @@ class RoomState {
   final String? winnerTeam;
 }
 
-class WarningState {
+class WarningState extends Equatable {
   const WarningState({required this.message});
-  const WarningState.initialState() : message = '';
+  const WarningState.initialState(): message = null;
 
-  final String message;
+  final String? message;
+  
+  @override
+  List<Object?> get props => [message];
 }
 
 class SettingsState {

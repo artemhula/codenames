@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:codenames/shared/widgets/snack_bar_listener.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatefulWidget {
@@ -53,6 +54,7 @@ class _BackgroundState extends State<Background>
           filter: ImageFilter.blur(sigmaX: 100, sigmaY: 150),
           child: Container(),
         ),
+        const SnackBarListener(),
       ],
     );
   }

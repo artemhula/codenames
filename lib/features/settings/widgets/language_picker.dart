@@ -2,6 +2,7 @@ import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -31,10 +32,10 @@ class LanguagePicker extends StatelessWidget {
             builder: (context, locale) => Container(
               alignment: Alignment.center,
               width: 130,
-              height: 40,
+              height: Constants.settingsWidgetHeight,
               decoration: BoxDecoration(
                 border: Border.all(width: 1),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(Constants.borderRadius),
               ),
               child: DropdownButton(
                 value: locale?.languageCode,
@@ -47,23 +48,19 @@ class LanguagePicker extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                 underline: Container(),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(Constants.borderRadius),
                 iconDisabledColor: Theme.of(context).colorScheme.primary,
                 iconEnabledColor: Theme.of(context).colorScheme.primary,
-                items: const [
-                  DropdownMenuItem(
-                    value: 'en',
-                    child: Text('English'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'uk',
-                    child: Text('Українська'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'ru',
-                    child: Text('Русский'),
-                  ),
-                ],
+                items: Constants.dictionaries.keys
+                    .map(
+                      (String key) => DropdownMenuItem(
+                        value: key,
+                        child: Text(
+                          Constants.dictionaries[key]!,
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/features/game/screens/game_screen.dart';
 import 'package:codenames/features/game/widgets/action_button.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -27,7 +28,7 @@ class ChooseRoleScreen extends StatelessWidget {
             children: [
               const Background(),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(Constants.padding),
                 child: StoreConnector(
                     converter: (Store<AppState> store) => store.state.roomState,
                     builder: (BuildContext context, RoomState roomState) {
@@ -70,7 +71,8 @@ class ChooseRoleScreen extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge!
-                                            .copyWith(color: Colors.red),
+                                            .copyWith(
+                                                color: Constants.redColor),
                                       ),
                                       Column(
                                         children: roomState.room!
@@ -85,7 +87,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: double.maxFinite,
                                   child: VerticalDivider(
-                                    color: Colors.grey,
+                                    color: Constants.greyColor,
                                   ),
                                 ),
                                 Expanded(
@@ -96,7 +98,8 @@ class ChooseRoleScreen extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge!
-                                            .copyWith(color: Colors.blue),
+                                            .copyWith(
+                                                color: Constants.blueColor),
                                       ),
                                       Column(
                                         children: roomState.room!
@@ -141,7 +144,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                         sl<Store<AppState>>().dispatch(
                                             const JoinTeamAction(team: 'red'));
                                       },
-                                      color: Colors.red,
+                                      color: Constants.redColor,
                                       text: S.of(context).join,
                                     ),
                                   if (userState.user!.team == 'red')
@@ -150,7 +153,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                         sl<Store<AppState>>()
                                             .dispatch(ToggleRoleAction());
                                       },
-                                      color: Colors.red,
+                                      color: Constants.redColor,
                                       text: userState.user!.role == 'player'
                                           ? S.of(context).becomeACaptain
                                           : S.of(context).becomeAPlayer,
@@ -163,7 +166,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                         sl<Store<AppState>>()
                                             .dispatch(StartGameAction());
                                       },
-                                      color: Colors.white12,
+                                      color: Constants.greyColor,
                                       text: S.of(context).startTheGame,
                                     ),
                                   if (userState.user!.team == null ||
@@ -173,7 +176,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                         sl<Store<AppState>>().dispatch(
                                             const JoinTeamAction(team: 'blue'));
                                       },
-                                      color: Colors.blue,
+                                      color: Constants.blueColor,
                                       text: S.of(context).join,
                                     ),
                                   if (userState.user!.team == 'blue')
@@ -182,7 +185,7 @@ class ChooseRoleScreen extends StatelessWidget {
                                         sl<Store<AppState>>()
                                             .dispatch(ToggleRoleAction());
                                       },
-                                      color: Colors.blue,
+                                      color: Constants.blueColor,
                                       text: userState.user!.role == 'player'
                                           ? S.of(context).becomeACaptain
                                           : S.of(context).becomeAPlayer,

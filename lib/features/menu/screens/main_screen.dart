@@ -1,8 +1,9 @@
 import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:codenames/features/menu/widgets/buttons_bar.dart';
-import 'package:codenames/features/menu/widgets/filter.dart';
+import 'package:codenames/features/menu/widgets/create_room_button.dart';
 import 'package:codenames/features/menu/widgets/logo.dart';
 import 'package:codenames/features/menu/widgets/room_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -24,16 +25,23 @@ class MainScreen extends StatelessWidget {
               builder: (BuildContext context, state) {
                 if (state.roomsListState.status == Status.success) {
                   return Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(Constants.padding),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // buttons
                         const ButtonsBar(),
                         const SizedBox(height: 20),
+
+                        // logo
                         const Hero(tag: 'logo', child: Logo()),
                         const SizedBox(height: 10),
-                        const Filter(),
+
+                        // create room button
+                        const CreateRoomButton(),
                         const SizedBox(height: 20),
+
+                        // no rooms text
                         if (state.roomsListState.rooms!.isEmpty)
                           Expanded(
                             child: Center(
@@ -45,6 +53,8 @@ class MainScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+
+                          //rooms
                         Expanded(
                           child: ListView.separated(
                             itemCount: state.roomsListState.rooms!.length,

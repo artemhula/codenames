@@ -1,3 +1,5 @@
+import 'package:codenames/shared/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoadingPopUp extends StatelessWidget {
@@ -8,7 +10,9 @@ class LoadingPopUp extends StatelessWidget {
       content: Container(
         height: 70,
         alignment: Alignment.center,
-        child: const CircularProgressIndicator(),
+        child: const CupertinoActivityIndicator(
+          radius: Constants.progressIndicatorRadius,
+        ),
       ),
     );
   }

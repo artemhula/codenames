@@ -5,6 +5,7 @@ class Constants {
   static const double borderRadius = 10.0;
   static const double settingsWidgetHeight = 40.0;
   static const double cardPadding = 5.0;
+  static const double progressIndicatorRadius = 10.0;
   static const redColor = Color.fromARGB(255, 255, 80, 80);
   static const blueColor = Color.fromARGB(255, 80, 80, 253);
   static const greyColor = Color.fromARGB(255, 151, 151, 151);

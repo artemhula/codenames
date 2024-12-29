@@ -4,6 +4,7 @@ import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class HelloScreen extends StatelessWidget {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        CupertinoPageRoute(
+                        MaterialPageRoute(
                           builder: (context) => const MainScreen(),
                         ),
                         (route) => false,
@@ -99,7 +100,7 @@ class HelloScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(11.0),
                             child: status == Status.loading
                                 ? CupertinoActivityIndicator(
-                                    radius: 10,
+                                    radius: Constants.progressIndicatorRadius,
                                     color: Theme.of(context)
                                                 .colorScheme
                                                 .brightness ==
@@ -133,7 +134,7 @@ class HelloScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      CupertinoActivityIndicator(radius: 12)
+                      CupertinoActivityIndicator(radius: Constants.progressIndicatorRadius)
                     ],
                   );
                 }),

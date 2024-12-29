@@ -17,7 +17,7 @@ class SnackBarListener extends StatelessWidget {
       onWillChange: (previousState, currentState) {
         if (currentState.message != null && previousState!.message == null) {
           showToast(
-            'This is normal toast with animation',
+            currentState.message,
             context: context,
             animation: StyledToastAnimation.slideFromTopFade,
             reverseAnimation: StyledToastAnimation.slideToTopFade,

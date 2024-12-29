@@ -3,6 +3,7 @@ import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:codenames/features/create_room/widgets/language_selector.dart';
 import 'package:codenames/features/create_room/widgets/password_input.dart';
@@ -15,6 +16,7 @@ import 'package:redux/redux.dart';
 
 class CreateRoomScreen extends StatefulWidget {
   const CreateRoomScreen({super.key});
+
   @override
   _CreateRoomScreenState createState() => _CreateRoomScreenState();
 }
@@ -75,9 +77,8 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
           if (status == Status.success) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.of(context).pushReplacement(
-                CupertinoPageRoute(
-                  builder: (context) => const ChooseRoleScreen(),
-                ),
+                MaterialPageRoute(
+                    builder: (context) => const ChooseRoleScreen()),
               );
             });
           }
@@ -119,7 +120,11 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                       password: password,
                       language: language,
                     ),
-                    const Center(child: CircularProgressIndicator()),
+                    const Center(
+                      child: CupertinoActivityIndicator(
+                        radius: Constants.progressIndicatorRadius,
+                      ),
+                    ),
                   ],
                 ),
                 Positioned(

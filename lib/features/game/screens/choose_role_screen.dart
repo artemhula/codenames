@@ -6,6 +6,7 @@ import 'package:codenames/features/game/screens/game_screen.dart';
 import 'package:codenames/features/game/widgets/action_button.dart';
 import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -44,8 +45,8 @@ class ChooseRoleScreen extends StatelessWidget {
                         });
                       }
                       if (roomState.room == null) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                        return const CupertinoActivityIndicator(
+                          radius: Constants.progressIndicatorRadius,
                         );
                       }
                       return Column(

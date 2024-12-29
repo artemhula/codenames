@@ -6,7 +6,6 @@ import 'package:codenames/features/game/screens/choose_role_screen.dart';
 import 'package:codenames/features/menu/widgets/popups/error_popup.dart';
 import 'package:codenames/features/menu/widgets/popups/loading_popup.dart';
 import 'package:codenames/features/menu/widgets/popups/password_popup.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -35,7 +34,7 @@ class RoomListTile extends StatelessWidget {
               } else if (roomState.status == Status.success) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.of(context).pushReplacement(
-                    CupertinoPageRoute(
+                    MaterialPageRoute(
                       builder: (context) => const ChooseRoleScreen(),
                     ),
                   );

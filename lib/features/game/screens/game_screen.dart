@@ -19,7 +19,7 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-       onPopInvoked: (didPop) {
+      onPopInvoked: (didPop) {
         sl<Store<AppState>>().dispatch(LeaveRoomAction());
       },
       child: Scaffold(
@@ -36,7 +36,7 @@ class GameScreen extends StatelessWidget {
                         previousState?.roomState.winnerTeam == null) {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        CupertinoPageRoute(
+                        MaterialPageRoute(
                           builder: (context) => EndGameScreen(
                             winnerTeam: newState.roomState.winnerTeam!,
                           ),
@@ -47,18 +47,18 @@ class GameScreen extends StatelessWidget {
                   },
                   builder: (context, state) {
                     if (state.roomState.room == null) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return const CupertinoActivityIndicator(
+                        radius: Constants.progressIndicatorRadius,
                       );
                     }
-      
+
                     final room = state.roomState.room!;
                     final user = state.userState.user!;
                     final redPlayersCount = room.getUsersByTeam('red').length;
                     final bluePlayersCount = room.getUsersByTeam('blue').length;
                     final captainPlayersCount =
                         room.users!.where((u) => u.role == 'captain').length;
-      
+
                     return Column(
                       children: [
                         Row(
@@ -70,7 +70,8 @@ class GameScreen extends StatelessWidget {
                             ),
                             BackToMainButton(
                               onTap: () {
-                                sl<Store<AppState>>().dispatch(GetRoomsAction());
+                                sl<Store<AppState>>()
+                                    .dispatch(GetRoomsAction());
                                 Navigator.of(context).pop();
                                 sl<Store<AppState>>()
                                     .dispatch(ClearRoomStateAction());
@@ -88,10 +89,12 @@ class GameScreen extends StatelessWidget {
                           flex: 1,
                           child: Counter(
                             redCount: room.cardset!
-                                .where((c) => c.teamName == 'red' && c.isClicked)
+                                .where(
+                                    (c) => c.teamName == 'red' && c.isClicked)
                                 .length,
                             blueCount: room.cardset!
-                                .where((c) => c.teamName == 'blue' && c.isClicked)
+                                .where(
+                                    (c) => c.teamName == 'blue' && c.isClicked)
                                 .length,
                           ),
                         ),

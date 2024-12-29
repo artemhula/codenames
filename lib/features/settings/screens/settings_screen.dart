@@ -20,6 +20,14 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          S.of(context).settings,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        centerTitle: true,
+        forceMaterialTransparency: true,
+      ),
       body: Stack(
         children: [
           const Background(),
@@ -30,14 +38,6 @@ class SettingsScreen extends StatelessWidget {
                 builder: (context, state) => Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Center(
-                          child: Text(
-                            S.of(context).settings,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-
                         // nickname changer
                         NicknameChanger(),
                         const SizedBox(height: 20),

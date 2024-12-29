@@ -5,7 +5,6 @@ import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/widgets/background.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:redux/redux.dart';
@@ -112,10 +111,11 @@ class _EndGameScreenState extends State<EndGameScreen> {
                     onPressed: () {
                       sl<Store<AppState>>().dispatch(ClearRoomStateAction());
                       Navigator.of(context).pushAndRemoveUntil(
-                          CupertinoPageRoute(
-                            builder: (context) => const MainScreen(),
-                          ),
-                          (route) => false);
+                        MaterialPageRoute(
+                          builder: (context) => const MainScreen(),
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: Text(
                       S.of(context).backToMainScreen,

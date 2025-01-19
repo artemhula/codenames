@@ -3,6 +3,7 @@ import 'package:codenames/redux/middleware/shared_preferences_middleware.dart';
 import 'package:codenames/redux/middleware/socket_middleware.dart';
 import 'package:codenames/redux/reducers.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,9 +15,11 @@ Future<void> initializeDependencies() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
+  await dotenv.load(fileName: '.env');
+
   sl.registerLazySingleton(
     () => IO.io(
-      'http://localhost:3000',
+      dotenv.env['SOCKET_URL'],
       <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': false,

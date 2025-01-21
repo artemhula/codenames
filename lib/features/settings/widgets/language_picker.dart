@@ -36,6 +36,9 @@ class LanguagePicker extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(width: 1),
                 borderRadius: BorderRadius.circular(Constants.borderRadius),
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
               ),
               child: DropdownButton(
                 value: locale?.languageCode,
@@ -44,13 +47,9 @@ class LanguagePicker extends StatelessWidget {
                     ChangeLanguageAction(language: value!),
                   );
                 },
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                style: Theme.of(context).textTheme.bodyMedium!,
                 underline: Container(),
                 borderRadius: BorderRadius.circular(Constants.borderRadius),
-                iconDisabledColor: Theme.of(context).colorScheme.primary,
-                iconEnabledColor: Theme.of(context).colorScheme.primary,
                 items: Constants.dictionaries.keys
                     .map(
                       (String key) => DropdownMenuItem(

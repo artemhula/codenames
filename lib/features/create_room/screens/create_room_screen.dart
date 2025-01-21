@@ -24,8 +24,8 @@ class CreateRoomScreen extends StatefulWidget {
 class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final PageController _controller = PageController();
   String roomName = '';
-  List<int> password = [0, 0, 0];
-  String language = 'ua';
+  List<int> password = [5, 5, 5];
+  String language = 'uk';
 
   void nextPage() {
     if (_controller.page == 0) {

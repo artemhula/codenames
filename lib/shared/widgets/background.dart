@@ -43,15 +43,16 @@ class _BackgroundState extends State<Background>
           builder: (context, child) {
             return Container(
               width: 100 + (_animation.value * 100),
+              height: 100 + (_animation.value * 100),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
             );
           },
         ),
         BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 100, sigmaY: 150),
+          filter: ImageFilter.blur(sigmaX: 70, sigmaY: 70),
           child: Container(),
         ),
         const SnackBarListener(),

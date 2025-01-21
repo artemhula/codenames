@@ -1,5 +1,5 @@
 name: codenames
-description: "A new Flutter project."
+description: "Codenames is a word-based party game where players compete to uncover hidden words and outsmart their opponents. Join the fun and test your wits in this multiplayer game!"
 version: 1.0.0+1
 
 environment:
@@ -43,4 +43,4 @@ flutter:
   assets:
     - assets/audio/
     - assets/images/
-    - .env
+    # - .env

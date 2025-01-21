@@ -29,6 +29,7 @@ class PasswordInput extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               NumberPicker(
+                itemWidth: 80,
                 value: password[0],
                 minValue: 0,
                 maxValue: 9,
@@ -40,6 +41,7 @@ class PasswordInput extends StatelessWidget {
                 onChanged: (value) => onChanged(0, value),
               ),
               NumberPicker(
+                itemWidth: 80,
                 value: password[1],
                 minValue: 0,
                 maxValue: 9,
@@ -51,6 +53,7 @@ class PasswordInput extends StatelessWidget {
                 onChanged: (value) => onChanged(1, value),
               ),
               NumberPicker(
+                itemWidth: 80,
                 value: password[2],
                 minValue: 0,
                 maxValue: 9,

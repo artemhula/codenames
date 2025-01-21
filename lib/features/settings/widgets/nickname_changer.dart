@@ -32,7 +32,7 @@ class NicknameChanger extends StatelessWidget {
             children: [
               SizedBox(
                 height: Constants.settingsWidgetHeight,
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: 250,
                 child: TextField(
                   controller: controller..text = state.user!.name,
                   readOnly: state.status == Status.loading,

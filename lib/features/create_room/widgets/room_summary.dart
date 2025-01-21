@@ -23,20 +23,24 @@ class RoomSummary extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Card(
-            child: Container(
-          padding: const EdgeInsets.all(Constants.padding),
-          width: MediaQuery.of(context).size.width * 0.7,
-          child: Column(
-            children: [
-              Text(S.of(context).nameN(roomName)),
-              const SizedBox(height: 10),
-              Text(S.of(context).passwordNNN('${password[0]}${password[1]}${password[2]}')),
-              const SizedBox(height: 10),
-              Text(
-                  S.of(context).dictionaryN(Constants.dictionaries[language]!)),
-            ],
+          child: Container(
+            padding: const EdgeInsets.all(Constants.padding),
+            width: 400,
+            child: Column(
+              children: [
+                Text(S.of(context).nameN(roomName)),
+                const SizedBox(height: 10),
+                Text(S
+                    .of(context)
+                    .passwordNNN('${password[0]}${password[1]}${password[2]}')),
+                const SizedBox(height: 10),
+                Text(S
+                    .of(context)
+                    .dictionaryN(Constants.dictionaries[language]!)),
+              ],
+            ),
           ),
-        ))
+        )
       ],
     );
   }

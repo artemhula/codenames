@@ -21,17 +21,20 @@ class RoomNameInput extends StatelessWidget {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 50),
-          child: TextField(
-            onChanged: onChanged,
-            maxLength: 30,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white.withOpacity(0.3)
-                  : Colors.black.withOpacity(0.3),
-              focusColor: Theme.of(context).colorScheme.primary,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+          child: SizedBox(
+            width: 400,
+            child: TextField(
+              onChanged: onChanged,
+              maxLength: 30,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white.withOpacity(0.3)
+                    : Colors.black.withOpacity(0.3),
+                focusColor: Theme.of(context).colorScheme.primary,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
           ),

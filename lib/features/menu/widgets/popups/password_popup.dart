@@ -21,7 +21,7 @@ class _PasswordPopUpState extends State<PasswordPopUp> {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: SizedBox(
-        height: 250,
+        height: 240,
         child: PasswordInput(
           password: password,
           onChanged: (index, value) {

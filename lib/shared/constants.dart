@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Constants {
   static const double padding = 20.0;
   static const double borderRadius = 10.0;
-  static const double settingsWidgetHeight = 40.0;
+  static const double textMaxHeight = 45.0;
+  static const double textMaxWidth= 250.0;
   static const double cardPadding = 5.0;
   static const double progressIndicatorRadius = 10.0;
   static const redColor = Color.fromARGB(255, 255, 80, 80);

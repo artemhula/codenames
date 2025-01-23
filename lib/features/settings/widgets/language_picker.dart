@@ -32,13 +32,18 @@ class LanguagePicker extends StatelessWidget {
             builder: (context, locale) => Container(
               alignment: Alignment.center,
               width: 130,
-              height: Constants.settingsWidgetHeight,
+              height: Constants.textMaxHeight,
               decoration: BoxDecoration(
-                border: Border.all(width: 1),
+                border: Border.all(
+                  width: 1,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : Colors.white,
+                ),
                 borderRadius: BorderRadius.circular(Constants.borderRadius),
                 color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.white
-                    : Colors.black,
+                    ? Colors.white.withOpacity(0.3)
+                    : Colors.black.withOpacity(0.3),
               ),
               child: DropdownButton(
                 value: locale?.languageCode,

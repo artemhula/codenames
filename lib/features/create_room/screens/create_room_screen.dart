@@ -83,6 +83,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             });
           }
           return Scaffold(
+            appBar: AppBar(forceMaterialTransparency: true),
             body: Stack(
               children: [
                 const Background(),

@@ -25,7 +25,7 @@ class RoomSummary extends StatelessWidget {
         Card(
           child: Container(
             padding: const EdgeInsets.all(Constants.padding),
-            width: 400,
+            width: 350,
             child: Column(
               children: [
                 Text(S.of(context).nameN(roomName)),

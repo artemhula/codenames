@@ -8,6 +8,7 @@ import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
@@ -53,33 +54,42 @@ class HelloScreen extends StatelessWidget {
                             child: Logo(),
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 10),
                         Text(
                           S.of(context).hello,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        const SizedBox(height: 25),
-                        TextFormField(
-                          controller: _controller,
-                          enabled: status != Status.loading,
-                          maxLength: 20,
-                          decoration: InputDecoration(
-                            label: Text(
-                              S.of(context).enterNickname,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            filled: true,
-                            fillColor:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Colors.white.withOpacity(0.3)
-                                    : Colors.black.withOpacity(0.3),
-                            focusColor: Theme.of(context).colorScheme.primary,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                        const SizedBox(height: 20),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: Constants.textMaxWidth,
+                            minHeight: Constants.textMaxHeight,
+                            maxHeight: Constants.textMaxHeight,
+                          ),
+                          child: TextFormField(
+                            controller: _controller,
+                            readOnly: status == Status.loading,
+                            enabled: status != Status.loading,
+                            maxLength: 20,
+                            decoration: InputDecoration(
+                              label: Text(
+                                S.of(context).enterNickname,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                              counterText: '',
+                              filled: true,
+                              fillColor: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.white.withOpacity(0.3)
+                                  : Colors.black.withOpacity(0.3),
+                              focusColor: Theme.of(context).colorScheme.primary,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 15),
                         TextButton(
                           onPressed: () {
                             if (_controller.text.isNotEmpty) {
@@ -134,7 +144,8 @@ class HelloScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      CupertinoActivityIndicator(radius: Constants.progressIndicatorRadius)
+                      CupertinoActivityIndicator(
+                          radius: Constants.progressIndicatorRadius)
                     ],
                   );
                 }),

@@ -51,9 +51,11 @@ class _BackgroundState extends State<Background>
             );
           },
         ),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 70, sigmaY: 70),
-          child: Container(),
+        ClipRRect( // fix for IOS (safari, chrome)
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 70, sigmaY: 70),
+            child: Container(),
+          ),
         ),
         const SnackBarListener(),
       ],

@@ -30,10 +30,13 @@ class NicknameChanger extends StatelessWidget {
           const SizedBox(width: 10),
           Row(
             children: [
-              SizedBox(
-                height: Constants.settingsWidgetHeight,
-                width: 250,
-                child: TextField(
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: Constants.textMaxWidth,
+                  minHeight: Constants.textMaxHeight,
+                  maxHeight: Constants.textMaxHeight,
+                ),
+                child: TextFormField(
                   controller: controller..text = state.user!.name,
                   readOnly: state.status == Status.loading,
                   maxLength: 20,
@@ -47,7 +50,8 @@ class NicknameChanger extends StatelessWidget {
                         : Colors.black.withOpacity(0.3),
                     focusColor: Theme.of(context).colorScheme.primary,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Constants.borderRadius),
+                      borderRadius:
+                          BorderRadius.circular(Constants.borderRadius),
                     ),
                   ),
                 ),
@@ -55,7 +59,8 @@ class NicknameChanger extends StatelessWidget {
               const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
-                  if (controller.text != state.user!.name && controller.text.isNotEmpty) {
+                  if (controller.text != state.user!.name &&
+                      controller.text.isNotEmpty) {
                     sl<Store<AppState>>().dispatch(
                       ChangeNicknameAction(nickname: controller.text),
                     );
@@ -68,9 +73,10 @@ class NicknameChanger extends StatelessWidget {
                         ? Colors.white
                         : Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(Constants.borderRadius),
+                      borderRadius:
+                          BorderRadius.circular(Constants.borderRadius),
                     ),
-                    fixedSize: const Size(90, Constants.settingsWidgetHeight),
+                    fixedSize: const Size(90, Constants.textMaxHeight),
                     padding: const EdgeInsets.all(Constants.borderRadius)),
                 child: state.status == Status.loading
                     ? const CupertinoActivityIndicator()

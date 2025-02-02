@@ -1,3 +1,7 @@
+import 'package:codenames/features/game/screens/choose_role_screen.dart';
+import 'package:codenames/features/menu/widgets/popups/error_popup.dart';
+import 'package:codenames/features/menu/widgets/popups/loading_popup.dart';
+import 'package:codenames/features/menu/widgets/popups/password_popup.dart';
 import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/redux/state.dart';
 import 'package:codenames/shared/constants.dart';
@@ -54,17 +58,43 @@ class MainScreen extends StatelessWidget {
                             ),
                           ),
 
-                          //rooms
+                        //rooms
                         Expanded(
                           child: ListView.separated(
                             itemCount: state.roomsListState.rooms!.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 10),
+                            separatorBuilder: (context, index) => const SizedBox(height: 10),
                             itemBuilder: (context, index) => RoomListTile(
-                                room: state.roomsListState.rooms![index]),
+                              room: state.roomsListState.rooms![index],
+                              onTap: () {
+                                final room = state.roomsListState.rooms![index];
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => StoreConnector(
+                                    builder: (BuildContext context, roomState) {
+                                      if (room.isGameStarted) {
+                                        return ErrorPopUp(
+                                          message: S.of(context).theGameIsAlreadyStarted,
+                                        );
+                                      } else if (roomState.status == Status.loading) {
+                                        return const LoadingPopUp();
+                                      } else if (roomState.status == Status.success) {
+                                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) => const ChooseRoleScreen(),
+                                            ),
+                                          );
+                                        });
+                                      }
+                                      return PasswordPopUp(roomId: room.id);
+                                    },
+                                    converter: (Store<AppState> store) => store.state.roomState,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                        
                       ],
                     ),
                   );

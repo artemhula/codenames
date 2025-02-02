@@ -8,14 +8,30 @@ import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-class HelloScreen extends StatelessWidget {
-  HelloScreen({super.key});
+class HelloScreen extends StatefulWidget {
+  const HelloScreen({super.key});
 
-  final TextEditingController _controller = TextEditingController();
+  @override
+  State<HelloScreen> createState() => _HelloScreenState();
+}
+
+class _HelloScreenState extends State<HelloScreen> {
+  late TextEditingController _controller;
+
+  @override
+  initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +42,9 @@ class HelloScreen extends StatelessWidget {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: StoreConnector<AppState, Status>(
-                converter: (Store<AppState> store) =>
-                    store.state.userState.status,
+                converter: (Store<AppState> store) => store.state.userState.status,
                 onDidChange: (previousStatus, currentStatus) {
-                  if (currentStatus == Status.success &&
-                      previousStatus != Status.success) {
+                  if (currentStatus == Status.success && previousStatus != Status.success) {
                     sl<Store<AppState>>().dispatch(GetRoomsAction());
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.pushAndRemoveUntil(
@@ -78,8 +92,7 @@ class HelloScreen extends StatelessWidget {
                               ),
                               counterText: '',
                               filled: true,
-                              fillColor: Theme.of(context).brightness ==
-                                      Brightness.light
+                              fillColor: Theme.of(context).brightness == Brightness.light
                                   ? Colors.white.withOpacity(0.3)
                                   : Colors.black.withOpacity(0.3),
                               focusColor: Theme.of(context).colorScheme.primary,
@@ -90,7 +103,7 @@ class HelloScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 15),
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             if (_controller.text.isNotEmpty) {
                               sl<Store<AppState>>().dispatch(
@@ -98,38 +111,26 @@ class HelloScreen extends StatelessWidget {
                               );
                             }
                           },
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.5),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(11.0),
-                            child: status == Status.loading
-                                ? CupertinoActivityIndicator(
-                                    radius: Constants.progressIndicatorRadius,
-                                    color: Theme.of(context)
-                                                .colorScheme
-                                                .brightness ==
-                                            Brightness.light
-                                        ? Colors.black
-                                        : Colors.white,
-                                  )
-                                : Text(
-                                    S.of(context).next,
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                                  .colorScheme
-                                                  .brightness ==
-                                              Brightness.light
-                                          ? Colors.black
-                                          : Colors.white,
-                                    ),
-                                  ),
-                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                              foregroundColor: Theme.of(context).colorScheme.brightness == Brightness.light
+                                  ? Colors.white
+                                  : Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(Constants.borderRadius),
+                              ),
+                              fixedSize: const Size(90, Constants.textMaxHeight),
+                              padding: const EdgeInsets.all(Constants.borderRadius)),
+                          child: status == Status.loading
+                              ? const CupertinoActivityIndicator()
+                              : Text(
+                                  S.of(context).next,
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                        color: Theme.of(context).colorScheme.brightness == Brightness.light
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                ),
                         ),
                       ],
                     );
@@ -144,8 +145,7 @@ class HelloScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      CupertinoActivityIndicator(
-                          radius: Constants.progressIndicatorRadius)
+                      CupertinoActivityIndicator(radius: Constants.progressIndicatorRadius)
                     ],
                   );
                 }),

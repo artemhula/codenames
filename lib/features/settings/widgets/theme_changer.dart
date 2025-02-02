@@ -13,24 +13,21 @@ class ThemeChanger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, bool>(
-      converter: (Store<AppState> store) =>
-          store.state.settingsState.themeMode == ThemeMode.dark,
+      converter: (Store<AppState> store) => store.state.settingsState.themeMode == ThemeMode.dark,
       builder: (context, isDarkTheme) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               S.of(context).darkTheme,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.primary),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
             ),
             Switch(
               value: isDarkTheme,
               onChanged: (value) {
-                sl<Store<AppState>>()
-                    .dispatch(ChangeThemeAction(isDark: value));
+                sl<Store<AppState>>().dispatch(ChangeThemeAction(isDark: value));
                 HapticFeedback.lightImpact();
               },
             ),

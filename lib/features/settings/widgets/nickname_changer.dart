@@ -8,9 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-class NicknameChanger extends StatelessWidget {
-  NicknameChanger({super.key});
-  final TextEditingController controller = TextEditingController()..text;
+class NicknameChanger extends StatefulWidget {
+  const NicknameChanger({super.key});
+
+  @override
+  State<NicknameChanger> createState() => _NicknameChangerState();
+}
+
+class _NicknameChangerState extends State<NicknameChanger> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,36 +34,35 @@ class NicknameChanger extends StatelessWidget {
         children: [
           Text(
             S.of(context).nicknameDD,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 10),
           Row(
             children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: Constants.textMaxWidth,
-                  minHeight: Constants.textMaxHeight,
-                  maxHeight: Constants.textMaxHeight,
-                ),
-                child: TextFormField(
-                  controller: controller..text = state.user!.name,
-                  readOnly: state.status == Status.loading,
-                  maxLength: 20,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(8),
-                    counterText: "",
-                    filled: true,
-                    fillColor: Theme.of(context).brightness == Brightness.light
-                        ? Colors.white.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.3),
-                    focusColor: Theme.of(context).colorScheme.primary,
-                    border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(Constants.borderRadius),
+              IntrinsicWidth(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minWidth: 100,
+                    maxWidth: Constants.textMaxWidth,
+                    minHeight: Constants.textMaxHeight,
+                    maxHeight: Constants.textMaxHeight,
+                  ),
+                  child: TextFormField(
+                    controller: controller..text = state.user!.name,
+                    readOnly: state.status == Status.loading,
+                    maxLength: 20,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(8),
+                      counterText: "",
+                      filled: true,
+                      fillColor: Theme.of(context).brightness == Brightness.light
+                          ? Colors.white.withOpacity(0.3)
+                          : Colors.black.withOpacity(0.3),
+                      focusColor: Theme.of(context).colorScheme.primary,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(Constants.borderRadius),
+                      ),
                     ),
                   ),
                 ),
@@ -59,8 +70,7 @@ class NicknameChanger extends StatelessWidget {
               const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
-                  if (controller.text != state.user!.name &&
-                      controller.text.isNotEmpty) {
+                  if (controller.text != state.user!.name && controller.text.isNotEmpty) {
                     sl<Store<AppState>>().dispatch(
                       ChangeNicknameAction(nickname: controller.text),
                     );
@@ -68,13 +78,10 @@ class NicknameChanger extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.brightness ==
-                            Brightness.light
-                        ? Colors.white
-                        : Colors.black,
+                    foregroundColor:
+                        Theme.of(context).colorScheme.brightness == Brightness.light ? Colors.white : Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(Constants.borderRadius),
+                      borderRadius: BorderRadius.circular(Constants.borderRadius),
                     ),
                     fixedSize: const Size(90, Constants.textMaxHeight),
                     padding: const EdgeInsets.all(Constants.borderRadius)),
@@ -83,8 +90,7 @@ class NicknameChanger extends StatelessWidget {
                     : Text(
                         S.of(context).change,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: Theme.of(context).colorScheme.brightness ==
-                                      Brightness.light
+                              color: Theme.of(context).colorScheme.brightness == Brightness.light
                                   ? Colors.white
                                   : Colors.black,
                             ),

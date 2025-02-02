@@ -33,11 +33,10 @@ class PasswordInput extends StatelessWidget {
                 value: password[0],
                 minValue: 0,
                 maxValue: 9,
-                selectedTextStyle:
-                    Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                selectedTextStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                 onChanged: (value) => onChanged(0, value),
               ),
               NumberPicker(
@@ -45,11 +44,10 @@ class PasswordInput extends StatelessWidget {
                 value: password[1],
                 minValue: 0,
                 maxValue: 9,
-                selectedTextStyle:
-                    Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                selectedTextStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                 onChanged: (value) => onChanged(1, value),
               ),
               NumberPicker(
@@ -57,11 +55,10 @@ class PasswordInput extends StatelessWidget {
                 value: password[2],
                 minValue: 0,
                 maxValue: 9,
-                selectedTextStyle:
-                    Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                selectedTextStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                 onChanged: (value) => onChanged(2, value),
               ),
             ],

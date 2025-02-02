@@ -37,9 +37,12 @@ class _PasswordPopUpState extends State<PasswordPopUp> {
       actions: [
         InkWell(
           onTap: () {
-            sl<Store<AppState>>().dispatch(JoinRoomAction(
+            sl<Store<AppState>>().dispatch(
+              JoinRoomAction(
                 roomId: widget.roomId,
-                password: int.parse(password.take(3).join())));
+                password: int.parse(password.take(3).join()),
+              ),
+            );
           },
           child: Text(S.of(context).enter),
         ),

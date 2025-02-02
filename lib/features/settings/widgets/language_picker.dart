@@ -8,8 +8,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 class LanguagePicker extends StatelessWidget {
-  LanguagePicker({super.key});
-  final TextEditingController controller = TextEditingController()..text;
+  const LanguagePicker({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +20,10 @@ class LanguagePicker extends StatelessWidget {
         children: [
           Text(
             S.of(context).appLanguage,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           StoreConnector(
-            converter: (Store<AppState> store) =>
-                store.state.settingsState.locale,
+            converter: (Store<AppState> store) => store.state.settingsState.locale,
             builder: (context, locale) => Container(
               alignment: Alignment.center,
               width: 130,
@@ -36,9 +31,7 @@ class LanguagePicker extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.black
-                      : Colors.white,
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white,
                 ),
                 borderRadius: BorderRadius.circular(Constants.borderRadius),
                 color: Theme.of(context).brightness == Brightness.light

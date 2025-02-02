@@ -22,10 +22,23 @@ class CreateRoomScreen extends StatefulWidget {
 }
 
 class _CreateRoomScreenState extends State<CreateRoomScreen> {
-  final PageController _controller = PageController();
+  late PageController _controller;
+  int currentPage = 0;
   String roomName = '';
   List<int> password = [5, 5, 5];
   String language = 'uk';
+
+  @override
+  void initState() {
+    _controller = PageController(initialPage: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void nextPage() {
     if (_controller.page == 0) {
@@ -58,8 +71,11 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
         language: language,
       ));
     }
-    _controller.nextPage(
-        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+
+    _controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+    setState(() {
+      currentPage++;
+    });
   }
 
   void previousPage() {
@@ -67,6 +83,9 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
       duration: Duration(milliseconds: _controller.page == 0 ? 100 : 500),
       curve: Curves.easeIn,
     );
+    setState(() {
+      currentPage--;
+    });
   }
 
   @override
@@ -77,8 +96,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
           if (status == Status.success) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                    builder: (context) => const ChooseRoleScreen()),
+                MaterialPageRoute(builder: (context) => const ChooseRoleScreen()),
               );
             });
           }
@@ -90,8 +108,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                 PageView(
                   controller: _controller,
                   scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(
-                      parent: NeverScrollableScrollPhysics()),
+                  physics: const BouncingScrollPhysics(parent: NeverScrollableScrollPhysics()),
                   children: [
                     RoomNameInput(
                       onChanged: (value) {
@@ -128,21 +145,23 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                     ),
                   ],
                 ),
-                Positioned(
-                  bottom: 10,
-                  right: 10,
-                  child: Column(children: [
-                    IconButton(
-                      onPressed: previousPage,
-                      icon: const Icon(Icons.arrow_upward),
-                    ),
-                    const SizedBox(height: 10),
-                    IconButton(
-                      onPressed: nextPage,
-                      icon: const Icon(Icons.arrow_downward),
-                    ),
-                  ]),
-                ),
+                if (currentPage != 4)
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: Column(children: [
+                      if (currentPage != 0)
+                        IconButton(
+                          onPressed: previousPage,
+                          icon: const Icon(Icons.arrow_upward),
+                        ),
+                      const SizedBox(height: 10),
+                      IconButton(
+                        onPressed: nextPage,
+                        icon: const Icon(Icons.arrow_downward),
+                      ),
+                    ]),
+                  ),
               ],
             ),
           );

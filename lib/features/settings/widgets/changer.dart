@@ -19,10 +19,9 @@ class Changer extends StatelessWidget {
       children: [
         Text(
           text,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(color: Theme.of(context).colorScheme.primary),
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
         ),
         Switch(
           value: value,

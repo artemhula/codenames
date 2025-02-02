@@ -7,8 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final SharedPreferences sp = sl();
 
-void sharedPreferencesMiddleware(
-    Store<AppState> store, action, NextDispatcher next) {
+void sharedPreferencesMiddleware(Store<AppState> store, action, NextDispatcher next) {
   if (action is InitSettingsAction) {
     var isDark = sp.getBool('isDark');
     if (isDark == null) {

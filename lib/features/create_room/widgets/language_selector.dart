@@ -46,9 +46,7 @@ class LanguageSelector extends StatelessWidget {
 
   Widget _buildCard(BuildContext context, String emoji, String languageValue) {
     final isSelected = language == languageValue;
-    var textSelectedColor = Theme.of(context).brightness == Brightness.dark
-        ? Colors.black
-        : Colors.white;
+    var textSelectedColor = Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white;
     return Card(
       color: isSelected ? Theme.of(context).colorScheme.primary : null,
       child: Container(

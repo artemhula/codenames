@@ -26,10 +26,7 @@ class CreateRoomButton extends StatelessWidget {
           const SizedBox(width: 5),
           Text(
             S.of(context).createARoom,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
         ],
       ),

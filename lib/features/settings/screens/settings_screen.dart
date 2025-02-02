@@ -39,7 +39,7 @@ class SettingsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         // nickname changer
-                        NicknameChanger(),
+                        const NicknameChanger(),
                         const SizedBox(height: 20),
 
                         // theme changer
@@ -47,8 +47,7 @@ class SettingsScreen extends StatelessWidget {
                           text: S.of(context).darkTheme,
                           value: state.themeMode == ThemeMode.dark,
                           onChanged: (value) {
-                            sl<Store<AppState>>()
-                                .dispatch(ChangeThemeAction(isDark: value));
+                            sl<Store<AppState>>().dispatch(ChangeThemeAction(isDark: value));
                           },
                         ),
                         const SizedBox(height: 20),
@@ -59,12 +58,10 @@ class SettingsScreen extends StatelessWidget {
                           value: state.soundOn,
                           onChanged: (value) {
                             if (value) {
-                              final player = AudioPlayer()
-                                ..setAsset('assets/audio/card.mp3');
+                              final player = AudioPlayer()..setAsset('assets/audio/card.mp3');
                               player.play();
                             }
-                            sl<Store<AppState>>()
-                                .dispatch(ChangeSoundAction(soundOn: value));
+                            sl<Store<AppState>>().dispatch(ChangeSoundAction(soundOn: value));
                           },
                         ),
                         const SizedBox(height: 20),
@@ -78,8 +75,7 @@ class SettingsScreen extends StatelessWidget {
                               if (value) {
                                 Vibration.vibrate(duration: 100);
                               }
-                              sl<Store<AppState>>().dispatch(
-                                  ChangeVibrationAction(vibrationOn: value));
+                              sl<Store<AppState>>().dispatch(ChangeVibrationAction(vibrationOn: value));
                             },
                           ),
                         if (!kIsWeb) const SizedBox(height: 20),

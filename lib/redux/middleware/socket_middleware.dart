@@ -11,8 +11,7 @@ import 'package:redux/redux.dart';
 final IO.Socket socket = sl();
 final SharedPreferences sp = sl();
 
-void socketMiddleware(
-    Store<AppState> store, action, NextDispatcher next) async {
+void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async {
   if (action is ConnectToSocketAction) {
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
     socket.connect();
@@ -34,16 +33,10 @@ void socketMiddleware(
     socket.on('get-rooms', (data) {
       if (data is List) {
         try {
-          log('get-rooms: ${data.toString()}');
-          final rooms = data
-              .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
-              .toList();
-          store.dispatch(
-              UpdateRoomsListState(rooms: rooms, status: Status.success));
+          final rooms = data.map((item) => RoomModel.fromJson(item as Map<String, dynamic>)).toList();
+          store.dispatch(UpdateRoomsListState(rooms: rooms, status: Status.success));
         } catch (e) {
-          store.dispatch(
-              const UpdateRoomsListState(rooms: [], status: Status.failure));
-          log(e.toString());
+          store.dispatch(const UpdateRoomsListState(rooms: [], status: Status.failure));
         }
       }
     });
@@ -51,22 +44,17 @@ void socketMiddleware(
       'new-user',
       [action.name],
       ack: (data) {
-        log('user connected');
         store.dispatch(SaveNicknameAction(nickname: action.name));
       },
     );
     socket.on(
       'get-user-info',
       (data) {
-        log('get-user-info: $data');
         if (data is Map<String, dynamic>) {
           try {
-            store.dispatch(UpdateUserState(
-                user: UserModel.fromJson(data), status: Status.success));
-            log('user updated $data');
+            store.dispatch(UpdateUserState(user: UserModel.fromJson(data), status: Status.success));
           } catch (e) {
             store.dispatch(const UpdateUserState(status: Status.failure));
-            log(e.toString());
           }
         }
       },
@@ -81,14 +69,11 @@ void socketMiddleware(
     socket.on(
       'update-room',
       (room) {
-        log('update-room: ${room.toString()}');
-        store.dispatch(UpdateRoomState(
-            status: Status.success, room: RoomModel.fromJson(room)));
+        store.dispatch(UpdateRoomState(status: Status.success, room: RoomModel.fromJson(room)));
         for (final user in room['users']) {
           if (user['id'] == store.state.userState.user!.id) {
             store.dispatch(
-              UpdateUserState(
-                  user: UserModel.fromJson(user), status: Status.success),
+              UpdateUserState(user: UserModel.fromJson(user), status: Status.success),
             );
           }
         }
@@ -102,13 +87,11 @@ void socketMiddleware(
     });
   } else if (action is JoinRoomAction) {
     store.dispatch(const UpdateRoomState(status: Status.loading));
-    log('join-room: id - ${store.state.userState.user}');
     socket.emitWithAck(
       'join-room',
       [action.roomId, action.password],
       ack: (Map<String, dynamic> data) {
         if (data['ok'] == true) {
-          log('joined');
         } else if (data['statusCode'] == 401) {
           store.dispatch(const UpdateRoomState(status: Status.failure));
         } else {
@@ -121,22 +104,13 @@ void socketMiddleware(
       'leave-room',
       [],
       ack: (data) {
-        log('left');
         store.dispatch(ClearRoomStateAction());
       },
     );
   } else if (action is JoinTeamAction) {
-    socket.emit(
-      'join-team',
-      [action.team],
-    );
+    socket.emit('join-team', [action.team]);
   } else if (action is ToggleRoleAction) {
-    socket.emit(
-      'toggle-role',
-      [
-        // store.state.userState.user!.id,
-      ],
-    );
+    socket.emit('toggle-role', []);
   } else if (action is CreateRoomAction) {
     socket.emitWithAck(
       'create-room',
@@ -144,7 +118,6 @@ void socketMiddleware(
         action.roomName,
         action.password,
         action.language,
-        // store.state.userState.user!.id
       ],
       ack: (data) {
         if (data['statusCode'] == 200) {
@@ -156,32 +129,23 @@ void socketMiddleware(
     socket.emit('start-game', []);
   } else if (action is ClickCardAction) {
     log('${action.card.word}, ${action.team}');
-    socket.emit('card-clicked', [
-      action.card.word,
-      // store.state.userState.user!.id,
-    ]);
+    socket.emit('card-clicked', [action.card.word]);
   } else if (action is ClearRoomStateAction) {
-    store.dispatch(const UpdateRoomState(
-        status: Status.initial, room: null, winnerTeam: null));
+    store.dispatch(const UpdateRoomState(status: Status.initial, room: null, winnerTeam: null));
   } else if (action is DisconnectFromSocketAction) {
     socket.disconnect();
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
   } else if (action is ClearWarningAction) {
     store.dispatch(const UpdateWarningState(message: null));
   } else if (action is ChangeNicknameAction) {
-    store.dispatch(UpdateUserState(
-        status: Status.loading, user: store.state.userState.user));
+    store.dispatch(UpdateUserState(status: Status.loading, user: store.state.userState.user));
     socket.emitWithAck(
       'change-name',
-      [
-        action.nickname,
-        // store.state.userState.user!.id,
-      ],
+      [action.nickname],
       ack: (data) {
         if (data['ok'] == true) {
           store.dispatch(SaveNicknameAction(nickname: action.nickname));
-          store.dispatch(
-              const UpdateWarningState(message: 'Nickname was changed'));
+          store.dispatch(const UpdateWarningState(message: 'Nickname was changed'));
         }
       },
     );

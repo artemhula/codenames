@@ -1,3 +1,4 @@
+![logo](https://github.com/user-attachments/assets/5d65cf56-52ca-4f25-9b3d-44f1bf902b88)
 # Codenames 🎯
 
 ## 🔎 Overview

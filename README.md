@@ -2,12 +2,13 @@
 # Codenames 🎯
 
 ## 🔎 Overview
-Codenames is an online multiplayer game inspired by the popular party game. This project is a collaborative effort: I developed the client side using Flutter, while [my friend](https://github.com/AlexShatokhin) handled the server-side development. The project is built using WebSockets (socket.io) for real-time communication.
+Codenames is an online multiplayer game inspired by the popular party game. This project is a collaborative effort: I developed the client side using Flutter, while [my friend](https://github.com/AlexShatokhin) handled the server-side development. The project is built using WebSockets (socket.io) for real-time communication. The game supports three languages: Ukrainian, Russian, and English.
 
 ## 🚀 Demonstration
 ⚠️ You can try the web version [here](https://artemhula.github.io/codenames_web_demo/). Please note that the server might take a little longer to load after periods of inactivity. 
 
-Video TBA
+### Screenshots:
+![Screenshots](https://github.com/user-attachments/assets/f696327e-1d2f-49a9-8d63-efba70bb692a)
 
 ## Features
 - 🎮 Real-time multiplayer gameplay
@@ -15,6 +16,7 @@ Video TBA
 - 🔗 Smooth WebSocket-based communication
 - 🔊 Sound effects and vibration feedback
 - 🌗 Theme switching (light/dark mode)
+- 🌍 Language switching (Ukrainian, Russian, English)
 
 ## Requirements ⚙️
 - Flutter SDK >= 3.2.6
@@ -50,3 +52,4 @@ For server setup instructions, please refer to the [server documentation](https:
 - **Redux**
 - **Socket_IO**
 - **Shared Preferences**
+- **Flutter_intl (l10n)**

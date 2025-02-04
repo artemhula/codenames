@@ -240,10 +240,10 @@ class S {
     );
   }
 
-  /// `Start the game`
+  /// `Start game`
   String get startTheGame {
     return Intl.message(
-      'Start the game',
+      'Start game',
       name: 'startTheGame',
       desc: '',
       args: [],

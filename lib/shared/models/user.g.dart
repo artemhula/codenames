@@ -13,6 +13,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       role: json['role'] as String?,
       team: json['team'] as String?,
       isCreator: json['isCreator'] as bool?,
+      isGameFinished: json['isGameFinished'] as bool?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'role': instance.role,
       'team': instance.team,
       'isCreator': instance.isCreator,
+      'isGameFinished': instance.isGameFinished,
     };

@@ -6,6 +6,7 @@ class Constants {
   static const double textMaxHeight = 45.0;
   static const double textMaxWidth= 250.0;
   static const double cardPadding = 5.0;
+  static const double widgetsSpacing = 20.0;
   static const double progressIndicatorRadius = 10.0;
   static const redColor = Color.fromARGB(255, 255, 80, 80);
   static const blueColor = Color.fromARGB(255, 80, 80, 253);

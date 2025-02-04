@@ -71,6 +71,7 @@ class _HelloScreenState extends State<HelloScreen> {
                         const SizedBox(height: 10),
                         Text(
                           S.of(context).hello,
+                          textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 20),

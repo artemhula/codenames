@@ -10,11 +10,12 @@ import 'package:redux/redux.dart';
 import 'package:vibration/vibration.dart';
 
 class WordCard extends StatefulWidget {
-  const WordCard(
-      {super.key,
-      required this.card,
-      required this.isCaptain,
-      required this.team});
+  const WordCard({
+    super.key,
+    required this.card,
+    required this.isCaptain,
+    required this.team,
+  });
   final CardModel card;
   final bool isCaptain;
   final String team;
@@ -29,9 +30,7 @@ class _WordCardState extends State<WordCard> {
   @override
   void didUpdateWidget(covariant WordCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.card.isClicked &&
-        !oldWidget.card.isClicked &&
-        !widget.isCaptain) {
+    if (widget.card.isClicked && !oldWidget.card.isClicked && !widget.isCaptain) {
       cardKey.currentState?.toggleCard();
       if (sl<Store<AppState>>().state.settingsState.soundOn) {
         final player = AudioPlayer()..setAsset('assets/audio/card.mp3');
@@ -45,14 +44,11 @@ class _WordCardState extends State<WordCard> {
     return FlipCard(
       key: cardKey,
       flipOnTouch: false,
-      side: widget.isCaptain || widget.card.isClicked
-          ? CardSide.BACK
-          : CardSide.FRONT,
+      side: widget.isCaptain || widget.card.isClicked ? CardSide.BACK : CardSide.FRONT,
       front: GestureDetector(
-        onTap: () {
-          sl<Store<AppState>>()
-              .dispatch(ClickCardAction(widget.card, widget.team));
-          if (sl<Store<AppState>>().state.settingsState.vibrationOn) {
+        onTap: () async {
+          sl<Store<AppState>>().dispatch(ClickCardAction(widget.card, widget.team));
+          if ((await Vibration.hasVibrator() ?? false) && sl<Store<AppState>>().state.settingsState.vibrationOn) {
             Vibration.vibrate(duration: 100);
           }
         },
@@ -62,6 +58,7 @@ class _WordCardState extends State<WordCard> {
             child: Center(
               child: Text(
                 widget.card.word,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
@@ -75,7 +72,8 @@ class _WordCardState extends State<WordCard> {
           child: Center(
             child: Text(
               widget.card.word,
-              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
             ),
           ),
         ),

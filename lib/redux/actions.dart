@@ -91,7 +91,11 @@ class JoinTeamAction {
   final String team;
 }
 
-class ToggleRoleAction {}
+class ToggleRoleAction {
+  const ToggleRoleAction({required this.futureRole});
+
+  final String futureRole;
+}
 
 class LeaveRoomAction {}
 

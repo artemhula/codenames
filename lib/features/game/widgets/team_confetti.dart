@@ -1,7 +1,6 @@
 import 'package:codenames/shared/constants.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:vibration/vibration.dart';
 
 class TeamConfetti extends StatefulWidget {
   const TeamConfetti({super.key, required this.winnerTeam});
@@ -22,7 +21,6 @@ class _TeamConfettiState extends State<TeamConfetti> {
     _controllerCenterLeft = ConfettiController(duration: const Duration(seconds: 10));
     _controllerCenterRight.play();
     _controllerCenterLeft.play();
-    Vibration.vibrate(pattern: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,100, 100, 100, 100, 100, 100],);
   }
 
   @override

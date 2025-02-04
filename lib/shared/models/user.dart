@@ -12,6 +12,7 @@ class UserModel extends Equatable {
     required this.role,
     required this.team,
     required this.isCreator,
+    required this.isGameFinished,
   });
 
   final String id;
@@ -20,12 +21,12 @@ class UserModel extends Equatable {
   final String? role;
   final String? team;
   final bool? isCreator;
+  final bool? isGameFinished;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   @override
-  List<Object?> get props => [id, name, room, role, team, isCreator];
+  List<Object?> get props => [id, name, room, role, team, isCreator, isGameFinished];
 }

@@ -40,7 +40,7 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         // nickname changer
                         const NicknameChanger(),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: Constants.widgetsSpacing),
 
                         // theme changer
                         Changer(
@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
                             sl<Store<AppState>>().dispatch(ChangeThemeAction(isDark: value));
                           },
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: Constants.widgetsSpacing),
 
                         // sound changer
                         Changer(
@@ -64,24 +64,24 @@ class SettingsScreen extends StatelessWidget {
                             sl<Store<AppState>>().dispatch(ChangeSoundAction(soundOn: value));
                           },
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: Constants.widgetsSpacing),
 
                         // vibration changer
                         if (!kIsWeb)
                           Changer(
                             text: S.of(context).vibration,
                             value: state.vibrationOn,
-                            onChanged: (value) {
-                              if (value) {
+                            onChanged: (value) async {
+                              if (value && (await Vibration.hasVibrator() ?? false)) {
                                 Vibration.vibrate(duration: 100);
                               }
                               sl<Store<AppState>>().dispatch(ChangeVibrationAction(vibrationOn: value));
                             },
                           ),
-                        if (!kIsWeb) const SizedBox(height: 20),
+                        if (!kIsWeb) const SizedBox(height: Constants.widgetsSpacing),
 
                         // language changer
-                        LanguagePicker(),
+                        const LanguagePicker(),
                       ],
                     )),
           ),

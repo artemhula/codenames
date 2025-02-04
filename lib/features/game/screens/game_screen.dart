@@ -1,5 +1,4 @@
 import 'package:codenames/features/game/screens/end_game_screen.dart';
-import 'package:codenames/features/game/widgets/back_button.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -32,8 +31,7 @@ class GameScreen extends StatelessWidget {
                 child: StoreConnector<AppState, AppState>(
                   converter: (store) => store.state,
                   onWillChange: (previousState, newState) {
-                    if (newState.roomState.winnerTeam != null &&
-                        previousState?.roomState.winnerTeam == null) {
+                    if (newState.roomState.winnerTeam != null && previousState?.roomState.winnerTeam == null) {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -54,28 +52,18 @@ class GameScreen extends StatelessWidget {
 
                     final room = state.roomState.room!;
                     final user = state.userState.user!;
-                    final redPlayersCount = room.getUsersByTeam('red').length;
-                    final bluePlayersCount = room.getUsersByTeam('blue').length;
-                    final captainPlayersCount =
-                        room.users!.where((u) => u.role == 'captain').length;
+                    final redPlayersCount = room.getUsersByTeam('red').length - 1;
+                    final bluePlayersCount = room.getUsersByTeam('blue').length - 1;
+                    final captainPlayersCount = room.users!.where((u) => u.role == 'captain').length;
 
                     return Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               room.name,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                            BackToMainButton(
-                              onTap: () {
-                                sl<Store<AppState>>()
-                                    .dispatch(GetRoomsAction());
-                                Navigator.of(context).pop();
-                                sl<Store<AppState>>()
-                                    .dispatch(ClearRoomStateAction());
-                              },
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ],
                         ),
@@ -88,21 +76,18 @@ class GameScreen extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: Counter(
-                            redCount: room.cardset!
-                                .where(
-                                    (c) => c.teamName == 'red' && c.isClicked)
-                                .length,
-                            blueCount: room.cardset!
-                                .where(
-                                    (c) => c.teamName == 'blue' && c.isClicked)
-                                .length,
+                            redCount: room.cardset!.where((c) => c.teamName == 'red' && c.isClicked).length,
+                            blueCount: room.cardset!.where((c) => c.teamName == 'blue' && c.isClicked).length,
                           ),
                         ),
                         Expanded(
                           flex: 3,
-                          child: WordCards(
-                            cards: room.cardset!,
-                            user: user,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: WordCards(
+                              cards: room.cardset!,
+                              user: user,
+                            ),
                           ),
                         ),
                       ],

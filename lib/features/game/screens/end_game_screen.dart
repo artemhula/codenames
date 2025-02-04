@@ -4,6 +4,7 @@ import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
+import 'package:codenames/shared/constants.dart';
 import 'package:codenames/shared/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -47,32 +48,27 @@ class _EndGameScreenState extends State<EndGameScreen> {
                 children: [
                   Text(
                     S.of(context).gameOver,
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: Constants.widgetsSpacing),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.winnerTeam == "blue"
-                            ? S.of(context).blue
-                            : S.of(context).blue,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(
-                                color: widget.winnerTeam == "blue"
-                                    ? Colors.blue
-                                    : Colors.red,
-                                fontWeight: FontWeight.w900),
+                        widget.winnerTeam == "blue" ? S.of(context).blue : S.of(context).red,
+                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                            color: widget.winnerTeam == "blue" ? Colors.blue : Colors.red, fontWeight: FontWeight.w900),
                       ),
                       Text(
                         S.of(context).teamWon,
+                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: Constants.widgetsSpacing),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.center,
                   //   children: [
@@ -106,7 +102,7 @@ class _EndGameScreenState extends State<EndGameScreen> {
                   //     ),
                   //   ],
                   // ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: Constants.widgetsSpacing),
                   ElevatedButton(
                     onPressed: () {
                       sl<Store<AppState>>().dispatch(ClearRoomStateAction());
@@ -125,6 +121,7 @@ class _EndGameScreenState extends State<EndGameScreen> {
                 ],
               ),
             ),
+            
             TeamConfetti(winnerTeam: widget.winnerTeam),
           ],
         ),

@@ -9,24 +9,34 @@ class WordCards extends StatelessWidget {
     required this.cards,
     required this.user,
   });
+
   final List<CardModel> cards;
   final UserModel user;
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemCount: 25,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5,
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 1,
-      ),
-      itemBuilder: (context, index) {
-        return WordCard(
-          card: cards[index],
-          isCaptain: user.role == 'captain',
-          team: user.team!,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cellWidth = constraints.maxWidth / 5;
+        final cellHeight = constraints.maxHeight / 5;
+
+        return GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 25,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            crossAxisSpacing: 3,
+            mainAxisSpacing: 3,
+            childAspectRatio: cellWidth / cellHeight,
+          ),
+          itemBuilder: (context, index) {
+            return WordCard(
+              card: cards[index],
+              isCaptain: user.role == 'captain',
+              team: user.team!,
+            );
+          },
         );
       },
     );

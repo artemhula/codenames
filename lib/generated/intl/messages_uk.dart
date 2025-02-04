@@ -78,7 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "score": MessageLookupByLibrary.simpleMessage("Рахунок"),
         "settings": MessageLookupByLibrary.simpleMessage("Налаштування"),
         "sound": MessageLookupByLibrary.simpleMessage("Звук"),
-        "startTheGame": MessageLookupByLibrary.simpleMessage("Запустити гру"),
+        "startTheGame": MessageLookupByLibrary.simpleMessage("Почати гру"),
         "teamWon": MessageLookupByLibrary.simpleMessage(" команда перемогла"),
         "teams": MessageLookupByLibrary.simpleMessage("Команди"),
         "theGameIsAlreadyStarted":

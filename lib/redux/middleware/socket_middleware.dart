@@ -33,7 +33,11 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
     socket.on('get-rooms', (data) {
       if (data is List) {
         try {
-          final rooms = data.map((item) => RoomModel.fromJson(item as Map<String, dynamic>)).toList();
+          log(data.toString());
+          final rooms = data.reversed
+              .where((item) => !(item as Map<String, dynamic>)['isGameFinished'])
+              .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
+              .toList();
           store.dispatch(UpdateRoomsListState(rooms: rooms, status: Status.success));
         } catch (e) {
           store.dispatch(const UpdateRoomsListState(rooms: [], status: Status.failure));
@@ -80,6 +84,7 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
       },
     );
     socket.on('finish-game', (data) {
+      log('finish-game - ${data.toString()}');
       store.dispatch(UpdateRoomState(
         status: Status.success,
         winnerTeam: data.toString(),
@@ -110,15 +115,11 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
   } else if (action is JoinTeamAction) {
     socket.emit('join-team', [action.team]);
   } else if (action is ToggleRoleAction) {
-    socket.emit('toggle-role', []);
+    socket.emit('toggle-role', [action.futureRole]);
   } else if (action is CreateRoomAction) {
     socket.emitWithAck(
       'create-room',
-      [
-        action.roomName,
-        action.password,
-        action.language,
-      ],
+      [action.roomName, action.password, action.language],
       ack: (data) {
         if (data['statusCode'] == 200) {
           log('created');
@@ -126,7 +127,7 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
       },
     );
   } else if (action is StartGameAction) {
-    socket.emit('start-game', []);
+    socket.emit('start-game', [store.state.roomState.room!.id]);
   } else if (action is ClickCardAction) {
     log('${action.card.word}, ${action.team}');
     socket.emit('card-clicked', [action.card.word]);

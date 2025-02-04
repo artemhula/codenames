@@ -40,7 +40,7 @@ class CodenamesGame extends StatelessWidget {
               darkTheme: darkTheme,
               themeMode: state.themeMode,
               debugShowCheckedModeBanner: false,
-              home: Scaffold(
+              home: const Scaffold(
                 body: HelloScreen(),
               ),
             ),

@@ -53,3 +53,12 @@ For server setup instructions, please refer to the [server documentation](https:
 - **Socket_IO**
 - **Shared Preferences**
 - **Flutter_intl (l10n)**
+
+## Game Rules 📝
+- Minimum number of players: 4
+- The game is played in two teams: **red** and **blue**.  
+- Each team has a **spymaster** and **field operatives**.  
+- The spymaster gives one-word clues and a number, hinting at specific words on the board.  
+- Operatives try to guess their team’s words based on the clue.  
+- Be careful! Guessing the opponent’s words helps the other team, and guessing the **assassin word** ends the game instantly.  
+- The first team to find all their words wins! 🎯  

@@ -439,6 +439,56 @@ class S {
       args: [],
     );
   }
+
+  /// `You are in the blue team`
+  String get youAreInTheBlueTeam {
+    return Intl.message(
+      'You are in the blue team',
+      name: 'youAreInTheBlueTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are in the red team`
+  String get youAreInTheRedTeam {
+    return Intl.message(
+      'You are in the red team',
+      name: 'youAreInTheRedTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to leave the room?`
+  String get leaveRoomQuestion {
+    return Intl.message(
+      'Are you sure you want to leave the room?',
+      name: 'leaveRoomQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave`
+  String get leave {
+    return Intl.message(
+      'Leave',
+      name: 'leave',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

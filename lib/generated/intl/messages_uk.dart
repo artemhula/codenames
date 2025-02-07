@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Стати капітаном"),
         "becomeAPlayer": MessageLookupByLibrary.simpleMessage("Стати гравцем"),
         "blue": MessageLookupByLibrary.simpleMessage("Синя"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Ні"),
         "change": MessageLookupByLibrary.simpleMessage("Змінити"),
         "checkTheDataDD":
             MessageLookupByLibrary.simpleMessage("Перевірте дані:"),
@@ -61,6 +62,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" | Гра вже почалась"),
         "hello": MessageLookupByLibrary.simpleMessage("Привіт!👋"),
         "join": MessageLookupByLibrary.simpleMessage("Приєднатися"),
+        "leave": MessageLookupByLibrary.simpleMessage("Покинути"),
+        "leaveRoomQuestion": MessageLookupByLibrary.simpleMessage(
+            "Ви впевнені, що хочете покинути кімнату?"),
         "nameN": m2,
         "next": MessageLookupByLibrary.simpleMessage("Далі"),
         "nicknameDD": MessageLookupByLibrary.simpleMessage("Нікнейм"),
@@ -83,6 +87,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "teams": MessageLookupByLibrary.simpleMessage("Команди"),
         "theGameIsAlreadyStarted":
             MessageLookupByLibrary.simpleMessage("Гра вже почалась"),
-        "vibration": MessageLookupByLibrary.simpleMessage("Вібрація")
+        "vibration": MessageLookupByLibrary.simpleMessage("Вібрація"),
+        "youAreInTheBlueTeam":
+            MessageLookupByLibrary.simpleMessage("Ви в синій команді"),
+        "youAreInTheRedTeam":
+            MessageLookupByLibrary.simpleMessage("Ви в червоній команді")
       };
 }

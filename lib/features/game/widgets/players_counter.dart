@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 class PlayersCounter extends StatelessWidget {
   const PlayersCounter({
     super.key,
-    required this.spyPlayersCount,
     required this.redPlayersCount,
     required this.bluePlayersCount,
   });
-  final int spyPlayersCount;
   final int redPlayersCount;
   final int bluePlayersCount;
 
@@ -18,7 +16,7 @@ class PlayersCounter extends StatelessWidget {
       children: [
         Text(
           S.of(context).playersDD,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(width: 15),
         Badge(
@@ -28,16 +26,6 @@ class PlayersCounter extends StatelessWidget {
           child: Icon(
             Icons.person_outline,
             color: Colors.red.withOpacity(0.5),
-          ),
-        ),
-        const SizedBox(width: 15),
-        Badge(
-          label: Text(spyPlayersCount.toString()),
-          offset: const Offset(7, -7),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          child: const Icon(
-            Icons.person_search_outlined,
-            color: Colors.grey,
           ),
         ),
         const SizedBox(width: 15),

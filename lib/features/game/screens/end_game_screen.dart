@@ -69,40 +69,7 @@ class _EndGameScreenState extends State<EndGameScreen> {
                     ],
                   ),
                   const SizedBox(height: Constants.widgetsSpacing),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Text(
-                  //       'Рахунок: ',
-                  //       style: Theme.of(context).textTheme.headlineSmall,
-                  //     ),
-                  //     Text(
-                  //       blueCount.toString(),
-                  //       style: Theme.of(context)
-                  //           .textTheme
-                  //           .headlineSmall!
-                  //           .copyWith(
-                  //               color: Colors.blue,
-                  //               fontWeight: FontWeight.w900),
-                  //     ),
-                  //     Text(
-                  //       ' : ',
-                  //       style: Theme.of(context)
-                  //           .textTheme
-                  //           .headlineSmall!
-                  //           .copyWith(fontWeight: FontWeight.w900),
-                  //     ),
-                  //     Text(
-                  //       redCount.toString(),
-                  //       style: Theme.of(context)
-                  //           .textTheme
-                  //           .headlineSmall!
-                  //           .copyWith(
-                  //               color: Colors.red, fontWeight: FontWeight.w900),
-                  //     ),
-                  //   ],
-                  // ),
-                  const SizedBox(height: Constants.widgetsSpacing),
+
                   ElevatedButton(
                     onPressed: () {
                       sl<Store<AppState>>().dispatch(ClearRoomStateAction());

@@ -14,6 +14,7 @@ final SharedPreferences sp = sl();
 void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async {
   if (action is ConnectToSocketAction) {
     store.dispatch(const UpdateWebSocketState(status: Status.loading));
+    store.dispatch(const UpdateUserState(status: Status.loading));
     socket.connect();
     socket.onConnect(
       (_) {

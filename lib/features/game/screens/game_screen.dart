@@ -1,4 +1,6 @@
 import 'package:codenames/features/game/screens/end_game_screen.dart';
+import 'package:codenames/features/menu/screens/main_screen.dart';
+import 'package:codenames/generated/l10n.dart';
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -15,11 +17,49 @@ import 'package:redux/redux.dart';
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});
 
+  void _showLeaveRoomPopUp(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Container(
+          alignment: Alignment.center,
+          height: Constants.textPopUpContentHeight,
+          width: Constants.textPopUpContentWidth,
+          child: Text(
+            S.of(context).leaveRoomQuestion,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(S.of(context).cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const MainScreen(),
+                ),
+                (route) => false,
+              );
+              sl<Store<AppState>>().dispatch(LeaveRoomAction());
+            },
+            child: Text(
+              S.of(context).leave,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvoked: (didPop) {
-        sl<Store<AppState>>().dispatch(LeaveRoomAction());
+        _showLeaveRoomPopUp(context);
       },
       child: Scaffold(
         body: SafeArea(
@@ -52,26 +92,44 @@ class GameScreen extends StatelessWidget {
 
                     final room = state.roomState.room!;
                     final user = state.userState.user!;
-                    final redPlayersCount = room.getUsersByTeam('red').length - 1;
-                    final bluePlayersCount = room.getUsersByTeam('blue').length - 1;
-                    final captainPlayersCount = room.users!.where((u) => u.role == 'captain').length;
+                    final redPlayersCount = room.getUsersByTeam('red').length;
+                    final bluePlayersCount = room.getUsersByTeam('blue').length;
 
                     return Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               room.name,
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
+                            IconButton(
+                              icon: const Icon(Icons.exit_to_app_rounded),
+                              color: Theme.of(context).colorScheme.primary,
+                              onPressed: () {
+                                _showLeaveRoomPopUp(context);
+                              },
+                            ),
                           ],
                         ),
                         const SizedBox(height: 10.0),
-                        PlayersCounter(
-                          spyPlayersCount: redPlayersCount,
-                          redPlayersCount: captainPlayersCount,
-                          bluePlayersCount: bluePlayersCount,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            PlayersCounter(
+                              redPlayersCount: redPlayersCount,
+                              bluePlayersCount: bluePlayersCount,
+                            ),
+                            Text(
+                              user.team == 'blue'
+                                  ? S.of(context).youAreInTheBlueTeam
+                                  : S.of(context).youAreInTheRedTeam,
+                              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: user.team == 'blue' ? Constants.blueColor : Constants.redColor,
+                                  ),
+                            ),
+                          ],
                         ),
                         Expanded(
                           flex: 1,

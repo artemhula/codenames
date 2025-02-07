@@ -38,5 +38,10 @@
   "gameStarted": " | Game is started",
   "sound": "Sound",
   "vibration": "Vibration",
-  "theGameIsAlreadyStarted": "The game is already started"
+  "theGameIsAlreadyStarted": "The game is already started",
+  "youAreInTheBlueTeam": "You are in the blue team",
+  "youAreInTheRedTeam": "You are in the red team",
+  "leaveRoomQuestion": "Are you sure you want to leave the room?",
+  "cancel": "Cancel",
+  "leave": "Leave"
 }

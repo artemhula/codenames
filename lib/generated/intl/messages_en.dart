@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "becomeAPlayer":
             MessageLookupByLibrary.simpleMessage("Become a player"),
         "blue": MessageLookupByLibrary.simpleMessage("Blue"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkTheDataDD":
             MessageLookupByLibrary.simpleMessage("Check the data:"),
@@ -62,6 +63,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" | Game is started"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello!👋"),
         "join": MessageLookupByLibrary.simpleMessage("Join"),
+        "leave": MessageLookupByLibrary.simpleMessage("Leave"),
+        "leaveRoomQuestion": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to leave the room?"),
         "nameN": m2,
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nicknameDD": MessageLookupByLibrary.simpleMessage("Nickname"),
@@ -84,6 +88,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "teams": MessageLookupByLibrary.simpleMessage("Teams"),
         "theGameIsAlreadyStarted":
             MessageLookupByLibrary.simpleMessage("The game is already started"),
-        "vibration": MessageLookupByLibrary.simpleMessage("Vibration")
+        "vibration": MessageLookupByLibrary.simpleMessage("Vibration"),
+        "youAreInTheBlueTeam":
+            MessageLookupByLibrary.simpleMessage("You are in the blue team"),
+        "youAreInTheRedTeam":
+            MessageLookupByLibrary.simpleMessage("You are in the red team")
       };
 }

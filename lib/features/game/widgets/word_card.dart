@@ -30,8 +30,10 @@ class _WordCardState extends State<WordCard> {
   @override
   void didUpdateWidget(covariant WordCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.card.isClicked && !oldWidget.card.isClicked && !widget.isCaptain) {
-      cardKey.currentState?.toggleCard();
+    if (widget.card.isClicked && !oldWidget.card.isClicked) {
+      if (!widget.isCaptain) {
+        cardKey.currentState?.toggleCard();
+      }
       if (sl<Store<AppState>>().state.settingsState.soundOn) {
         final player = AudioPlayer()..setAsset('assets/audio/card.mp3');
         player.play();
@@ -70,11 +72,13 @@ class _WordCardState extends State<WordCard> {
         child: Padding(
           padding: const EdgeInsets.all(Constants.cardPadding),
           child: Center(
-            child: Text(
-              widget.card.word,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
-            ),
+            child: widget.isCaptain && widget.card.isClicked
+                ? Container()
+                : Text(
+                    widget.card.word,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
+                  ),
           ),
         ),
       ),

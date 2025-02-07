@@ -38,5 +38,10 @@
   "gameStarted": " | Игра уже началась",
   "sound": "Звук",
   "vibration": "Вибрация",
-  "theGameIsAlreadyStarted": "Игра уже началась"
+  "theGameIsAlreadyStarted": "Игра уже началась",
+  "youAreInTheBlueTeam": "Вы в синей команде",
+  "youAreInTheRedTeam": "Вы в красной команде",
+  "leaveRoomQuestion": "Вы уверены, что хотите покинуть комнату?",
+  "cancel": "Нет",
+  "leave": "Покинуть"
 }

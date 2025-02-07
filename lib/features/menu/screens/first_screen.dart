@@ -122,16 +122,14 @@ class _HelloScreenState extends State<HelloScreen> {
                               ),
                               fixedSize: const Size(90, Constants.textMaxHeight),
                               padding: const EdgeInsets.all(Constants.borderRadius)),
-                          child: status == Status.loading
-                              ? const CupertinoActivityIndicator()
-                              : Text(
-                                  S.of(context).next,
-                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                        color: Theme.of(context).colorScheme.brightness == Brightness.light
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
+                          child: Text(
+                            S.of(context).next,
+                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  color: Theme.of(context).colorScheme.brightness == Brightness.light
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
+                          ),
                         ),
                       ],
                     );

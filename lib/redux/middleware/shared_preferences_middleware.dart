@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
 import 'package:codenames/redux/state.dart';
@@ -29,23 +31,15 @@ void sharedPreferencesMiddleware(Store<AppState> store, action, NextDispatcher n
       sp.setBool('vibration', true);
       vibrationOn = true;
     }
-    final language = sp.getString('language');
-    if (language != null) {
-      store.dispatch(
-        UpdateSettingsState(
-          themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-          soundOn: soundOn,
-          vibrationOn: vibrationOn,
-          locale: Locale(language),
-        ),
-      );
-    } else {
-      store.dispatch(UpdateSettingsState(
+    var language = sp.getString('language') ?? PlatformDispatcher.instance.locale.languageCode;
+    store.dispatch(
+      UpdateSettingsState(
         themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
         soundOn: soundOn,
         vibrationOn: vibrationOn,
-      ));
-    }
+        language: language,
+      ),
+    );
   }
   if (action is InitNicknameAction) {
     store.dispatch(const UpdateUserState(status: Status.loading));
@@ -62,7 +56,7 @@ void sharedPreferencesMiddleware(Store<AppState> store, action, NextDispatcher n
       themeMode: action.isDark ? ThemeMode.dark : ThemeMode.light,
       soundOn: store.state.settingsState.soundOn,
       vibrationOn: store.state.settingsState.vibrationOn,
-      locale: store.state.settingsState.locale,
+      language: store.state.settingsState.language,
     ));
   } else if (action is SaveNicknameAction) {
     sp.setString('nickname', action.nickname);
@@ -72,7 +66,7 @@ void sharedPreferencesMiddleware(Store<AppState> store, action, NextDispatcher n
       themeMode: store.state.settingsState.themeMode,
       soundOn: store.state.settingsState.soundOn,
       vibrationOn: store.state.settingsState.vibrationOn,
-      locale: Locale(action.language),
+      language: action.language,
     ));
   } else if (action is ChangeSoundAction) {
     sp.setBool('sound', action.soundOn);
@@ -80,7 +74,7 @@ void sharedPreferencesMiddleware(Store<AppState> store, action, NextDispatcher n
       themeMode: store.state.settingsState.themeMode,
       soundOn: action.soundOn,
       vibrationOn: store.state.settingsState.vibrationOn,
-      locale: store.state.settingsState.locale,
+      language: store.state.settingsState.language
     ));
   } else if (action is ChangeVibrationAction) {
     sp.setBool('vibration', action.vibrationOn);
@@ -88,7 +82,7 @@ void sharedPreferencesMiddleware(Store<AppState> store, action, NextDispatcher n
       themeMode: store.state.settingsState.themeMode,
       soundOn: store.state.settingsState.soundOn,
       vibrationOn: action.vibrationOn,
-      locale: store.state.settingsState.locale,
+      language: store.state.settingsState.language,
     ));
   }
   next(action);

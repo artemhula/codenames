@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:codenames/shared/models/room.dart';
 import 'package:codenames/shared/models/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:codenames/locator.dart';
 import 'package:codenames/redux/actions.dart';
@@ -9,7 +8,6 @@ import 'package:codenames/redux/state.dart';
 import 'package:redux/redux.dart';
 
 final IO.Socket socket = sl();
-final SharedPreferences sp = sl();
 
 void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async {
   if (action is ConnectToSocketAction) {
@@ -19,6 +17,7 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
     socket.onConnect(
       (_) {
         store.dispatch(const UpdateWebSocketState(status: Status.success));
+        socket.emit('set-lang', [store.state.settingsState.language]);
       },
     );
     socket.onError(
@@ -34,7 +33,6 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
     socket.on('get-rooms', (data) {
       if (data is List) {
         try {
-          log(data.toString());
           final rooms = data.reversed
               .where((item) => !(item as Map<String, dynamic>)['isGameFinished'])
               .map((item) => RoomModel.fromJson(item as Map<String, dynamic>))
@@ -67,7 +65,6 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
     socket.on(
       'error',
       (e) {
-        log('error: ${e['message']}');
         store.dispatch(UpdateWarningState(message: e['message']));
       },
     );
@@ -77,9 +74,7 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
         store.dispatch(UpdateRoomState(status: Status.success, room: RoomModel.fromJson(room)));
         for (final user in room['users']) {
           if (user['id'] == store.state.userState.user!.id) {
-            store.dispatch(
-              UpdateUserState(user: UserModel.fromJson(user), status: Status.success),
-            );
+            store.dispatch(UpdateUserState(user: UserModel.fromJson(user), status: Status.success));
           }
         }
       },
@@ -151,6 +146,8 @@ void socketMiddleware(Store<AppState> store, action, NextDispatcher next) async 
         }
       },
     );
+  } else if (action is ChangeLanguageAction) {
+    socket.emit('set-lang', [store.state.settingsState.language]);
   }
   next(action);
 }

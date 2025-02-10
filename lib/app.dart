@@ -35,7 +35,7 @@ class CodenamesGame extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              locale: state.locale,
+              locale: Locale(state.language),
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: state.themeMode,

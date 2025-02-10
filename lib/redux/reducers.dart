@@ -42,10 +42,7 @@ UserState userReducer(UserState state, action) {
 
 RoomState roomReducer(RoomState state, action) {
   if (action is UpdateRoomState) {
-    return RoomState(
-        room: action.room,
-        status: action.status,
-        winnerTeam: action.winnerTeam);
+    return RoomState(room: action.room, status: action.status, winnerTeam: action.winnerTeam);
   }
 
   return state;
@@ -65,7 +62,7 @@ SettingsState settingsReducer(SettingsState state, action) {
       themeMode: action.themeMode,
       soundOn: action.soundOn,
       vibrationOn: action.vibrationOn,
-      locale: action.locale,
+      language: action.language,
     );
   }
 

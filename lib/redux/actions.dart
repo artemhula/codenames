@@ -59,13 +59,13 @@ class UpdateSettingsState {
     required this.themeMode,
     required this.soundOn,
     required this.vibrationOn,
-    this.locale,
+    required this.language,
   });
 
   final ThemeMode themeMode;
   final bool soundOn;
   final bool vibrationOn;
-  final Locale? locale;
+  final String language;
 }
 
 class UpdateNicknameState {

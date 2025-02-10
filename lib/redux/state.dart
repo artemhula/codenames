@@ -99,15 +99,15 @@ class SettingsState {
       {required this.themeMode,
       required this.soundOn,
       required this.vibrationOn,
-      this.locale});
+      required this.language});
   const SettingsState.initialState()
       : themeMode = ThemeMode.light,
-        locale = null,
+        language = 'en',
         soundOn = true,
         vibrationOn = true;
 
   final ThemeMode themeMode;
-  final Locale? locale;
+  final String language;
   final bool soundOn;
   final bool vibrationOn;
 }

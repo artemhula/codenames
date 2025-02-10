@@ -23,8 +23,8 @@ class LanguagePicker extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           StoreConnector(
-            converter: (Store<AppState> store) => store.state.settingsState.locale,
-            builder: (context, locale) => Container(
+            converter: (Store<AppState> store) => store.state.settingsState.language,
+            builder: (context, language) => Container(
               alignment: Alignment.center,
               width: 130,
               height: Constants.textMaxHeight,
@@ -39,7 +39,7 @@ class LanguagePicker extends StatelessWidget {
                     : Colors.black.withOpacity(0.3),
               ),
               child: DropdownButton(
-                value: locale?.languageCode,
+                value: language,
                 onChanged: (String? value) {
                   sl<Store<AppState>>().dispatch(
                     ChangeLanguageAction(language: value!),
